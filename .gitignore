@@ -1,0 +1,6 @@
+*/*.metadata
+*.class
+*~
+
+# REMOVE ALL BIN FILES
+workspace/*/bin/*
