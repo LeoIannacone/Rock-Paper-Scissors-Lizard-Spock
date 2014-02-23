@@ -3,10 +3,6 @@ package it.unibo.games.rpsls.gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import sun.java2d.pipe.BufferedBufImgOps;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class PanelStart extends JPanel {
+public class PanelWelcome extends JPanel {
 
 	private JPanel panelTop;
 	private JPanel panelCenter;
@@ -34,7 +30,7 @@ public class PanelStart extends JPanel {
 	private JButton stop;
 	private JLabel loadingDots;
 	
-	public PanelStart() {
+	public PanelWelcome() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
 	}

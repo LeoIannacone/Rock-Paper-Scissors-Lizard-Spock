@@ -43,7 +43,7 @@ public class PlayerGui {
 		frame.setSize(315, 450);
 		
 		
-		frame.add(new PanelStart());
+		frame.add(new PanelWelcome());
 	}
 
 }
