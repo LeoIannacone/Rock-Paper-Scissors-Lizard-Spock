@@ -5,4 +5,8 @@ public interface IPlayer {
 	public void setName(String name);
 	public String getName();
 	
+	public void increaseScore();
+	public void setScore(int score);
+	public int getScore();
+	
 }

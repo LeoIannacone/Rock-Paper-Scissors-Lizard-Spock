@@ -5,9 +5,11 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 public class Player implements IPlayer {
 
 	private String name;
+	private int score;
 	
 	public Player (String name) {
 		this.name = name;
+		this.score = 0;
 	}
 	
 	@Override
@@ -18,6 +20,21 @@ public class Player implements IPlayer {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public void increaseScore() {
+		score++;
+	}
+
+	@Override
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public int getScore() {
+		return score;
 	}
 
 }
