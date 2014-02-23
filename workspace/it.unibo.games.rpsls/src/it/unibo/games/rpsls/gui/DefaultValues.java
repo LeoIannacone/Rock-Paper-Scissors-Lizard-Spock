@@ -3,7 +3,7 @@ package it.unibo.games.rpsls.gui;
 import java.awt.Color;
 
 public class DefaultValues {
-	public static Color LIGHT_COLOR = Color.LIGHT_GRAY;
+	public static Color LIGHT_COLOR = Color.GRAY;
 	
 	private static String basePathImage = "data/";
 	
