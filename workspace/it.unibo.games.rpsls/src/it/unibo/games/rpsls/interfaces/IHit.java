@@ -1,8 +1,7 @@
 package it.unibo.games.rpsls.interfaces;
 
-public interface IPlayer {
+public interface IHit extends Comparable<IHit> {
 
-	public void setName(String name);
 	public String getName();
 	
 }
