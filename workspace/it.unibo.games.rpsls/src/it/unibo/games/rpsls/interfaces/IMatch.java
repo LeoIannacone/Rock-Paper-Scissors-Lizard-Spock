@@ -8,12 +8,12 @@ public interface IMatch {
 	public void setGuestPlayer(IPlayer guest);
 	public IPlayer getGuestPlayer();
 	
-	public void setHomeStatus(int n);
-	public void increaseHomeStatus();
-	public int getHomeStatus();
+	public void setHomeScore(int n);
+	public void increaseHomeScore();
+	public int getHomeScore();
 	
-	public void setGuestStatus(int n);
-	public void increaseGuestStatus();
-	public int getGuestStatus();
+	public void setGuestScore(int n);
+	public void increaseGuestScore();
+	public int getGuestScore();
 	
 }
