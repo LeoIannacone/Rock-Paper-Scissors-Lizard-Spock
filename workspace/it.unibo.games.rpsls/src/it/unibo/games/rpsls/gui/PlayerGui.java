@@ -1,5 +1,8 @@
 package it.unibo.games.rpsls.gui;
 
+import it.unibo.games.rpsls.game.Match;
+import it.unibo.games.rpsls.game.Player;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -43,7 +46,9 @@ public class PlayerGui {
 		frame.setSize(315, 450);
 		
 		
-		frame.add(new PanelWelcome());
+//		frame.add(new PanelWelcome());
+		Match m = new Match(new Player("Leo"), new Player("Carlo"));
+		frame.add(new PanelGame(m));
 	}
 
 }
