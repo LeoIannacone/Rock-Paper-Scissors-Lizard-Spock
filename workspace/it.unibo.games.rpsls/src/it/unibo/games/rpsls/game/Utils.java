@@ -59,7 +59,7 @@ public class Utils {
 		}
 		else {
 			result[0] = "-1";
-			result[1] = "looser";
+			result[1] = compareHits(second, first)[1];
 		}
 		
 		return result;
