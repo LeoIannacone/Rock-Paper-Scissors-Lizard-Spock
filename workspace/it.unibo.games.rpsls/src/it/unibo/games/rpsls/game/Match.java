@@ -8,14 +8,9 @@ public class Match implements IMatch {
 	private IPlayer home;
 	private IPlayer guest;
 	
-	private int homeScore;
-	private int guestScore;
-	
 	public Match(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
-		homeScore = 0;
-		guestScore = 0;
 	}
 	
 	@Override
@@ -40,32 +35,32 @@ public class Match implements IMatch {
 
 	@Override
 	public void setHomeScore(int n) {
-		homeScore = n;
+		home.setScore(n);
 	}
 
 	@Override
 	public void increaseHomeScore() {
-		homeScore++;
+		home.increaseScore();
 	}
 
 	@Override
 	public int getHomeScore() {
-		return homeScore;
+		return home.getScore();
 	}
 
 	@Override
 	public void setGuestScore(int n) {
-		guestScore = n;
+		guest.setScore(n);
 	}
 
 	@Override
 	public void increaseGuestScore() {
-		guestScore++;
+		guest.increaseScore();
 	}
 
 	@Override
 	public int getGuestScore() {
-		return guestScore;
+		return guest.getScore();
 	}
 
 }
