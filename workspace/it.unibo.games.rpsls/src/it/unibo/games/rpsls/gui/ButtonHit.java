@@ -1,8 +1,9 @@
 package it.unibo.games.rpsls.gui;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -41,7 +42,11 @@ public class ButtonHit extends JButton {
 		
 		JLabel l = new JLabel(hit.getName());
 		l.setAlignmentX(Component.CENTER_ALIGNMENT);
+		l.setFont(new Font(l.getFont().getName(), Font.PLAIN, 10));
 		this.add(l);
+		
+		this.setPreferredSize(new Dimension(50,50));
+		this.setMargin(new Insets(1, 0, 0, 0));
 	}
 	
 }
