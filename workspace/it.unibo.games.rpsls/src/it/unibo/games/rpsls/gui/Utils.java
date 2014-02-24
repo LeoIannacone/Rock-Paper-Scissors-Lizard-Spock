@@ -7,7 +7,7 @@ import it.unibo.games.rpsls.interfaces.IHit;
 public class Utils {
 	
 	public static File getHitButtonIcon(IHit hit) {
-		return getIcon(hit.getName(), 50);
+		return getIcon(hit.getName(), 32);
 	}
 	
 	public static File getHitPanelIcon(IHit hit) {
