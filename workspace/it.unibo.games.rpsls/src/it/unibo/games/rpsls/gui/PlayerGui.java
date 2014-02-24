@@ -3,12 +3,16 @@ package it.unibo.games.rpsls.gui;
 import it.unibo.games.rpsls.game.Match;
 import it.unibo.games.rpsls.game.Player;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
 public class PlayerGui {
 
+	public static Color LIGHT_COLOR = Color.GRAY;
+	
+	
 	private JFrame frame;
 
 	/**

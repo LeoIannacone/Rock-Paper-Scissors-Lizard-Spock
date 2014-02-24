@@ -62,7 +62,7 @@ public class PanelWelcome extends JPanel {
 		insertName.add(name);
 		
 		loadingLabel = new JLabel("Waiting for incoming player");
-		loadingLabel.setForeground(DefaultValues.LIGHT_COLOR);
+		loadingLabel.setForeground(PlayerGui.LIGHT_COLOR);
 		loadingLabel.setVisible(false);
 		insertName.add(loadingLabel);
 		
