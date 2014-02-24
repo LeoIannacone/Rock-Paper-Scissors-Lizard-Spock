@@ -24,4 +24,8 @@ public class Hit implements IHit {
 		return name;
 	}
 
+	@Override
+	public boolean equals(IHit i) {
+		return name.equals(i.getName());
+	}
 }
