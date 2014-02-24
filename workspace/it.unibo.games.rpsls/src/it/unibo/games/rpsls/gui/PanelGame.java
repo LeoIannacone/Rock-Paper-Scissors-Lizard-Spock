@@ -24,7 +24,7 @@ public class PanelGame extends JPanel {
 	private PanelHit homeHit;
 	private PanelHit guestHit;
 	
-	private ArrayList buttonsHit;
+	private ArrayList<ButtonHit> buttonsHit;
 	
 	public PanelGame(IMatch match) {
 		this.match = match;
