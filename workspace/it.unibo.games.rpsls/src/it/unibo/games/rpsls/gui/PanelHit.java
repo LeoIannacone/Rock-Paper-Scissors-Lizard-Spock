@@ -48,10 +48,18 @@ public class PanelHit extends JPanel {
 	}
 	
 	public void setHit(IHit hit) {
+		if (hit == null) {
+			clean();
+			return;
+		}
 		this.hit = hit;
 		File icon = Utils.getHitPanelIcon(hit);
 		String name = hit.getName();
 		setIconAndLabel(icon, name);
+	}
+	
+	public IHit getHit() {
+		return hit;
 	}
 	
 	public void clean() {
