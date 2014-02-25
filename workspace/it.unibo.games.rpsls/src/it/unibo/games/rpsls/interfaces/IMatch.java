@@ -16,4 +16,7 @@ public interface IMatch {
 	public void increaseGuestScore();
 	public int getGuestScore();
 	
+	public void setStatus(String status);
+	public String getStatus();
+	
 }
