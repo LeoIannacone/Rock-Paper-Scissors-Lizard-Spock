@@ -7,10 +7,12 @@ public class Match implements IMatch {
 
 	private IPlayer home;
 	private IPlayer guest;
+	private String status;
 	
 	public Match(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
+		this.status = DefaultValues.WAITING; 
 	}
 	
 	@Override
@@ -61,6 +63,16 @@ public class Match implements IMatch {
 	@Override
 	public int getGuestScore() {
 		return guest.getScore();
+	}
+
+	@Override
+	public void setStatus(String status) {
+	  this.status = status;	
+	}
+
+	@Override
+	public String getStatus() {
+    return status;
 	}
 
 }
