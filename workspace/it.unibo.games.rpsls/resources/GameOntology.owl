@@ -232,6 +232,12 @@
     
 
 
+    <!-- http://smartM3Lab/Ontology.owl#Hit -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#Hit"/>
+    
+
+
     <!-- http://smartM3Lab/Ontology.owl#InteractiveGame -->
 
     <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#InteractiveGame"/>
@@ -271,10 +277,50 @@
     
 
 
+    <!-- http://smartM3Lab/Ontology.owl#Lizard -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Lizard">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#Hit"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Paper -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Paper">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#Hit"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://smartM3Lab/Ontology.owl#Paused -->
 
     <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Paused">
         <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Rock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Rock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#Hit"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Scissors -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Scissors">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#Hit"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Spock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Spock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#Hit"/>
     </owl:NamedIndividual>
     
 
