@@ -84,6 +84,26 @@
     
 
 
+    <!-- http://smartM3Lab/Ontology.owl#HasGuest -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasGuest">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasHome -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasHome">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://smartM3Lab/Ontology.owl#HasIssuer -->
 
     <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasIssuer">
@@ -145,6 +165,16 @@
     <owl:DatatypeProperty rdf:about="http://smartM3Lab/Ontology.owl#hasName">
         <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#hasScore -->
+
+    <owl:DatatypeProperty rdf:about="http://smartM3Lab/Ontology.owl#hasScore">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
