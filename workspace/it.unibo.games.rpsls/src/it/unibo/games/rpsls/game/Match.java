@@ -12,7 +12,7 @@ public class Match implements IMatch {
 	public Match(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
-		this.status = DefaultValues.WAITING; 
+		this.status = DefaultValues.GAME_WAITING; 
 	}
 	
 	@Override
