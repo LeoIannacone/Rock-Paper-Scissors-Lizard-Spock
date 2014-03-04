@@ -50,9 +50,8 @@ public class ViewWelcome extends JPanel {
 
 	private void initTopPanel() {
 		panelTop = new JPanel(new FlowLayout());
-		JLabel gameName = new JLabel("RPSLS");
-		gameName.setFont(new Font(gameName.getFont().getName(), Font.PLAIN, 40));
-		panelTop.add(gameName);
+		PanelTitle title = new PanelTitle();
+		panelTop.add(title);
 		
 		insertName = new JPanel(new FlowLayout());
 		nameLabel = new JLabel("Insert your name");
