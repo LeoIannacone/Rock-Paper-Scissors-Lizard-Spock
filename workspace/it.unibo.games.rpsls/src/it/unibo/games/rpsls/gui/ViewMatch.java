@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import com.sun.xml.internal.bind.v2.WellKnownNamespace;
 
 
-public class ViewMatch extends JPanel {
+public class ViewMatch extends ViewDefault {
 
 	private IMatch match;
 	private PanelScore homePanelScore;

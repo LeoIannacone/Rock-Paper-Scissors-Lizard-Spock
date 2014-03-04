@@ -55,9 +55,11 @@ public class MainWindow {
 		frame.setSize(315, 450);
 		
 		viewWelcome = new ViewWelcome();
+		viewWelcome.setMainWindow(this);
 		
 		Match m = new Match(new Player("Leo"), new Player("Carlo"));
 		viewMatch = new ViewMatch(m);
+		viewMatch.setMainWindow(this);
 		
 		Match[] matches = new Match[3];
 		matches[0] = new Match(new Player("Jonh"), null);

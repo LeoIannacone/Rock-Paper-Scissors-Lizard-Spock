@@ -17,14 +17,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ViewJoinGame extends JPanel implements ActionListener, MouseListener {
+public class ViewJoinGame extends ViewDefault implements ActionListener, MouseListener {
 
 	private HashMap<String, Match> matches;
 	private JList<String> list;
 	private JButton join;
 	private JButton back;
-	
-	private MainWindow mainWindow;
 	
 	public ViewJoinGame() {
 		super();
@@ -41,10 +39,6 @@ public class ViewJoinGame extends JPanel implements ActionListener, MouseListene
 			listData.add(home);
 		}
 		list.setListData(listData);
-	}
-	
-	public void setMainWindow(MainWindow window) {
-		this.mainWindow = window;
 	}
 	
 	private void init() {
