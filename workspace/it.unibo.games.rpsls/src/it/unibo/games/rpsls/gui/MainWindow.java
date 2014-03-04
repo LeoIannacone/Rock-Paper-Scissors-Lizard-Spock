@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainWindow {
 
@@ -14,6 +15,10 @@ public class MainWindow {
 	
 	
 	private JFrame frame;
+	
+	private ViewWelcome viewWelcome;
+	private ViewMatch viewMatch;
+	private ViewJoinGame viewJoinGame;
 
 	/**
 	 * Launch the application.
@@ -49,10 +54,38 @@ public class MainWindow {
 		frame.setResizable(false);
 		frame.setSize(315, 450);
 		
+		viewWelcome = new ViewWelcome();
 		
-//		frame.add(new PanelWelcome());
 		Match m = new Match(new Player("Leo"), new Player("Carlo"));
-		frame.add(new ViewMatch(m));
+		viewMatch = new ViewMatch(m);
+		
+		Match[] matches = new Match[3];
+		matches[0] = new Match(new Player("Jonh"), null);
+		matches[1] = new Match(new Player("Paul"), null);
+		matches[2] = new Match(new Player("Ringo"), null);
+		viewJoinGame = new ViewJoinGame();
+		viewJoinGame.setMatches(matches);
+		viewJoinGame.setMainWindow(this);
+		
+		showView(viewJoinGame);
 	}
-
+	
+	public void showViewWelcome() {
+		showView(viewWelcome);
+	}
+	
+	public void showViewMatch() {
+		showView(viewMatch);
+	}
+	
+	public void showJoinGame() {
+		showView(viewJoinGame);
+	}
+	
+	private void showView(JPanel noHide) {
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(noHide);
+		frame.revalidate();
+	}
+	
 }
