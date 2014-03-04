@@ -152,12 +152,18 @@ public class ViewMatch extends ViewDefault {
 		
 		int i = Integer.parseInt(info[0]);
 		
-		if (i != 0)
+		if (i != 0) {
 			winnerLabel.setText(info[1]);
-		
-		if (i > 0) versus.setText("→");
+		}
+		if (i > 0) {
+			versus.setText("→");
+			homePanelScore.increaseScore();
+		}
 		else if (i == 0) versus.setText("=");
-		else versus.setText("←");
+		else {
+			versus.setText("←");
+			guestPanelScore.increaseScore();
+		}
 		
 		
 	}
