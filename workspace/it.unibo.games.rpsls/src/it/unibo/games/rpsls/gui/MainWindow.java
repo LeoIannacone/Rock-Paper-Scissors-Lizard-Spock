@@ -8,7 +8,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class PlayerGui {
+public class MainWindow {
 
 	public static Color LIGHT_COLOR = Color.GRAY;
 	
@@ -22,7 +22,7 @@ public class PlayerGui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayerGui window = new PlayerGui();
+					MainWindow window = new MainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class PlayerGui {
 	/**
 	 * Create the application.
 	 */
-	public PlayerGui() {
+	public MainWindow() {
 		initialize();
 	}
 
@@ -52,7 +52,7 @@ public class PlayerGui {
 		
 //		frame.add(new PanelWelcome());
 		Match m = new Match(new Player("Leo"), new Player("Carlo"));
-		frame.add(new PanelGame(m));
+		frame.add(new ViewMatch(m));
 	}
 
 }

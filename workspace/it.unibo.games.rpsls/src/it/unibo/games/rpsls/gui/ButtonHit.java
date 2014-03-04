@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 public class ButtonHit extends JButton implements ActionListener {
 
 	private IHit hit;
-	private PanelGame panelGame;
+	private ViewMatch panelGame;
 	
 	public ButtonHit(IHit hit) {
 		super();
@@ -35,7 +35,7 @@ public class ButtonHit extends JButton implements ActionListener {
 		return hit;
 	}
 	
-	public void setPanelGame(PanelGame panelGame) {
+	public void setPanelGame(ViewMatch panelGame) {
 		this.panelGame = panelGame;
 	}
 	
@@ -77,8 +77,8 @@ public class ButtonHit extends JButton implements ActionListener {
 }
 
 class TestThread extends Thread {
-	private PanelGame p;
-	public TestThread (PanelGame p) {
+	private ViewMatch p;
+	public TestThread (ViewMatch p) {
 		this.p = p;
 	}
 

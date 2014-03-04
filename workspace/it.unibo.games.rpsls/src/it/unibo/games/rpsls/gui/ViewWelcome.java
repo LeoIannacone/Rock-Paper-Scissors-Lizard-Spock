@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class PanelWelcome extends JPanel {
+public class ViewWelcome extends JPanel {
 
 	private JPanel panelTop;
 	private JPanel panelCenter;
@@ -30,7 +30,7 @@ public class PanelWelcome extends JPanel {
 	private JButton stop;
 	private JLabel loadingDots;
 	
-	public PanelWelcome() {
+	public ViewWelcome() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
 	}
@@ -62,7 +62,7 @@ public class PanelWelcome extends JPanel {
 		insertName.add(name);
 		
 		loadingLabel = new JLabel("Waiting for incoming player");
-		loadingLabel.setForeground(PlayerGui.LIGHT_COLOR);
+		loadingLabel.setForeground(MainWindow.LIGHT_COLOR);
 		loadingLabel.setVisible(false);
 		insertName.add(loadingLabel);
 		

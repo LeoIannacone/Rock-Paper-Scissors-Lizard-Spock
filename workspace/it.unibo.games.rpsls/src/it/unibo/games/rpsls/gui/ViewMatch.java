@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import com.sun.xml.internal.bind.v2.WellKnownNamespace;
 
 
-public class PanelGame extends JPanel {
+public class ViewMatch extends JPanel {
 
 	private IMatch match;
 	private PanelScore homePanelScore;
@@ -37,7 +37,7 @@ public class PanelGame extends JPanel {
 	private JLabel versus;
 	private JLabel winnerLabel;
 	
-	public PanelGame(IMatch match) {
+	public ViewMatch(IMatch match) {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
@@ -79,7 +79,7 @@ public class PanelGame extends JPanel {
 		p2.add(Box.createRigidArea(new Dimension(55,0)));
 		versus = new JLabel();
 		versus.setFont(new Font(versus.getFont().getName(), Font.BOLD, 40));
-		versus.setForeground(PlayerGui.LIGHT_COLOR);
+		versus.setForeground(MainWindow.LIGHT_COLOR);
 		versus.setAlignmentX(CENTER_ALIGNMENT);
 		versus.setAlignmentY(CENTER_ALIGNMENT);
 		p2.add(Box.createRigidArea(new Dimension(0,0)));
@@ -88,7 +88,7 @@ public class PanelGame extends JPanel {
 		winnerLabel = new JLabel();
 		winnerLabel.setAlignmentX(CENTER_ALIGNMENT);
 		winnerLabel.setAlignmentY(CENTER_ALIGNMENT);
-		winnerLabel.setForeground(PlayerGui.LIGHT_COLOR);
+		winnerLabel.setForeground(MainWindow.LIGHT_COLOR);
 		p2.add(winnerLabel);
 		
 
