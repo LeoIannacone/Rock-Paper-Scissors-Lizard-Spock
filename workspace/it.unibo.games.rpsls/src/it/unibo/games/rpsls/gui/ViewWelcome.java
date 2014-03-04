@@ -28,6 +28,7 @@ public class ViewWelcome extends ViewDefault {
 	
 	private JButton start;
 	private JButton stop;
+	private JButton join;
 	private JLabel loadingDots;
 	
 	public ViewWelcome() {
@@ -99,8 +100,11 @@ public class ViewWelcome extends ViewDefault {
 		panelBottom = new JPanel(new FlowLayout());
 		start = new JButton("Start Game");
 		start.setEnabled(false);
+		join = new JButton("Join a Game");
+		join.setEnabled(false);
 		stop = new JButton("Stop");
 		panelBottom.add(start);
+		panelBottom.add(join);
 		panelBottom.add(stop);
 	}
 	
@@ -119,9 +123,13 @@ public class ViewWelcome extends ViewDefault {
 		start.addActionListener(startGame);
 		name.addActionListener(startGame);
 		
+		join.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mainWindow.showJoinGame();
+			}
+		});
+		
 		stop.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				turnPanel(false);
 			}
@@ -136,8 +144,8 @@ public class ViewWelcome extends ViewDefault {
 			
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
 				start.setEnabled(name.getText().length() > 0);
+				join.setEnabled(name.getText().length() > 0);
 			}
 			
 			@Override
@@ -155,6 +163,7 @@ public class ViewWelcome extends ViewDefault {
 		loadingDots.setVisible(startingGame);
 		
 		start.setVisible(!startingGame);
+		join.setVisible(!startingGame);
 		stop.setVisible(startingGame);
 	}
 }
