@@ -1,9 +1,10 @@
 package it.unibo.games.rpsls.game;
 
+import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Game implements IGame {
+public class Game extends ConnectorEntity implements IGame {
 
 	private IPlayer home;
 	private IPlayer guest;

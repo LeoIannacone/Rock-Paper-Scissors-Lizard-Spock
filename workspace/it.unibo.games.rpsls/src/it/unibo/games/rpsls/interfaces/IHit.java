@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.interfaces;
 
-public interface IHit extends Comparable<IHit> {
+public interface IHit extends Comparable<IHit>, IConnectorEntity {
 
 	public String getName();
 	

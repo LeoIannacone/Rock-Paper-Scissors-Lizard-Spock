@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.interfaces;
 
-public interface IGame {
+public interface IGame extends IConnectorEntity {
 	
 	public void setHomePlayer(IPlayer home);
 	public IPlayer getHomePlayer();

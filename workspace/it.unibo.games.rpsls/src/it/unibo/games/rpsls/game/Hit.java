@@ -1,8 +1,9 @@
 package it.unibo.games.rpsls.game;
 
+import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IHit;
 
-public class Hit implements IHit {
+public class Hit extends ConnectorEntity implements IHit {
 
 	private String name;
 	
