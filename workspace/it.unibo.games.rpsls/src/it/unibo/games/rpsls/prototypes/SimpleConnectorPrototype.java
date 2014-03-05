@@ -1,8 +1,11 @@
+//TODO: system.out di debug dei parametri passati
+
 package it.unibo.games.rpsls.prototypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.games.rpsls.game.DefaultValues;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -104,7 +107,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	@Override
 	public IHit getHit(IGame game, IPlayer player) {
 		// TODO Auto-generated method stub
-			IHit hit = new Hit("RPSLS");
+			IHit hit = new Hit(DefaultValues.LIZARD);
 		return hit;
 	}
 }
