@@ -47,7 +47,7 @@ public class Utils {
 		
 		else if (f == R) {
 			if (s == Sc) r = "crushes";
-			else if (s == Sp) r = "crushes";
+			else if (s == L) r = "crushes";
 		}
 		
 		else {
