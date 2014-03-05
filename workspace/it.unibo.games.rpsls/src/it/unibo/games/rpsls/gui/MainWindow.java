@@ -29,6 +29,7 @@ public class MainWindow {
 	private IConnector connector;
 	
 	private IPlayer me;
+	private IGame current_game;
 
 	/**
 	 * Launch the application.
@@ -89,8 +90,7 @@ public class MainWindow {
 		viewJoinGame = new ViewJoinGame();
 		viewJoinGame.setMainWindow(this);
 		
-//		showViewWelcome();
-		showViewMatch();
+		showViewWelcome();
 	}
 	
 	public void showViewWelcome() {
@@ -117,7 +117,23 @@ public class MainWindow {
 	}
 	
 	public void createNewGame(IPlayer player) {
-		
+		set_me(player);
+		current_game = new Game(me, null);
+		connector.createNewGame(current_game);
+		IPlayer guest = connector.getIncomingPlayer(current_game);
+		current_game.setGuestPlayer(guest);
+		viewMatch = new ViewMatch(current_game);
+		viewMatch.setMainWindow(this);
+		showView(viewMatch);
+	}
+	
+	public void joinGame(IGame game) {
+		current_game = game;
+		game.setGuestPlayer(me);
+		connector.joinGame(current_game, me);
+		viewMatch = new ViewMatch(current_game);
+		viewMatch.setMainWindow(this);
+		showView(viewMatch);
 	}
 	
 	public void showJoinGame(IPlayer player) {
