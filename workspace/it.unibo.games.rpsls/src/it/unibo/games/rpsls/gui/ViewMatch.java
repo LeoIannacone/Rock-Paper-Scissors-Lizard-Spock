@@ -14,11 +14,7 @@ import it.unibo.games.rpsls.interfaces.IGame;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
-import com.sun.xml.internal.bind.v2.WellKnownNamespace;
-
 
 public class ViewMatch extends ViewDefault {
 
