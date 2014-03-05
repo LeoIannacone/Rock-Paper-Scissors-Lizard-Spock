@@ -6,6 +6,11 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class Game extends ConnectorEntity implements IGame {
 
+	public static String ACTIVE = "active";
+	public static String ENDED = "ended";
+	public static String WAITING = "waiting";
+	public static String PAUSED = "paused";
+	
 	private IPlayer home;
 	private IPlayer guest;
 	private String status;
@@ -13,7 +18,7 @@ public class Game extends ConnectorEntity implements IGame {
 	public Game(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
-		this.status = DefaultValues.GAME_WAITING;
+		this.status = WAITING;
 	}
 	
 	@Override
@@ -73,7 +78,7 @@ public class Game extends ConnectorEntity implements IGame {
 
 	@Override
 	public String getStatus() {
-    return status;
+		return status;
 	}
 
 }
