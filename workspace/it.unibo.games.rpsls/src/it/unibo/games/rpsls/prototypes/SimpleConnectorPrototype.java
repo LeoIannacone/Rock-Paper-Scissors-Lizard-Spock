@@ -116,9 +116,15 @@ public class SimpleConnectorPrototype implements IConnector {
 
 	@Override
 	public IPlayer getIncomingPlayer(IGame game) {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Player player = new Player("Carlo");
 		game.setGuestPlayer(player);
-		debug(String.format("GET incoming P: ", player.getIdToString()));	
-		return new Player("Carlo");
+		debug(String.format("GET incoming P: %s", player.getIdToString()));	
+		return player;
 	}
 }
