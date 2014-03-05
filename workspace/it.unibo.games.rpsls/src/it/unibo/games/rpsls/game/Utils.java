@@ -19,11 +19,11 @@ public class Utils {
 		result[0] = "1";
 		String r = "";
 		
-		String Sc = DefaultValues.SCISSORS;
-		String P = DefaultValues.PAPER;
-		String L = DefaultValues.LIZARD;
-		String Sp = DefaultValues.SPOCK;
-		String R = DefaultValues.ROCK;
+		String Sc = Hit.SCISSORS;
+		String P = Hit.PAPER;
+		String L = Hit.LIZARD;
+		String Sp = Hit.SPOCK;
+		String R = Hit.ROCK;
 		
 		if (f == L) {
 			if(s == Sp)	r = "poisons";

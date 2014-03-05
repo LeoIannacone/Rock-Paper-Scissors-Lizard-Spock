@@ -102,7 +102,7 @@ public class ViewMatch extends ViewDefault {
 	private void initButtonsPanel() {
 		JPanel p1 = new JPanel(new FlowLayout());
 		buttonsHit = new ArrayList<ButtonHit>();
-		String[] hits = {DefaultValues.ROCK, DefaultValues.PAPER, DefaultValues.SCISSORS, DefaultValues.LIZARD, DefaultValues.SPOCK};
+		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
 		for (String h : hits) {
 			ButtonHit b = new ButtonHit(new Hit(h));
 			b.setPanelGame(this);

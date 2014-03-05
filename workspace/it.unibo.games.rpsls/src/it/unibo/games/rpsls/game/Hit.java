@@ -5,6 +5,12 @@ import it.unibo.games.rpsls.interfaces.IHit;
 
 public class Hit extends ConnectorEntity implements IHit {
 
+	public static String ROCK = "rock";
+	public static String PAPER = "paper";
+	public static String SCISSORS = "scissors";
+	public static String LIZARD = "lizard";
+	public static String SPOCK = "spock";
+	
 	private String name;
 	
 	public Hit(String name) {
