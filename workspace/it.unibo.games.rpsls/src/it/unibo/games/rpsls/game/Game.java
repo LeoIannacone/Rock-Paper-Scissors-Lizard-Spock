@@ -13,7 +13,7 @@ public class Game extends ConnectorEntity implements IGame {
 	public Game(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
-		this.status = DefaultValues.GAME_WAITING; 
+		this.status = DefaultValues.GAME_WAITING;
 	}
 	
 	@Override
