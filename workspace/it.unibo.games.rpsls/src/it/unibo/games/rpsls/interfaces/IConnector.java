@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface IConnector {
 	
+	// Will be a Singleton
+	
 	// Generic
 	public void connect();
 	public void disconnect();
