@@ -74,8 +74,8 @@ public class MainWindow {
 		viewJoinGame.setMatches(matches);
 		viewJoinGame.setMainWindow(this);
 		
-//		showViewWelcome();
-		showViewMatch();
+		showViewWelcome();
+//		showViewMatch();
 	}
 	
 	public void showViewWelcome() {
@@ -93,8 +93,12 @@ public class MainWindow {
 	private void showView(JPanel noHide) {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(noHide);
+		
 		frame.getContentPane().repaint();
 		frame.getContentPane().revalidate();
+	
+		noHide.repaint();
+		noHide.revalidate();
 	}
 	
 }
