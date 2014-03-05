@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import it.unibo.games.rpsls.game.DefaultValues;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
