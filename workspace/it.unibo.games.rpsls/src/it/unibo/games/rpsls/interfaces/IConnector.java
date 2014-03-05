@@ -1,17 +1,29 @@
 package it.unibo.games.rpsls.interfaces;
 
+import java.util.List;
+
 public interface IConnector {
 	
+	// Generic
 	public void connect();
 	public void disconnect();
 	
-	public void startGame();
-	public void getGame();
-	public void endGame();
+	// Games
+	public boolean createNewGame(IGame game);
+	public List<IGame> getWaitingGames();
+	public boolean joinGame(IGame game, IPlayer player);
+	public boolean leaveGame(IGame game, IPlayer player);
+	public boolean endGame(IGame game);
+	public boolean deleteGame(IGame game);
+	public boolean updateGameStatus(String status);
+	public String getGameStatus(IGame game);
 	
-	public void sendHit();
-	public void getHit();
+	// Player
+	public boolean createNewPlayer(IPlayer player);
 	
-	public void getResult();
+	// Hits
+	public boolean sendHit(IGame game, IPlayer player, IHit hit);
+	public IHit getHit(IGame game, IPlayer player);
+	
 	
 }
