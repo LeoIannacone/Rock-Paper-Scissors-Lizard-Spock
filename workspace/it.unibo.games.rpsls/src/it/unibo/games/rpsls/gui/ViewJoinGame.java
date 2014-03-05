@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -31,7 +32,7 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		init();
 	}
 	
-	public void setWaitingGames(IGame[] matches) {
+	public void setWaitingGames(List<IGame> matches) {
 		this.matches = new HashMap<String, IGame>();
 		Vector<String> listData = new Vector<String>();
 		for (IGame m : matches) {

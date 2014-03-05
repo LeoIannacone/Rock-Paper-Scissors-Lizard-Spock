@@ -1,5 +1,7 @@
 package it.unibo.games.rpsls.gui;
 
+import it.unibo.games.rpsls.game.Player;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -116,6 +118,8 @@ public class ViewWelcome extends ViewDefault {
 			public void actionPerformed(ActionEvent arg0) {
 				if (name.getText().length() > 0) {
 					turnPanel(true);
+					Player p = new Player(name.getText());
+					mainWindow.createNewGame(p);
 				}
 			}
 		};
@@ -125,12 +129,14 @@ public class ViewWelcome extends ViewDefault {
 		
 		join.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mainWindow.showJoinGame();
+				Player p = new Player(name.getText());
+				mainWindow.showJoinGame(p);
 			}
 		});
 		
 		stop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mainWindow.deleteGame();
 				turnPanel(false);
 			}
 		});

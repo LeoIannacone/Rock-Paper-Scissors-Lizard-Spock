@@ -4,9 +4,13 @@ import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
+import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IPlayer;
+import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +27,8 @@ public class MainWindow {
 	private ViewJoinGame viewJoinGame;
 	
 	private IConnector connector;
+	
+	private IPlayer me;
 
 	/**
 	 * Launch the application.
@@ -45,7 +51,21 @@ public class MainWindow {
 	 */
 	public MainWindow() {
 		initialize();
-		connector = SIBConnector.getInstance();
+		connector = SimpleConnectorPrototype.getInstance();
+	}
+	
+	private void set_me(IPlayer p) {
+		if (p == null)
+			return;
+		if (me == null || me.getName() != p.getName()) {
+			me = p;
+			storeMeFile();
+			connector.createNewPlayer(me);
+		}
+	}
+	
+	private void storeMeFile() {
+		
 	}
 
 	/**
@@ -66,12 +86,7 @@ public class MainWindow {
 		viewMatch = new ViewMatch(m);
 		viewMatch.setMainWindow(this);
 		
-		Game[] matches = new Game[3];
-		matches[0] = new Game(new Player("Jonh"), null);
-		matches[1] = new Game(new Player("Paul"), null);
-		matches[2] = new Game(new Player("Ringo"), null);
 		viewJoinGame = new ViewJoinGame();
-		viewJoinGame.setMatches(matches);
 		viewJoinGame.setMainWindow(this);
 		
 		showViewWelcome();
@@ -86,10 +101,6 @@ public class MainWindow {
 		showView(viewMatch);
 	}
 	
-	public void showJoinGame() {
-		showView(viewJoinGame);
-	}
-	
 	private void showView(JPanel noHide) {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(noHide);
@@ -101,4 +112,18 @@ public class MainWindow {
 		noHide.revalidate();
 	}
 	
+	public void deleteGame() {
+		
+	}
+	
+	public void createNewGame(IPlayer player) {
+		
+	}
+	
+	public void showJoinGame(IPlayer player) {
+		List<IGame> games = connector.getWaitingGames();
+		set_me(player);
+		viewJoinGame.setWaitingGames(games);
+		showView(viewJoinGame);
+	}
 }
