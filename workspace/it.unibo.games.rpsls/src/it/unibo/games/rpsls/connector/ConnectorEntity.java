@@ -14,6 +14,15 @@ public abstract class ConnectorEntity implements IConnectorEntity {
 	}
 
 	@Override
+	public void setId(String uuid) {
+		String prefix = this.getClass().getSimpleName() + "_";
+		if(uuid.contains(prefix)) {
+			uuid = uuid.split(prefix)[1];
+		}
+		this.id = UUID.fromString(uuid);
+	}
+	
+	@Override
 	public UUID getId() {
 		if (id == null)
 			id = UUID.randomUUID();
@@ -22,7 +31,7 @@ public abstract class ConnectorEntity implements IConnectorEntity {
 
 	@Override
 	public String getIdToString() {
-		return this.getClass().getName() + "_" + getId().toString();
+		return this.getClass().getSimpleName()  + "_" + getId().toString();
 	}
 
 }
