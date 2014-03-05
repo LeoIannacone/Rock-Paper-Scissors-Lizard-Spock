@@ -72,7 +72,7 @@ public class SIBConnector implements IConnector {
 	}
 
 	@Override
-	public boolean updateGameStatus(String status) {
+	public boolean updateGameStatus(IGame game, String status) {
 		// TODO Auto-generated method stub
 		return false;
 	}

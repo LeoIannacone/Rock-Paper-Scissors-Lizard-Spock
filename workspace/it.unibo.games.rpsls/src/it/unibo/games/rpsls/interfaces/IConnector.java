@@ -17,7 +17,7 @@ public interface IConnector {
 	public boolean leaveGame(IGame game, IPlayer player);
 	public boolean endGame(IGame game);
 	public boolean deleteGame(IGame game);
-	public boolean updateGameStatus(String status);
+	public boolean updateGameStatus(IGame game, String status);
 	public String getGameStatus(IGame game);
 	
 	// Player
