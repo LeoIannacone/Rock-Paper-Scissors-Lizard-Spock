@@ -10,7 +10,7 @@ import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
 import it.unibo.games.rpsls.interfaces.IHit;
-import it.unibo.games.rpsls.interfaces.IMatch;
+import it.unibo.games.rpsls.interfaces.IGame;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -23,7 +23,7 @@ import com.sun.xml.internal.bind.v2.WellKnownNamespace;
 
 public class ViewMatch extends ViewDefault {
 
-	private IMatch match;
+	private IGame match;
 	private PanelScore homePanelScore;
 	private PanelScore guestPanelScore;
 	
@@ -37,7 +37,7 @@ public class ViewMatch extends ViewDefault {
 	private JLabel versus;
 	private JLabel winnerLabel;
 	
-	public ViewMatch(IMatch match) {
+	public ViewMatch(IGame match) {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();

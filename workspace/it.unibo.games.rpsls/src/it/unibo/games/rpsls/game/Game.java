@@ -1,15 +1,15 @@
 package it.unibo.games.rpsls.game;
 
-import it.unibo.games.rpsls.interfaces.IMatch;
+import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Match implements IMatch {
+public class Game implements IGame {
 
 	private IPlayer home;
 	private IPlayer guest;
 	private String status;
 	
-	public Match(IPlayer home, IPlayer guest) {
+	public Game(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
 		this.status = DefaultValues.GAME_WAITING; 

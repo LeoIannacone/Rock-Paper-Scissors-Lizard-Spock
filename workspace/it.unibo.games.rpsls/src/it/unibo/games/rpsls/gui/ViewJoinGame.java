@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.gui;
 
-import it.unibo.games.rpsls.game.Match;
+import it.unibo.games.rpsls.game.Game;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 
 public class ViewJoinGame extends ViewDefault implements ActionListener, MouseListener {
 
-	private HashMap<String, Match> matches;
+	private HashMap<String, Game> matches;
 	private JList<String> list;
 	private JButton join;
 	private JButton back;
@@ -30,10 +30,10 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		init();
 	}
 	
-	public void setMatches(Match[] matches) {
-		this.matches = new HashMap<String, Match>();
+	public void setMatches(Game[] matches) {
+		this.matches = new HashMap<String, Game>();
 		Vector<String> listData = new Vector<String>();
-		for (Match m : matches) {
+		for (Game m : matches) {
 			String home = m.getHomePlayer().getName();
 			this.matches.put(home, m);
 			listData.add(home);
@@ -68,7 +68,7 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		String matchName = list.getSelectedValue();
 		if (matchName == null || matchName == "" || matches.get(matchName) == null)
 			return;
-		Match m = matches.get(matchName);
+		Game m = matches.get(matchName);
 		System.out.println("JOIN: " + m.getHomePlayer().getName());
 	}
 

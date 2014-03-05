@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.interfaces;
 
-public interface IMatch {
+public interface IGame {
 	
 	public void setHomePlayer(IPlayer home);
 	public IPlayer getHomePlayer();

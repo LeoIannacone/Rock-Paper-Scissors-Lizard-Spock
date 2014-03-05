@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.gui;
 
-import it.unibo.games.rpsls.game.Match;
+import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 
 import java.awt.Color;
@@ -57,19 +57,20 @@ public class MainWindow {
 		viewWelcome = new ViewWelcome();
 		viewWelcome.setMainWindow(this);
 		
-		Match m = new Match(new Player("Leo"), new Player("Carlo"));
+		Game m = new Game(new Player("Leo"), new Player("Carlo"));
 		viewMatch = new ViewMatch(m);
 		viewMatch.setMainWindow(this);
 		
-		Match[] matches = new Match[3];
-		matches[0] = new Match(new Player("Jonh"), null);
-		matches[1] = new Match(new Player("Paul"), null);
-		matches[2] = new Match(new Player("Ringo"), null);
+		Game[] matches = new Game[3];
+		matches[0] = new Game(new Player("Jonh"), null);
+		matches[1] = new Game(new Player("Paul"), null);
+		matches[2] = new Game(new Player("Ringo"), null);
 		viewJoinGame = new ViewJoinGame();
 		viewJoinGame.setMatches(matches);
 		viewJoinGame.setMainWindow(this);
 		
-		showView(viewJoinGame);
+		showViewWelcome();
+//		showViewMatch();
 	}
 	
 	public void showViewWelcome() {
