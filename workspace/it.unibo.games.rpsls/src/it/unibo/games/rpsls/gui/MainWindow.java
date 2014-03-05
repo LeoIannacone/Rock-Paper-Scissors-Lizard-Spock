@@ -1,7 +1,9 @@
 package it.unibo.games.rpsls.gui;
 
+import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
+import it.unibo.games.rpsls.interfaces.IConnector;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -19,6 +21,8 @@ public class MainWindow {
 	private ViewWelcome viewWelcome;
 	private ViewMatch viewMatch;
 	private ViewJoinGame viewJoinGame;
+	
+	private IConnector connector;
 
 	/**
 	 * Launch the application.
@@ -41,6 +45,7 @@ public class MainWindow {
 	 */
 	public MainWindow() {
 		initialize();
+		connector = SIBConnector.getInstance();
 	}
 
 	/**
@@ -69,8 +74,8 @@ public class MainWindow {
 		viewJoinGame.setMatches(matches);
 		viewJoinGame.setMainWindow(this);
 		
-		showViewWelcome();
-//		showViewMatch();
+//		showViewWelcome();
+		showViewMatch();
 	}
 	
 	public void showViewWelcome() {
@@ -88,7 +93,8 @@ public class MainWindow {
 	private void showView(JPanel noHide) {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(noHide);
-		frame.revalidate();
+		frame.getContentPane().repaint();
+		frame.getContentPane().revalidate();
 	}
 	
 }
