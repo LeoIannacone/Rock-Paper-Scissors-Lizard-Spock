@@ -5,7 +5,6 @@ package it.unibo.games.rpsls.prototypes;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.games.rpsls.game.DefaultValues;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -28,21 +27,23 @@ public class SimpleConnectorPrototype implements IConnector {
 		
 	}
 	
+	private void debug(String s) {
+		System.out.println(s);
+	}
+	
 	@Override
 	public void connect() {
-		// TODO Auto-generated method stub
-		
+		debug("CONNECT ...");
 	}
 
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
-		
+		debug("DISCONNECT ...");
 	}
 
 	@Override
 	public boolean createNewGame(IGame game) {
-		// TODO Auto-generated method stub
+		debug("CREATE new GAME: " + game.getIdToString());
 		return true;
 	}
 
@@ -53,61 +54,63 @@ public class SimpleConnectorPrototype implements IConnector {
 		WaitingGames.add(new Game(new Player("Pippo"), null));
 		WaitingGames.add(new Game(new Player("Pluto"), null));
 		
+		debug("GET waiting GAMES ...");
 		return WaitingGames;
 	}
 
 	@Override
 	public boolean joinGame(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
+		debug(String.format("JOIN: P: %s - G: %s", game.getIdToString(), player.getIdToString()));
 		return true;
 	}
 
 	@Override
 	public boolean leaveGame(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
+		debug(String.format("LEAVE: P: %s - G: %s", game.getIdToString(), player.getIdToString()));
 		return true;
 	}
 
 	@Override
 	public boolean endGame(IGame game) {
-		// TODO Auto-generated method stub
+		debug(String.format("END: " + game.getIdToString()));
 		return true;
 	}
 
 	@Override
 	public boolean deleteGame(IGame game) {
-		// TODO Auto-generated method stub
+		debug("DELETE: GAME " + game.getIdToString());
 		return true;
 	}
 
 	@Override
-	public boolean updateGameStatus(String status) {
-		// TODO Auto-generated method stub
+	public boolean updateGameStatus(IGame game, String status) {
+		debug("UPDATE STATUS: G: " + game.getIdToString() + " status: " + status);
 		return true;
 	}
 
 	@Override
 	public String getGameStatus(IGame game) {
-		// TODO Auto-generated method stub
+		debug("GET STATUS G: " + game.getIdToString());
 		return "Game Status";
 	}
 
 	@Override
 	public boolean createNewPlayer(IPlayer player) {
-		// TODO Auto-generated method stub
+		debug("CREATE new PLAYER " + player.getIdToString());
 		return true;
 	}
 
 	@Override
 	public boolean sendHit(IGame game, IPlayer player, IHit hit) {
-		// TODO Auto-generated method stub
+		debug(String.format("SEND HIT: %s %s %s", game.getIdToString(), player.getIdToString(), hit.getIdToString()));
 		return true;
 	}
 
 	@Override
 	public IHit getHit(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
-			IHit hit = new Hit(DefaultValues.LIZARD);
-		return hit;
+		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
+		int i = (int) Math.random() % hits.length;
+		debug(String.format("GET HIT %s from %s", hits[i], player.getIdToString()));
+		return new Hit(hits[i]);
 	}
 }
