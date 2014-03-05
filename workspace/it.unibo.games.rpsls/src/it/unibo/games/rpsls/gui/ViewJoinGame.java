@@ -71,7 +71,7 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		if (matchName == null || matchName == "" || matches.get(matchName) == null)
 			return;
 		IGame m = matches.get(matchName);
-		System.out.println("JOIN: " + m.getHomePlayer().getName());
+		mainWindow.joinGame(m);
 	}
 
 	@Override
