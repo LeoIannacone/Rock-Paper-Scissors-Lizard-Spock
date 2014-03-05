@@ -1,4 +1,4 @@
-package it.unibo.games.rpsls.tests;
+package it.unibo.games.rpsls.prototypes;
 
 import java.util.ArrayList;
 import java.util.List;
