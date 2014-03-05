@@ -22,6 +22,7 @@ public class SIBConnector implements IConnector {
 	private SIBConnector() {
 		
 	}
+	
 
 	@Override
 	public void connect() {
@@ -97,6 +98,12 @@ public class SIBConnector implements IConnector {
 
 	@Override
 	public IHit getHit(IGame game, IPlayer player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IPlayer getIncomingPlayer(IGame game) {
 		// TODO Auto-generated method stub
 		return null;
 	}

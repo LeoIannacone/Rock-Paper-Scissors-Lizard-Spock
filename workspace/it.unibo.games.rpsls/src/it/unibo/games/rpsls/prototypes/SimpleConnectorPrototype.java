@@ -113,4 +113,12 @@ public class SimpleConnectorPrototype implements IConnector {
 		debug(String.format("GET HIT %s from %s", hits[i], player.getIdToString()));
 		return new Hit(hits[i]);
 	}
+
+	@Override
+	public IPlayer getIncomingPlayer(IGame game) {
+		Player player = new Player("Carlo");
+		game.setGuestPlayer(player);
+		debug(String.format("GET incoming P: ", player.getIdToString()));	
+		return new Player("Carlo");
+	}
 }
