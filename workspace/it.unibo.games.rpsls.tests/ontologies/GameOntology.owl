@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://smartM3Lab/Ontology.owl#"
+     xml:base="http://smartM3Lab/Ontology.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://smartM3Lab/Ontology.owl#"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasCommand -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasCommand">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Command"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#CommandInterface"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasCommandInterface -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasCommandInterface">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#CommandInterface"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasCommandType -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasCommandType">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#Command"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasControlSet -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasControlSet">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#ControlSet"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#InteractiveGame"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasGameDescription -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasGameDescription">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#GameDescription"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasGameSession -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasGameSession">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#InteractiveGame"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasIssuer -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasIssuer">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#Command"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasObserver -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasObserver">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasPlayer -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasPlayer">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasStatus -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasStatus">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#GameSession"/>
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HasSupportedCommand -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#HasSupportedCommand">
+        <rdfs:range rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#ControlSet"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#hasPlayer1Hit -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#hasPlayer1Hit">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#hasPlayer2Hit -->
+
+    <owl:ObjectProperty rdf:about="http://smartM3Lab/Ontology.owl#hasPlayer2Hit">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#hasPlayer1Hit -->
+
+    <owl:DatatypeProperty rdf:about="http://smartM3Lab/Ontology.owl#hasPlayer1Hit">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#hasPlayer2Hit -->
+
+    <owl:DatatypeProperty rdf:about="http://smartM3Lab/Ontology.owl#hasPlayer2Hit">
+        <rdfs:domain rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Command -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#Command"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#CommandInterface -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#CommandInterface"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#CommandType -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#CommandType"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#ControlSet -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#ControlSet"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#GameDescription -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#GameDescription"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#GameSession -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#GameSession"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#GameStatus -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#InteractiveGame -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#InteractiveGame"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Person -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#Person"/>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#PlayedSimbol -->
+
+    <owl:Class rdf:about="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Active -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Active">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Ended -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Ended">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HitLizard -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#HitLizard">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HitPaper -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#HitPaper">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HitRock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#HitRock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HitScissor -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#HitScissor">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#HitSpock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#HitSpock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#CommandType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Lizard -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Lizard">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Paper -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Paper">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Paused -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Paused">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Rock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Rock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Scissor -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Scissor">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Spock -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Spock">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#PlayedSimbol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartM3Lab/Ontology.owl#Waiting -->
+
+    <owl:NamedIndividual rdf:about="http://smartM3Lab/Ontology.owl#Waiting">
+        <rdf:type rdf:resource="http://smartM3Lab/Ontology.owl#GameStatus"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
