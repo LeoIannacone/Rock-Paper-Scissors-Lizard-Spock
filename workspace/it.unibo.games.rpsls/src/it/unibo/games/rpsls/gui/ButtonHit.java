@@ -86,7 +86,9 @@ class TestThread extends Thread {
 	public void run() {
 		try {
 			Thread.sleep(3000);
-			p.receivedGuestHit(new Hit("spock"));
+			String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
+			int i = (int) Math.random() % hits.length;
+			p.receivedGuestHit(new Hit(hits[i]));
 			Thread.sleep(3000);
 			p.clean();
 		} catch (InterruptedException e) {
