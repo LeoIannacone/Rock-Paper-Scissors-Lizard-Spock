@@ -74,8 +74,8 @@ public class MainWindow {
 		viewJoinGame.setMatches(matches);
 		viewJoinGame.setMainWindow(this);
 		
-		showViewWelcome();
-//		showViewMatch();
+//		showViewWelcome();
+		showViewMatch();
 	}
 	
 	public void showViewWelcome() {
