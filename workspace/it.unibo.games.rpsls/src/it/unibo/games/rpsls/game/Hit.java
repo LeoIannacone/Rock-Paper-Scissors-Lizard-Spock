@@ -2,6 +2,7 @@ package it.unibo.games.rpsls.game;
 
 import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class Hit extends ConnectorEntity implements IHit {
 
@@ -12,6 +13,7 @@ public class Hit extends ConnectorEntity implements IHit {
 	public static String SPOCK = "spock";
 	
 	private String name;
+	private IPlayer player;
 	
 	public Hit(String name) {
 		this.name = name;
@@ -22,6 +24,10 @@ public class Hit extends ConnectorEntity implements IHit {
 		return Integer.parseInt(Utils.compareHits(this, o)[0]);
 	}
 
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String getName() {
 		return name;
@@ -34,5 +40,15 @@ public class Hit extends ConnectorEntity implements IHit {
 	@Override
 	public boolean equals(IHit i) {
 		return name.equals(i.getName());
+	}
+
+	@Override
+	public void setPlayer(IPlayer player) {
+		this.player = player;
+	}
+
+	@Override
+	public IPlayer getPlayer() {
+		return player;
 	}
 }

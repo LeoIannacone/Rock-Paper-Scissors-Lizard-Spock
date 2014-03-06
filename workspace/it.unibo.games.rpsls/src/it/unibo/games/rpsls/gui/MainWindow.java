@@ -5,11 +5,16 @@ import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IHit;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -29,7 +34,10 @@ public class MainWindow {
 	private IConnector connector;
 	
 	private IPlayer me;
+	private IPlayer enemy;
 	private IGame current_game;
+	
+	private String ME_FILENAME = "player.info";
 
 	/**
 	 * Launch the application.
@@ -51,14 +59,29 @@ public class MainWindow {
 	 * Create the application.
 	 */
 	public MainWindow() {
+		read_me_from_file();
 		initialize();
 		connector = SimpleConnectorPrototype.getInstance();
+	}
+	
+	private void read_me_from_file() {
+		try {
+			InputStreamReader f = new InputStreamReader(new FileInputStream(ME_FILENAME));
+			BufferedReader r = new BufferedReader(f);
+			String line = r.readLine();
+			String[] info = line.split(" ");
+			me = new Player(info[0]);
+			me.setId(info[1]);
+			r.close();
+		} catch (Exception e) {
+			me = null;
+		}
 	}
 	
 	private void set_me(IPlayer p) {
 		if (p == null)
 			return;
-		if (me == null || me.getName() != p.getName()) {
+		if (me == null || ! me.getName().equals(p.getName())) {
 			me = p;
 			storeMeFile();
 			connector.createNewPlayer(me);
@@ -66,6 +89,13 @@ public class MainWindow {
 	}
 	
 	private void storeMeFile() {
+		try {
+			PrintWriter o = new PrintWriter(ME_FILENAME);
+			String info = me.getName() + " " +  me.getIdToString();
+			o.println(info);
+			o.close();
+		} catch (Exception e) {
+		}
 		
 	}
 
@@ -80,11 +110,11 @@ public class MainWindow {
 		frame.setResizable(false);
 		frame.setSize(315, 450);
 		
-		viewWelcome = new ViewWelcome();
+		viewWelcome = new ViewWelcome(me);
 		viewWelcome.setMainWindow(this);
 		
 		Game m = new Game(new Player("Leo"), new Player("Carlo"));
-		viewMatch = new ViewMatch(m);
+		viewMatch = new ViewMatch(m, true);
 		viewMatch.setMainWindow(this);
 		
 		viewJoinGame = new ViewJoinGame();
@@ -122,7 +152,8 @@ public class MainWindow {
 		connector.createNewGame(current_game);
 		IPlayer guest = connector.getIncomingPlayer(current_game);
 		current_game.setGuestPlayer(guest);
-		viewMatch = new ViewMatch(current_game);
+		enemy = guest;
+		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
 	}
@@ -130,16 +161,23 @@ public class MainWindow {
 	public void joinGame(IGame game) {
 		current_game = game;
 		game.setGuestPlayer(me);
+		enemy = game.getHomePlayer();
 		connector.joinGame(current_game, me);
-		viewMatch = new ViewMatch(current_game);
+		viewMatch = new ViewMatch(current_game, false);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
 	}
 	
-	public void showJoinGame(IPlayer player) {
+	public void showJoinGames(IPlayer player) {
 		List<IGame> games = connector.getWaitingGames();
 		set_me(player);
 		viewJoinGame.setWaitingGames(games);
 		showView(viewJoinGame);
+	}
+	
+	public void sendHit(IHit hit) {
+		connector.sendHit(current_game, me, hit);
+		IHit received_hit = connector.getHit(current_game, enemy);
+		viewMatch.receivedEnemyHit(received_hit);
 	}
 }
