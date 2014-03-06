@@ -117,6 +117,11 @@ public class ViewMatch extends ViewDefault {
 		buttonsHit = new ArrayList<ButtonHit>();
 		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
 		for (String h : hits) {
+			Hit hit = new Hit(h);
+			if(me_has_home)
+				hit.setPlayer(match.getHomePlayer());
+			else
+				hit.setPlayer(match.getGuestPlayer());
 			ButtonHit b = new ButtonHit(new Hit(h));
 			b.setPanelGame(this);
 			buttonsHit.add(b);
@@ -139,6 +144,7 @@ public class ViewMatch extends ViewDefault {
 				b.setEnabled(false);
 			}
 		}
+		mainWindow.sendHit(clicked.getHit());
 	}
 	
 	public void clean() {
@@ -152,10 +158,12 @@ public class ViewMatch extends ViewDefault {
 		winnerLabel.setText("");
 	}
 	
-	public void receivedGuestHit(IHit hit) {
+	public void receivedEnemyHit(IHit hit) {
 		enemyPanelHit.setHit(hit);
 		if (currentHitButton != null)
 			showLabelWinning();
+		CleanerThread c = new CleanerThread(this);
+		c.start();
 	}
 	
 	private void showLabelWinning() {
@@ -178,5 +186,21 @@ public class ViewMatch extends ViewDefault {
 			if (me_has_home) versus.setText("←"); else versus.setText("→");
 			enemyPanelScore.increaseScore();
 		}	
+	}
+}
+
+
+class CleanerThread extends Thread {
+	private ViewMatch m;
+	public CleanerThread(ViewMatch m) {
+		this.m = m;
+	}
+	public void run() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}		
+		m.clean();
 	}
 }

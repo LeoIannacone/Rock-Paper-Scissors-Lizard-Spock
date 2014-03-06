@@ -5,6 +5,7 @@ import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IHit;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
 
@@ -29,6 +30,7 @@ public class MainWindow {
 	private IConnector connector;
 	
 	private IPlayer me;
+	private IPlayer enemy;
 	private IGame current_game;
 
 	/**
@@ -122,6 +124,7 @@ public class MainWindow {
 		connector.createNewGame(current_game);
 		IPlayer guest = connector.getIncomingPlayer(current_game);
 		current_game.setGuestPlayer(guest);
+		enemy = guest;
 		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
@@ -130,16 +133,23 @@ public class MainWindow {
 	public void joinGame(IGame game) {
 		current_game = game;
 		game.setGuestPlayer(me);
+		enemy = game.getHomePlayer();
 		connector.joinGame(current_game, me);
 		viewMatch = new ViewMatch(current_game, false);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
 	}
 	
-	public void showJoinGame(IPlayer player) {
+	public void showJoinGames(IPlayer player) {
 		List<IGame> games = connector.getWaitingGames();
 		set_me(player);
 		viewJoinGame.setWaitingGames(games);
 		showView(viewJoinGame);
+	}
+	
+	public void sendHit(IHit hit) {
+		connector.sendHit(current_game, me, hit);
+		IHit received_hit = connector.getHit(current_game, enemy);
+		viewMatch.receivedEnemyHit(received_hit);
 	}
 }

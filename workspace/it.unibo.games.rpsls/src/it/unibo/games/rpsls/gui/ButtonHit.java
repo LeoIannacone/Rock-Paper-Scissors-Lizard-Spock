@@ -68,33 +68,6 @@ public class ButtonHit extends JButton implements ActionListener {
 		if(panelGame == null) 
 			return;
 		panelGame.clickedButtonHit(this);
-		
-		// only for test
-		TestThread te = new TestThread(panelGame);
-		te.start();
 	}
 	
-}
-
-class TestThread extends Thread {
-	private ViewMatch p;
-	public TestThread (ViewMatch p) {
-		this.p = p;
-	}
-
-	@Override
-	public void run() {
-		try {
-			Thread.sleep(3000);
-			String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
-			int i = (int) Math.random() % hits.length;
-			p.receivedGuestHit(new Hit(hits[i]));
-			Thread.sleep(3000);
-			p.clean();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }

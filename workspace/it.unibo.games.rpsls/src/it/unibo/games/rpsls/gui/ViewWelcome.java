@@ -130,7 +130,7 @@ public class ViewWelcome extends ViewDefault {
 		join.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Player p = new Player(name.getText());
-				mainWindow.showJoinGame(p);
+				mainWindow.showJoinGames(p);
 			}
 		});
 		
