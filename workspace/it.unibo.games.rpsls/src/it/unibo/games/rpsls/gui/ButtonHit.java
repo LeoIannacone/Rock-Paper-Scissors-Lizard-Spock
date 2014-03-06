@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.interfaces.IHit;
 
 import javax.imageio.ImageIO;
@@ -64,7 +63,6 @@ public class ButtonHit extends JButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		if(panelGame == null) 
 			return;
 		panelGame.clickedButtonHit(this);
