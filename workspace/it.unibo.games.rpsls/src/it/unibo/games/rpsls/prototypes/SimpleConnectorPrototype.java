@@ -43,7 +43,7 @@ public class SimpleConnectorPrototype implements IConnector {
 
 	@Override
 	public boolean createNewGame(IGame game) {
-		debug("CREATE new GAME: " + game.getIdToString());
+		debug("CREATE new GAME: " + game.getURIToString());
 		return true;
 	}
 
@@ -60,49 +60,49 @@ public class SimpleConnectorPrototype implements IConnector {
 
 	@Override
 	public boolean joinGame(IGame game, IPlayer player) {
-		debug(String.format("JOIN: P: %s - G: %s", game.getIdToString(), player.getIdToString()));
+		debug(String.format("JOIN: P: %s - G: %s", game.getURIToString(), player.getURIToString()));
 		return true;
 	}
 
 	@Override
 	public boolean leaveGame(IGame game, IPlayer player) {
-		debug(String.format("LEAVE: P: %s - G: %s", game.getIdToString(), player.getIdToString()));
+		debug(String.format("LEAVE: P: %s - G: %s", game.getURIToString(), player.getURIToString()));
 		return true;
 	}
 
 	@Override
 	public boolean endGame(IGame game) {
-		debug(String.format("END: " + game.getIdToString()));
+		debug(String.format("END: " + game.getURIToString()));
 		return true;
 	}
 
 	@Override
 	public boolean deleteGame(IGame game) {
-		debug("DELETE: GAME " + game.getIdToString());
+		debug("DELETE: GAME " + game.getURIToString());
 		return true;
 	}
 
 	@Override
 	public boolean updateGameStatus(IGame game, String status) {
-		debug("UPDATE STATUS: G: " + game.getIdToString() + " status: " + status);
+		debug("UPDATE STATUS: G: " + game.getURIToString() + " status: " + status);
 		return true;
 	}
 
 	@Override
 	public String getGameStatus(IGame game) {
-		debug("GET STATUS G: " + game.getIdToString());
+		debug("GET STATUS G: " + game.getURIToString());
 		return "Game Status";
 	}
 
 	@Override
 	public boolean createNewPlayer(IPlayer player) {
-		debug("CREATE new PLAYER " + player.getIdToString());
+		debug("CREATE new PLAYER " + player.getURIToString());
 		return true;
 	}
 
 	@Override
 	public boolean sendHit(IGame game, IPlayer player, IHit hit) {
-		debug(String.format("SEND HIT: %s %s %s", game.getIdToString(), player.getIdToString(), hit.getIdToString()));
+		debug(String.format("SEND HIT: %s %s %s", game.getURIToString(), player.getURIToString(), hit.getURIToString()));
 		return true;
 	}
 
@@ -110,7 +110,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	public IHit getHit(IGame game, IPlayer player) {
 		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
 		int i = (int) Math.random() % hits.length;
-		debug(String.format("GET HIT %s from %s", hits[i], player.getIdToString()));
+		debug(String.format("GET HIT %s from %s", hits[i], player.getURIToString()));
 		return new Hit(hits[i]);
 	}
 
@@ -124,7 +124,7 @@ public class SimpleConnectorPrototype implements IConnector {
 		}
 		Player player = new Player("Carlo");
 		game.setGuestPlayer(player);
-		debug(String.format("GET incoming P: %s", player.getIdToString()));	
+		debug(String.format("GET incoming P: %s", player.getURIToString()));	
 		return player;
 	}
 

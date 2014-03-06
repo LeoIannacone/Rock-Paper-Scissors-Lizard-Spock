@@ -71,7 +71,7 @@ public class MainWindow {
 			String line = r.readLine();
 			String[] info = line.split(" ");
 			me = new Player(info[0]);
-			me.setId(info[1]);
+			me.setURI(info[1]);
 			r.close();
 		} catch (Exception e) {
 			me = null;
@@ -91,7 +91,7 @@ public class MainWindow {
 	private void storeMeFile() {
 		try {
 			PrintWriter o = new PrintWriter(ME_FILENAME);
-			String info = me.getName() + " " +  me.getIdToString();
+			String info = me.getName() + " " +  me.getURIToString();
 			o.println(info);
 			o.close();
 		} catch (Exception e) {

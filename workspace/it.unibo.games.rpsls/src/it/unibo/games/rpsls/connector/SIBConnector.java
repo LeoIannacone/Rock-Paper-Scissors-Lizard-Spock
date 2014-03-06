@@ -125,8 +125,7 @@ public class SIBConnector implements IConnector {
 		Vector<Vector<String>> triples = new Vector<Vector<String>>();
 		
 		Vector<String> v;
-		String uri = player.getIdToString();
-		String name = player.getName();
+		String uri = player.getURIToString();
 		
 		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Person", "URI", "URI");
 		triples.add(v);
