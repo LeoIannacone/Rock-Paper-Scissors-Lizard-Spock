@@ -17,30 +17,24 @@ public class SIBConnector implements IConnector {
 
 	private static IConnector instance;
 	
+	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+	public static String NAME_SPACE = "http://rpsls.games.unibo.it/Ontology.owl#";
+	
 	/**
 	 * Declaration of SIB
 	 */	
-	public KPICore kp;  //direct interface with the SIB
-	public SSAP_XMLTools xml_tools;  // utility methods to compose messages and manage responses
-	public String xml =""; //conventionally used for storing the messages from the SIB
-	public boolean ack = false; // Conventionally used for checking SIB response
+	private KPICore kp;  //direct interface with the SIB
+	private SSAP_XMLTools xml_tools;  // utility methods to compose messages and manage responses
+	private String xml =""; //conventionally used for storing the messages from the SIB
+	private boolean ack = false; // Conventionally used for checking SIB response
 	
 	/**
 	 * Declaration of SIB constants to be opportunely modified statically or at run-time in order to interact with the SIB
 	 */
-	public String SIB_HOST = "127.0.0.1";
-	public int SIB_PORT = 10010;
-	public String SIB_NAME = "X";
-	public String SIB_PREFIX = "http://smarmM3Lab/Ontology.owl#";
-	
-	/**
-	 * Declaration of vector of strings for triples useful for the SIB interaction
-	 */
-	Vector<Vector<String>> triples = new Vector<Vector<String>>();
-	Vector<Vector<String>> triples_ins = new Vector<Vector<String>>();  //Structure that can be useful in many programs
-	Vector<Vector<String>> triples_rem = new Vector<Vector<String>>();  //Structure that can be useful in many programs
-	Vector<String> triple = new Vector<String>();//Structure that can be useful in many programs
-	
+	private String SIB_HOST = "127.0.0.1";
+	private int SIB_PORT = 10010;
+	private String SIB_NAME = "X";
 	
 	public static IConnector getInstance() {
 		if (instance == null)
@@ -49,7 +43,8 @@ public class SIBConnector implements IConnector {
 	}
 	
 	private SIBConnector() {
-		
+		kp = new KPICore(SIB_HOST, SIB_PORT, SIB_NAME);
+		xml_tools = new SSAP_XMLTools();
 	}
 	
 	@Override
@@ -58,23 +53,22 @@ public class SIBConnector implements IConnector {
 	}
 
 	@Override
-	public void connect() {
-		//Definition of connection
-		kp = new KPICore(SIB_HOST, SIB_PORT, SIB_NAME);
-		xml_tools = new SSAP_XMLTools();
+	public void connect() {	
 		//Trying to join SIB
 		xml = kp.join();
 		ack = xml_tools.isJoinConfirmed(xml);
 		if (!ack)
 			System.err.println("Error: unable to join the SIB");
-		else
-			System.out.println("SIB joined correctly");
 	}
 
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
-		
+		xml = kp.leave();
+		ack = xml_tools.isLeaveConfirmed(xml);
+		if(!ack)
+		{
+			System.err.println ("Error during LEAVE");
+		}   
 	}
 
 	@Override
@@ -127,8 +121,28 @@ public class SIBConnector implements IConnector {
 
 	@Override
 	public boolean createNewPlayer(IPlayer player) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Vector<Vector<String>> triples = new Vector<Vector<String>>();
+		
+		Vector<String> v;
+		String uri = player.getIdToString();
+		String name = player.getName();
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Person", "URI", "URI");
+		triples.add(v);
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasName", player.getName(), "URI", "literal");
+		triples.add(v);
+		
+		xml = kp.insert(triples);
+		
+		ack = xml_tools.isInsertConfirmed(xml);
+		if(!ack)
+		{
+			System.err.println ("Error Inserting new Player in the SIB");
+		}
+		
+		return ack;
 	}
 
 	@Override
