@@ -127,4 +127,10 @@ public class SimpleConnectorPrototype implements IConnector {
 		debug(String.format("GET incoming P: %s", player.getIdToString()));	
 		return player;
 	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
 }
