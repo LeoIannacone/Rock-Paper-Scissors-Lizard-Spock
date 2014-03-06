@@ -66,7 +66,7 @@ public class MainWindow {
 	}
 	
 	private void storeMeFile() {
-		
+		// FIX_ME: creare funzione per registrare info sul giocatore
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class MainWindow {
 		viewWelcome.setMainWindow(this);
 		
 		Game m = new Game(new Player("Leo"), new Player("Carlo"));
-		viewMatch = new ViewMatch(m);
+		viewMatch = new ViewMatch(m, true);
 		viewMatch.setMainWindow(this);
 		
 		viewJoinGame = new ViewJoinGame();
@@ -122,7 +122,7 @@ public class MainWindow {
 		connector.createNewGame(current_game);
 		IPlayer guest = connector.getIncomingPlayer(current_game);
 		current_game.setGuestPlayer(guest);
-		viewMatch = new ViewMatch(current_game);
+		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
 	}
@@ -131,7 +131,7 @@ public class MainWindow {
 		current_game = game;
 		game.setGuestPlayer(me);
 		connector.joinGame(current_game, me);
-		viewMatch = new ViewMatch(current_game);
+		viewMatch = new ViewMatch(current_game, false);
 		viewMatch.setMainWindow(this);
 		showView(viewMatch);
 	}
