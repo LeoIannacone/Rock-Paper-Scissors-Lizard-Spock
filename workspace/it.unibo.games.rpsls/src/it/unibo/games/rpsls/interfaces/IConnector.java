@@ -9,6 +9,7 @@ public interface IConnector {
 	// Generic
 	public void connect();
 	public void disconnect();
+	public void init();
 	
 	// Games
 	public boolean createNewGame(IGame game);
