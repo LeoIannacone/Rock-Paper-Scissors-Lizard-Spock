@@ -59,7 +59,16 @@ public class SIBConnector implements IConnector {
 
 	@Override
 	public void connect() {
-
+		//Definition of connection
+		kp = new KPICore(SIB_HOST, SIB_PORT, SIB_NAME);
+		xml_tools = new SSAP_XMLTools();
+		//Trying to join SIB
+		xml = kp.join();
+		ack = xml_tools.isJoinConfirmed(xml);
+		if (!ack)
+			System.err.println("Error: unable to join the SIB");
+		else
+			System.out.println("SIB joined correctly");
 	}
 
 	@Override
