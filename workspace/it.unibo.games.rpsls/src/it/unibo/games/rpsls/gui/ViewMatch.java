@@ -10,6 +10,7 @@ import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
 import it.unibo.games.rpsls.interfaces.IHit;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,11 +20,11 @@ import javax.swing.JPanel;
 public class ViewMatch extends ViewDefault {
 
 	private IGame match;
-	private PanelScore homePanelScore;
-	private PanelScore guestPanelScore;
+	private PanelScore mePanelScore;
+	private PanelScore enemyPanelScore;
 	
-	private PanelHit homePanelHit;
-	private PanelHit guestPanelHit;
+	private PanelHit mePanelHit;
+	private PanelHit enemyPanelHit;
 	
 	private ButtonHit currentHitButton;
 	
@@ -32,10 +33,13 @@ public class ViewMatch extends ViewDefault {
 	private JLabel versus;
 	private JLabel winnerLabel;
 	
-	public ViewMatch(IGame match) {
+	private boolean me_has_home;
+	
+	public ViewMatch(IGame match, boolean me_has_home) {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		init();
+		this.me_has_home = me_has_home;
+		init();	
 	}
 	
 	private void init() {
@@ -51,13 +55,22 @@ public class ViewMatch extends ViewDefault {
 		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
 		
 		JPanel p2 = new JPanel(new FlowLayout());
-		homePanelScore = new PanelScore(match.getHomePlayer());
-		guestPanelScore = new PanelScore(match.getGuestPlayer());
-		
-		p2.add(homePanelScore);
+		if (me_has_home) {
+			mePanelScore = new PanelScore(match.getHomePlayer());
+			enemyPanelScore = new PanelScore(match.getGuestPlayer());
+		} else {
+			mePanelScore = new PanelScore(match.getGuestPlayer());
+			enemyPanelScore = new PanelScore(match.getHomePlayer());
+		}
+		if (me_has_home) {
+		p2.add(mePanelScore);
 		p2.add(Box.createRigidArea(new Dimension(120,0)));
-		p2.add(guestPanelScore);
-		
+		p2.add(enemyPanelScore);
+		} else {
+			p2.add(enemyPanelScore);
+			p2.add(Box.createRigidArea(new Dimension(120,0)));
+			p2.add(mePanelScore);	
+		}
 		p1.add(Box.createRigidArea(new Dimension(0,10)));
 		p1.add(p2);
 		this.add(p1);
@@ -66,8 +79,8 @@ public class ViewMatch extends ViewDefault {
 	private void initCurrentHitsPanel() {
 		JPanel p1 = new JPanel();
 		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
-		homePanelHit = new PanelHit();
-		guestPanelHit = new PanelHit();
+		mePanelHit = new PanelHit();
+		enemyPanelHit = new PanelHit();
 		
 		JPanel p2 = new JPanel();
 		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
@@ -87,10 +100,15 @@ public class ViewMatch extends ViewDefault {
 		p2.add(winnerLabel);
 		
 
-		p1.add(homePanelHit);
-		p1.add(p2);
-		p1.add(guestPanelHit);
-		
+		if (me_has_home) {
+			p1.add(mePanelHit);
+			p1.add(p2);
+			p1.add(enemyPanelHit);
+		} else {
+			p1.add(enemyPanelHit);
+			p1.add(p2);
+			p1.add(mePanelHit);
+		}
 		this.add(p1);
 	}
 	
@@ -115,7 +133,7 @@ public class ViewMatch extends ViewDefault {
 			if (b.equals(clicked)) {
 				currentHitButton = clicked;
 				b.getModel().setSelected(true);
-				homePanelHit.setHit(b.getHit());
+				mePanelHit.setHit(b.getHit());
 			}
 			else {
 				b.setEnabled(false);
@@ -128,22 +146,23 @@ public class ViewMatch extends ViewDefault {
 		
 		for (ButtonHit b: buttonsHit)
 			b.setEnabled(true);
-		homePanelHit.clean();
-		guestPanelHit.clean();
+		mePanelHit.clean();
+		enemyPanelHit.clean();
 		versus.setText("");
 		winnerLabel.setText("");
 	}
 	
 	public void receivedGuestHit(IHit hit) {
-		guestPanelHit.setHit(hit);
+		enemyPanelHit.setHit(hit);
 		if (currentHitButton != null)
 			showLabelWinning();
 	}
 	
 	private void showLabelWinning() {
-		if (guestPanelHit == null || currentHitButton == null)
+		if (enemyPanelHit == null || currentHitButton == null)
 			return;
-		String[] info = Utils.compareHits(currentHitButton.getHit(), guestPanelHit.getHit());
+		
+		String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
 		
 		int i = Integer.parseInt(info[0]);
 		
@@ -151,17 +170,13 @@ public class ViewMatch extends ViewDefault {
 			winnerLabel.setText(info[1]);
 		}
 		if (i > 0) {
-			versus.setText("→");
-			homePanelScore.increaseScore();
+			if (me_has_home) versus.setText("→"); else versus.setText("←");
+			mePanelScore.increaseScore();
 		}
 		else if (i == 0) versus.setText("=");
 		else {
-			versus.setText("←");
-			guestPanelScore.increaseScore();
-		}
-		
-		
+			if (me_has_home) versus.setText("←"); else versus.setText("→");
+			enemyPanelScore.increaseScore();
+		}	
 	}
-	
-	
 }
