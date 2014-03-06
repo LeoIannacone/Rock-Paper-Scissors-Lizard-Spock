@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
+import sofia_kp.KPICore;
+import sofia_kp.SSAP_XMLTools;
+import sun.security.ssl.krb5.Krb5ProxyImpl;
+
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IHit;
@@ -12,6 +16,31 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 public class SIBConnector implements IConnector {
 
 	private static IConnector instance;
+	
+	/**
+	 * Declaration of SIB
+	 */	
+	public KPICore kp;  //direct interface with the SIB
+	public SSAP_XMLTools xml_tools;  // utility methods to compose messages and manage responses
+	public String xml =""; //conventionally used for storing the messages from the SIB
+	public boolean ack = false; // Conventionally used for checking SIB response
+	
+	/**
+	 * Declaration of SIB constants to be opportunely modified statically or at run-time in order to interact with the SIB
+	 */
+	public String SIB_HOST = "127.0.0.1";
+	public int SIB_PORT = 10010;
+	public String SIB_NAME = "X";
+	public String SIB_PREFIX = "http://smarmM3Lab/Ontology.owl#";
+	
+	/**
+	 * Declaration of vector of strings for triples useful for the SIB interaction
+	 */
+	Vector<Vector<String>> triples = new Vector<Vector<String>>();
+	Vector<Vector<String>> triples_ins = new Vector<Vector<String>>();  //Structure that can be useful in many programs
+	Vector<Vector<String>> triples_rem = new Vector<Vector<String>>();  //Structure that can be useful in many programs
+	Vector<String> triple = new Vector<String>();//Structure that can be useful in many programs
+	
 	
 	public static IConnector getInstance() {
 		if (instance == null)
@@ -23,11 +52,14 @@ public class SIBConnector implements IConnector {
 		
 	}
 	
+	@Override
+	public void init() {
+
+	}
 
 	@Override
 	public void connect() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
