@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.game.Player;
+import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,9 +34,14 @@ public class ViewWelcome extends ViewDefault {
 	private JButton join;
 	private JLabel loadingDots;
 	
-	public ViewWelcome() {
+	private IPlayer me;
+	
+	public ViewWelcome(IPlayer me) {
+		this.me = me;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
+		if (me != null)
+			set_me();
 	}
 	
 	private void init() {
@@ -130,7 +136,7 @@ public class ViewWelcome extends ViewDefault {
 		join.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Player p = new Player(name.getText());
-				mainWindow.showJoinGame(p);
+				mainWindow.showJoinGames(p);
 			}
 		});
 		
@@ -171,5 +177,11 @@ public class ViewWelcome extends ViewDefault {
 		start.setVisible(!startingGame);
 		join.setVisible(!startingGame);
 		stop.setVisible(startingGame);
+	}
+	
+	private void set_me() {
+		name.setText(me.getName());
+		join.setEnabled(true);
+		start.setEnabled(true);
 	}
 }
