@@ -13,7 +13,7 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class SIBConnector implements IConnector {
 
-	private static IConnector instance;
+	private static SIBConnector instance;
 	
 	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -27,7 +27,7 @@ public class SIBConnector implements IConnector {
 	private String xml =""; //conventionally used for storing the messages from the SIB
 	private boolean ack = false; // Conventionally used for checking SIB response
 	
-	public static IConnector getInstance() {
+	public static SIBConnector getInstance() {
 		if (instance == null)
 			instance = new SIBConnector();
 		return instance;
@@ -186,4 +186,11 @@ public class SIBConnector implements IConnector {
 		return null;
 	}
 
+	public KPICore getKP(){
+		return kp;
+	}
+	
+	public SSAP_XMLTools getXMLTools(){
+		return xml_tools;
+	}
 }
