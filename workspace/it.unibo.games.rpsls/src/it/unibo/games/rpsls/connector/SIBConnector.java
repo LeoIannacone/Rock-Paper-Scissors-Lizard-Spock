@@ -155,8 +155,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public String getGameStatus(IGame game) {
-		// TODO Auto-generated method stub
-		return null;
+		return SIBFactory.getInstance().getGame(game.getURIToString()).getStatus();
 	}
 
 	@Override
