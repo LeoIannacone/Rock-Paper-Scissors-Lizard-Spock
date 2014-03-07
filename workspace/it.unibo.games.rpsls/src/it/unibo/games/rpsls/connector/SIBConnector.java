@@ -136,8 +136,8 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean deleteGame(IGame game) {
-		// TODO Auto-generated method stub
-		return false;
+		String xml = kp.remove(NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
+		return xml_tools.isRemoveConfirmed(xml);
 	}
 
 	@Override

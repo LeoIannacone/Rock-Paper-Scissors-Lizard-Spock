@@ -133,4 +133,10 @@ public class SimpleConnectorPrototype implements IConnector {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean updateGameScore(IGame game) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

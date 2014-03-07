@@ -21,7 +21,9 @@ public class ConnectorTest {
 		
 //		testChangeStats();
 		
-		testJoin();
+//		testJoin();
+		
+		testDeleteGame();
 	}
 	
 	private static void insertGame() {
@@ -83,5 +85,14 @@ public class ConnectorTest {
 		
 		g = SIBFactory.getInstance().getGame(g.getURIToString());
 		System.out.println("JOINED: " + g.toString());
+	}
+	
+	public static void testDeleteGame(){
+		Player home = new Player("testJoinHOME");
+		SIBC.createNewPlayer(home);
+		IGame g = new Game(home, null);
+		SIBC.createNewGame(g);
+		System.out.println("JUST_CREATED: " + g.toString());
+		SIBC.deleteGame(g);
 	}
 }
