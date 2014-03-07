@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
+import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.*;
 
@@ -39,10 +40,50 @@ public class SIBFactory {
 			triples = xml_tools.getQueryTriple(xml);
 			for(Vector<String> v : triples) {
 					p = new Player(v.get(2));
-					p.setURI(v.get(0).split("#")[1]);
+					p.setURI(getValue(v.get(0)));
 			}
 			
 		}
 		return p;	
+	}
+	
+	public IGame getGame(String GameURI){
+		boolean ack;
+		Game g = new Game(null, null);
+		Vector<Vector<String>> triples;
+		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + GameURI, null , null, "uri", "uri");
+		ack = xml_tools.isQueryConfirmed(xml);
+		if(!ack)
+			System.out.println ("Error during RDF-M3 query");
+		else
+		{
+			g.setURI(GameURI);
+			String score = ""; // workaround if players are not yed defined
+			triples = xml_tools.getQueryTriple(xml);
+			for(Vector<String> v : triples) {
+				String what = getValue(v.get(1));
+				String value = getValue(v.get(2));
+				if (what.equals("HasStatus")) 
+					g.setStatus(value);
+				else if (what.equals("hasScore"))
+					score = value;
+				else if (what.equals("HasHome")) {
+					IPlayer home = getPlayer(value);
+					g.setHomePlayer(home);
+				}
+				else if (what.equals("HasGuest")) {
+					IPlayer guest = getPlayer(value);
+					g.setGuestPlayer(guest);
+				}
+			}
+			g.setScore(score);
+		}
+		return g;
+	}
+	
+	private String getValue(String uri){
+		if (uri.contains("#"))
+			return uri.split("#")[1];
+		return uri;
 	}
 }

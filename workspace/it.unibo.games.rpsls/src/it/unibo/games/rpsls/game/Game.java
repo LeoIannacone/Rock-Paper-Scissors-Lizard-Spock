@@ -107,4 +107,11 @@ public class Game extends ConnectorEntity implements IGame {
 		}
 	}
 
+	
+	public String toString() {
+		if (getStatus().equals(WAITING)) 
+			return String.format("%s [%s] - %s", getURIToString(), getStatus(), getHomePlayer().getName());
+		else
+			return String.format("%s [%s] - %s vs %s - score: %s", getURIToString(), getStatus(), getHomePlayer().getName(), getGuestPlayer().getName(), getScore());
+}
 }
