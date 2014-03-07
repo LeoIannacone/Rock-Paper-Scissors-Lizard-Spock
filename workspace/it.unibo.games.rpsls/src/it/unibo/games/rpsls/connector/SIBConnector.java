@@ -131,8 +131,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean endGame(IGame game) {
-		// TODO Auto-generated method stub
-		return false;
+		return changeGameStatus(game, Game.ENDED);
 	}
 
 	@Override
