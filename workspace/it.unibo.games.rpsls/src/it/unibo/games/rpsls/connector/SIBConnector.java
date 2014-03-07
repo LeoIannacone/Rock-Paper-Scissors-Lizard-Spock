@@ -1,12 +1,10 @@
 package it.unibo.games.rpsls.connector;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
-import sun.security.ssl.krb5.Krb5ProxyImpl;
 
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
@@ -29,13 +27,6 @@ public class SIBConnector implements IConnector {
 	private String xml =""; //conventionally used for storing the messages from the SIB
 	private boolean ack = false; // Conventionally used for checking SIB response
 	
-	/**
-	 * Declaration of SIB constants to be opportunely modified statically or at run-time in order to interact with the SIB
-	 */
-	private String SIB_HOST = "127.0.0.1";
-	private int SIB_PORT = 10010;
-	private String SIB_NAME = "X";
-	
 	public static IConnector getInstance() {
 		if (instance == null)
 			instance = new SIBConnector();
@@ -43,7 +34,7 @@ public class SIBConnector implements IConnector {
 	}
 	
 	private SIBConnector() {
-		kp = new KPICore(SIB_HOST, SIB_PORT, SIB_NAME);
+		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		xml_tools = new SSAP_XMLTools();
 	}
 	
