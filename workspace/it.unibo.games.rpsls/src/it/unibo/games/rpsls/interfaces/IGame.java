@@ -19,4 +19,7 @@ public interface IGame extends IConnectorEntity {
 	public void setStatus(String status);
 	public String getStatus();
 	
+	public void setScore(String s);
+	public String getScore();
+	
 }
