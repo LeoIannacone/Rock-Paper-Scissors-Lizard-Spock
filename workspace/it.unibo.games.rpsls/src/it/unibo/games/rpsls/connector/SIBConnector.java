@@ -64,8 +64,41 @@ public class SIBConnector implements IConnector {
 
 	@Override
 	public boolean createNewGame(IGame game) {
-		// TODO Auto-generated method stub
-		return false;
+
+		Vector<Vector<String>> triples = new Vector<Vector<String>>();
+		
+		Vector<String> v;
+		String uri = game.getURIToString();
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "GameSession", "URI", "URI");
+		triples.add(v);
+		
+		if(game.getHomePlayer() != null){
+			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasHome", NAME_SPACE + game.getHomePlayer().getURIToString(), "URI", "URI");
+			triples.add(v);
+		}
+		
+		if(game.getGuestPlayer() != null){
+			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasGuest", NAME_SPACE + game.getGuestPlayer().getURIToString(), "URI", "URI");
+			triples.add(v);
+		}
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
+		triples.add(v);
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasStatus", NAME_SPACE + game.getStatus(), "URI", "URI");
+		triples.add(v);
+		
+		
+		xml = kp.insert(triples);
+		
+		ack = xml_tools.isInsertConfirmed(xml);
+		if(!ack)
+		{
+			System.err.println ("Error Inserting new Game in the SIB");
+		}
+		
+		return ack;
 	}
 
 	@Override
