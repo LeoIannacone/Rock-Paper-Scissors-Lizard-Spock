@@ -5,13 +5,15 @@ import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
+import sofia_kp.iKPIC_subscribeHandler;
 
+import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IHit;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class SIBConnector implements IConnector {
+public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	private static SIBConnector instance;
 	
@@ -109,8 +111,16 @@ public class SIBConnector implements IConnector {
 
 	@Override
 	public boolean joinGame(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ack;
+		String xml = "";
+		ack = changeGameStatus(game, Game.ACTIVE);
+		if (ack) xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasGuest", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		ack = ack && xml_tools.isInsertConfirmed(xml);
+		if (ack){
+			game.setGuestPlayer(player);
+			ack = updateGameScore(game);
+		}
+		return ack;
 	}
 
 	@Override
@@ -192,5 +202,35 @@ public class SIBConnector implements IConnector {
 	
 	public SSAP_XMLTools getXMLTools(){
 		return xml_tools;
+	}
+
+	@Override
+	public void kpic_SIBEventHandler(String xml) {
+		
+		
+	}
+	
+	public boolean changeGameStatus(IGame game, String status){
+		boolean ack;
+		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", null, "URI", "URI");
+		ack = xml_tools.isRemoveConfirmed(xml);
+		if(ack){
+			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", NAME_SPACE + status, "URI", "URI");
+			ack = xml_tools.isInsertConfirmed(xml);
+			game.setStatus(status);
+		}
+		return ack;
+	}
+
+	@Override
+	public boolean updateGameScore(IGame game) {
+		boolean ack;
+		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", null, "URI", "literal");
+		ack = xml_tools.isRemoveConfirmed(xml);
+		if(ack){
+			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
+			ack = xml_tools.isInsertConfirmed(xml);
+		}
+		return ack;
 	}
 }

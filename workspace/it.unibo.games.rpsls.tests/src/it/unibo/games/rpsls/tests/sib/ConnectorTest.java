@@ -1,13 +1,15 @@
 package it.unibo.games.rpsls.tests.sib;
 
 import it.unibo.games.rpsls.connector.SIBConnector;
+import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
+import it.unibo.games.rpsls.interfaces.IGame;
 
 public class ConnectorTest {
 	
-	protected static IConnector SIBC;
+	protected static SIBConnector SIBC;
 	
 	public static void main(String args[]){
 		SIBC = SIBConnector.getInstance();
@@ -15,7 +17,11 @@ public class ConnectorTest {
 		//trying connection to SIB
 		SIBC.connect();
 		
-		insertGame();
+//		insertGame();
+		
+//		testChangeStats();
+		
+		testJoin();
 	}
 	
 	private static void insertGame() {
@@ -52,5 +58,30 @@ public class ConnectorTest {
 			System.out.println("player added correctly");
 		
 		return p;
+	}
+	
+	public static void testChangeStats(){
+		SIBFactory factory = SIBFactory.getInstance();
+		IGame g = factory.getGame("Game_6ca50475-6ea3-4f36-94eb-bdff61c4bf3e");
+		System.out.println("OLD STATUS: " + g.getStatus());
+		if (SIBC.changeGameStatus(g, Game.ACTIVE)){
+			g = factory.getGame(g.getURIToString());
+			System.out.println("NEW STATUS: " + g.getStatus());
+		}
+	}
+	
+	public static void testJoin(){
+		Player home = new Player("testJoinHOME");
+		SIBC.createNewPlayer(home);
+		IGame g = new Game(home, null);
+		SIBC.createNewGame(g);
+		System.out.println("JUST_CREATED: " + g.toString());
+		Player guest = new Player("testJoinGUEST");
+		SIBC.createNewPlayer(guest);
+		
+		SIBC.joinGame(g, guest);
+		
+		g = SIBFactory.getInstance().getGame(g.getURIToString());
+		System.out.println("JOINED: " + g.toString());
 	}
 }

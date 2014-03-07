@@ -20,6 +20,7 @@ public interface IConnector {
 	public boolean deleteGame(IGame game);
 	public boolean updateGameStatus(IGame game, String status);
 	public String getGameStatus(IGame game);
+	public boolean updateGameScore(IGame game);
 	
 	// Player
 	public boolean createNewPlayer(IPlayer player);
@@ -28,6 +29,5 @@ public interface IConnector {
 	// Hits
 	public boolean sendHit(IGame game, IPlayer player, IHit hit);
 	public IHit getHit(IGame game, IPlayer player);
-	
 	
 }

@@ -19,16 +19,11 @@ public class Game extends ConnectorEntity implements IGame {
 		this.home = home;
 		this.guest = guest;
 		this.status = WAITING;
-		if (getHomePlayer() != null && getGuestPlayer() != null)
-			this.status = ACTIVE;
 	}
 	
 	@Override
 	public void setHomePlayer(IPlayer home) {
 		this.home = home;
-		if (getGuestPlayer()!=null){
-			this.status = ACTIVE;
-		}
 	}
 
 	@Override
@@ -39,9 +34,6 @@ public class Game extends ConnectorEntity implements IGame {
 	@Override
 	public void setGuestPlayer(IPlayer guest) {
 		this.guest = guest;
-		if (getHomePlayer()!=null){
-			this.status = ACTIVE;
-		}
 	}
 
 	@Override
