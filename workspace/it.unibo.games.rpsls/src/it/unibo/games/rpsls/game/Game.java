@@ -81,4 +81,22 @@ public class Game extends ConnectorEntity implements IGame {
 		return status;
 	}
 
+	@Override
+	public void setScore(String s) {
+		try{
+			String [] a = s.split("-");
+			home.setScore(Integer.parseInt(a[0]));
+			guest.setScore(Integer.parseInt(a[1]));
+		} catch(Exception e) {}
+	}
+
+	@Override
+	public String getScore() {
+		try{
+			return home.getScore() + "-" + guest.getScore();
+		}catch(Exception e){
+			return "";
+		}
+	}
+
 }
