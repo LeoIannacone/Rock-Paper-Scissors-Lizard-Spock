@@ -113,7 +113,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	public boolean joinGame(IGame game, IPlayer player) {
 		boolean ack;
 		String xml = "";
-		ack = changeGameStatus(game, Game.ACTIVE);
+		ack = updateGameStatus(game, Game.ACTIVE);
 		if (ack) xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasGuest", NAME_SPACE + player.getURIToString(), "URI", "URI");
 		ack = ack && xml_tools.isInsertConfirmed(xml);
 		if (ack){
@@ -131,7 +131,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean endGame(IGame game) {
-		return changeGameStatus(game, Game.ENDED);
+		return updateGameStatus(game, Game.ENDED);
 	}
 
 	@Override
@@ -142,8 +142,15 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean updateGameStatus(IGame game, String status) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ack;
+		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", null, "URI", "URI");
+		ack = xml_tools.isRemoveConfirmed(xml);
+		if(ack){
+			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", NAME_SPACE + status, "URI", "URI");
+			ack = xml_tools.isInsertConfirmed(xml);
+			game.setStatus(status);
+		}
+		return ack;
 	}
 
 	@Override
@@ -209,18 +216,6 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		
 	}
 	
-	public boolean changeGameStatus(IGame game, String status){
-		boolean ack;
-		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", null, "URI", "URI");
-		ack = xml_tools.isRemoveConfirmed(xml);
-		if(ack){
-			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", NAME_SPACE + status, "URI", "URI");
-			ack = xml_tools.isInsertConfirmed(xml);
-			game.setStatus(status);
-		}
-		return ack;
-	}
-
 	@Override
 	public boolean updateGameScore(IGame game) {
 		boolean ack;

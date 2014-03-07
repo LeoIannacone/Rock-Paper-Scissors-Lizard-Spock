@@ -66,7 +66,7 @@ public class ConnectorTest {
 		SIBFactory factory = SIBFactory.getInstance();
 		IGame g = factory.getGame("Game_6ca50475-6ea3-4f36-94eb-bdff61c4bf3e");
 		System.out.println("OLD STATUS: " + g.getStatus());
-		if (SIBC.changeGameStatus(g, Game.ACTIVE)){
+		if (SIBC.updateGameStatus(g, Game.ACTIVE)){
 			g = factory.getGame(g.getURIToString());
 			System.out.println("NEW STATUS: " + g.getStatus());
 		}
