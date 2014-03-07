@@ -185,8 +185,32 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean sendHit(IGame game, IPlayer player, IHit hit) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Vector<Vector<String>> triples = new Vector<Vector<String>>();
+		
+		Vector<String> v;
+		String uri = hit.getURIToString();
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Command", "URI", "URI");
+		triples.add(v);
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasIssuer", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		triples.add(v);
+		
+		//TODO: not complete - needed association between command and game session!
+		
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasIssuer", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		triples.add(v);
+		
+		xml = kp.insert(triples);
+		
+		ack = xml_tools.isInsertConfirmed(xml);
+		if(!ack)
+		{
+			System.err.println ("Error Inserting new Player in the SIB");
+		}
+		
+		return ack;
 	}
 
 	@Override
