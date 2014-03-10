@@ -5,6 +5,7 @@
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY Ontology "http://rpsls.games.unibo.it/Ontology.owl#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
 ]>
 
@@ -12,6 +13,7 @@
 <rdf:RDF xmlns="http://smartM3Lab/Ontology.owl#"
      xml:base="http://smartM3Lab/Ontology.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:Ontology="http://rpsls.games.unibo.it/Ontology.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -32,63 +34,63 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasCommand -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasCommand">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Command"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandInterface"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasCommand">
+        <rdfs:range rdf:resource="&Ontology;Command"/>
+        <rdfs:domain rdf:resource="&Ontology;CommandInterface"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandInterface"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasCommandInterface">
+        <rdfs:range rdf:resource="&Ontology;CommandInterface"/>
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasCommandType -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasCommandType">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Command"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasCommandType">
+        <rdfs:domain rdf:resource="&Ontology;Command"/>
+        <rdfs:range rdf:resource="&Ontology;CommandType"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasControlSet -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasControlSet">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#ControlSet"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#InteractiveGame"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasControlSet">
+        <rdfs:range rdf:resource="&Ontology;ControlSet"/>
+        <rdfs:domain rdf:resource="&Ontology;InteractiveGame"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasGameDescription -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasGameDescription">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameDescription"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasGameDescription">
+        <rdfs:range rdf:resource="&Ontology;GameDescription"/>
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasGameSession -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasGameSession">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#InteractiveGame"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasGameSession">
+        <rdfs:range rdf:resource="&Ontology;GameSession"/>
+        <rdfs:domain rdf:resource="&Ontology;InteractiveGame"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasGuest -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasGuest">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasGuest">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
+        <rdfs:range rdf:resource="&Ontology;Person"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
@@ -96,9 +98,9 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasHome -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasHome">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasHome">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
+        <rdfs:range rdf:resource="&Ontology;Person"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
@@ -106,45 +108,45 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasIssuer -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasIssuer">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Command"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasIssuer">
+        <rdfs:domain rdf:resource="&Ontology;Command"/>
+        <rdfs:range rdf:resource="&Ontology;Person"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasObserver -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasObserver">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasObserver">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
+        <rdfs:range rdf:resource="&Ontology;Person"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasPlayer -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasPlayer">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasPlayer">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
+        <rdfs:range rdf:resource="&Ontology;Person"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasStatus -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasStatus">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasStatus">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
+        <rdfs:range rdf:resource="&Ontology;GameStatus"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#HasSupportedCommand -->
 
-    <owl:ObjectProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#HasSupportedCommand">
-        <rdfs:range rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#ControlSet"/>
+    <owl:ObjectProperty rdf:about="&Ontology;HasSupportedCommand">
+        <rdfs:range rdf:resource="&Ontology;CommandType"/>
+        <rdfs:domain rdf:resource="&Ontology;ControlSet"/>
     </owl:ObjectProperty>
     
 
@@ -162,8 +164,8 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#hasName -->
 
-    <owl:DatatypeProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#hasName">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:DatatypeProperty rdf:about="&Ontology;hasName">
+        <rdfs:domain rdf:resource="&Ontology;Person"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
     
@@ -171,8 +173,8 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#hasScore -->
 
-    <owl:DatatypeProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#hasScore">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
+    <owl:DatatypeProperty rdf:about="&Ontology;hasScore">
+        <rdfs:domain rdf:resource="&Ontology;GameSession"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
@@ -181,8 +183,8 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#hasTime -->
 
-    <owl:DatatypeProperty rdf:about="http://rpsls.games.unibo.it/Ontology.owl#hasTime">
-        <rdfs:domain rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#Command"/>
+    <owl:DatatypeProperty rdf:about="&Ontology;hasTime">
+        <rdfs:domain rdf:resource="&Ontology;Command"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
     
@@ -201,55 +203,55 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Command -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Command"/>
+    <owl:Class rdf:about="&Ontology;Command"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#CommandInterface -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#CommandInterface"/>
+    <owl:Class rdf:about="&Ontology;CommandInterface"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#CommandType -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:Class rdf:about="&Ontology;CommandType"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#ControlSet -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#ControlSet"/>
+    <owl:Class rdf:about="&Ontology;ControlSet"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#GameDescription -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#GameDescription"/>
+    <owl:Class rdf:about="&Ontology;GameDescription"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#GameSession -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#GameSession"/>
+    <owl:Class rdf:about="&Ontology;GameSession"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#GameStatus -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:Class rdf:about="&Ontology;GameStatus"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#InteractiveGame -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#InteractiveGame"/>
+    <owl:Class rdf:about="&Ontology;InteractiveGame"/>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Person -->
 
-    <owl:Class rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Person"/>
+    <owl:Class rdf:about="&Ontology;Person"/>
     
 
 
@@ -266,72 +268,103 @@
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Active -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Active">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Active">
+        <rdf:type rdf:resource="&Ontology;GameStatus"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Ended -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Ended">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Ended">
+        <rdf:type rdf:resource="&Ontology;GameStatus"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Lizard -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Lizard">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Lizard">
+        <rdf:type rdf:resource="&Ontology;CommandType"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Paper -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Paper">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Paper">
+        <rdf:type rdf:resource="&Ontology;CommandType"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Paused -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Paused">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Paused">
+        <rdf:type rdf:resource="&Ontology;GameStatus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://rpsls.games.unibo.it/Ontology.owl#RPSLS -->
+
+    <owl:NamedIndividual rdf:about="&Ontology;RPSLS">
+        <rdf:type rdf:resource="&Ontology;InteractiveGame"/>
+        <Ontology:HasControlSet rdf:resource="&Ontology;RPSLS-ControlSet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://rpsls.games.unibo.it/Ontology.owl#RPSLS-Command -->
+
+    <owl:NamedIndividual rdf:about="&Ontology;RPSLS-Command">
+        <rdf:type rdf:resource="&Ontology;Command"/>
+        <Ontology:HasCommandType rdf:resource="&Ontology;Lizard"/>
+        <Ontology:HasCommandType rdf:resource="&Ontology;Paper"/>
+        <Ontology:HasCommandType rdf:resource="&Ontology;Rock"/>
+        <Ontology:HasCommandType rdf:resource="&Ontology;Scissors"/>
+        <Ontology:HasCommandType rdf:resource="&Ontology;Spock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://rpsls.games.unibo.it/Ontology.owl#RPSLS-ControlSet -->
+
+    <owl:NamedIndividual rdf:about="&Ontology;RPSLS-ControlSet">
+        <rdf:type rdf:resource="&Ontology;ControlSet"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;RPSLS-Command"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Rock -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Rock">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Rock">
+        <rdf:type rdf:resource="&Ontology;CommandType"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Scissors -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Scissors">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Scissors">
+        <rdf:type rdf:resource="&Ontology;CommandType"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Spock -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Spock">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#CommandType"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Spock">
+        <rdf:type rdf:resource="&Ontology;CommandType"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://rpsls.games.unibo.it/Ontology.owl#Waiting -->
 
-    <owl:NamedIndividual rdf:about="http://rpsls.games.unibo.it/Ontology.owl#Waiting">
-        <rdf:type rdf:resource="http://rpsls.games.unibo.it/Ontology.owl#GameStatus"/>
+    <owl:NamedIndividual rdf:about="&Ontology;Waiting">
+        <rdf:type rdf:resource="&Ontology;GameStatus"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 
