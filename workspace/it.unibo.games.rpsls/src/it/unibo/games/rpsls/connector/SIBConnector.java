@@ -113,7 +113,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		}
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString() , "URI", "URI");
 		
-		//FIX-ME: GameDescription
+		// TODO: GameDescription
 		
 		xml = kp.insert(triples);
 		
@@ -134,6 +134,14 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean joinGame(IGame game, IPlayer player) {
+		/**
+		 * when a player joins a game previously registered  
+		 * we need to update:
+		 * 		- guest player
+		 * 		- status
+		 * 		- score (in a game in waiting is null)
+		 */
+		
 		boolean ack;
 		String xml = "";
 		ack = updateGameStatus(game, Game.ACTIVE);
@@ -154,17 +162,33 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean endGame(IGame game) {
+		
+		/**
+		 * simply change the game status
+		 */
+		
 		return updateGameStatus(game, Game.ENDED);
 	}
 
 	@Override
 	public boolean deleteGame(IGame game) {
+		
+		/**
+		 * remove game from SIB
+		 */
+		
 		String xml = kp.remove(NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
 		return xml_tools.isRemoveConfirmed(xml);
 	}
 
 	@Override
 	public boolean updateGameStatus(IGame game, String status) {
+		
+		/**
+		 * remove old-status triple, then, insert a triple that
+		 * describe the new status
+		 */
+		
 		boolean ack;
 		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", null, "URI", "URI");
 		ack = xml_tools.isRemoveConfirmed(xml);
@@ -183,6 +207,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean createNewPlayer(IPlayer player) {
+		
+		/**
+		 * we need to add to SIB the name of each player, identified by URI:
+		 */
 		
 		Vector<Vector<String>> triples = new Vector<Vector<String>>();
 		
@@ -209,6 +237,15 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	@Override
 	public boolean sendHit(IGame game, IPlayer player, ICommand hit) {
 		
+		/**
+		 * we need to add for each hit identified by URI, with type COMMAND:
+		 * 
+		 * 		- the type of command (Rock, Paper, Scissors, Lizard, Spock)
+		 * 		- the issuers (player that hit the command)
+		 * 		- the command interface (connected to the game session)
+		 * 		- the time of hit
+		 */
+		
 		Vector<Vector<String>> triples = new Vector<Vector<String>>();
 		
 		Vector<String> v;
@@ -226,12 +263,14 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString(), "URI", "URI");
 		triples.add(v);
 		
+		// TODO: manca il timestamp
+		
 		xml = kp.insert(triples);
 		
 		ack = xml_tools.isInsertConfirmed(xml);
 		if(!ack)
 		{
-			System.err.println ("Error Inserting new Player in the SIB");
+			System.err.println ("Error Inserting new Hit in the SIB");
 		}
 		
 		return ack;
@@ -265,6 +304,12 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	
 	@Override
 	public boolean updateGameScore(IGame game) {
+		
+		/**
+		 * remove old-score triple, then, insert a triple that
+		 * describe the new score
+		 */
+		
 		boolean ack;
 		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", null, "URI", "literal");
 		ack = xml_tools.isRemoveConfirmed(xml);
