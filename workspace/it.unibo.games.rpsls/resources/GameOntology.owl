@@ -315,24 +315,15 @@
     
 
 
-    <!-- http://rpsls.games.unibo.it/Ontology.owl#RPSLS-Command -->
-
-    <owl:NamedIndividual rdf:about="&Ontology;RPSLS-Command">
-        <rdf:type rdf:resource="&Ontology;Command"/>
-        <Ontology:HasCommandType rdf:resource="&Ontology;Lizard"/>
-        <Ontology:HasCommandType rdf:resource="&Ontology;Paper"/>
-        <Ontology:HasCommandType rdf:resource="&Ontology;Rock"/>
-        <Ontology:HasCommandType rdf:resource="&Ontology;Scissors"/>
-        <Ontology:HasCommandType rdf:resource="&Ontology;Spock"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://rpsls.games.unibo.it/Ontology.owl#RPSLS-ControlSet -->
 
     <owl:NamedIndividual rdf:about="&Ontology;RPSLS-ControlSet">
         <rdf:type rdf:resource="&Ontology;ControlSet"/>
-        <Ontology:HasSupportedCommand rdf:resource="&Ontology;RPSLS-Command"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;Lizard"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;Paper"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;Rock"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;Scissors"/>
+        <Ontology:HasSupportedCommand rdf:resource="&Ontology;Spock"/>
     </owl:NamedIndividual>
     
 
