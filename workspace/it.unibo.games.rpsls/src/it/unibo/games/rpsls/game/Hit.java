@@ -1,10 +1,10 @@
 package it.unibo.games.rpsls.game;
 
 import it.unibo.games.rpsls.connector.ConnectorEntity;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Hit extends ConnectorEntity implements IHit {
+public class Hit extends ConnectorEntity implements ICommand {
 
 	public static String ROCK = "rock";
 	public static String PAPER = "paper";
@@ -20,16 +20,16 @@ public class Hit extends ConnectorEntity implements IHit {
 	}
 	
 	@Override
-	public int compareTo(IHit o) {
+	public int compareTo(ICommand o) {
 		return Integer.parseInt(Utils.compareHits(this, o)[0]);
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setCommandType(String name) {
 		this.name = name;
 	}
 	@Override
-	public String getName() {
+	public String getCommandType() {
 		return name;
 	}
 	@Override
@@ -38,17 +38,17 @@ public class Hit extends ConnectorEntity implements IHit {
 	}
 
 	@Override
-	public boolean equals(IHit i) {
-		return name.equals(i.getName());
+	public boolean equals(ICommand i) {
+		return name.equals(i.getCommandType());
 	}
 
 	@Override
-	public void setPlayer(IPlayer player) {
+	public void setIssuer(IPlayer player) {
 		this.player = player;
 	}
 
 	@Override
-	public IPlayer getPlayer() {
+	public IPlayer getIssuer() {
 		return player;
 	}
 }

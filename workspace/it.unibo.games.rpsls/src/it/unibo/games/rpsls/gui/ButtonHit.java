@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -19,10 +19,10 @@ import javax.swing.JLabel;
 
 public class ButtonHit extends JButton implements ActionListener {
 
-	private IHit hit;
+	private ICommand hit;
 	private ViewMatch panelGame;
 	
-	public ButtonHit(IHit hit) {
+	public ButtonHit(ICommand hit) {
 		super();
 		this.hit = hit;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -30,7 +30,7 @@ public class ButtonHit extends JButton implements ActionListener {
 		addActionListener(this);
 	}
 	
-	public IHit getHit() {
+	public ICommand getHit() {
 		return hit;
 	}
 	
@@ -52,7 +52,7 @@ public class ButtonHit extends JButton implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		JLabel l = new JLabel(hit.getName());
+		JLabel l = new JLabel(hit.getCommandType());
 		l.setAlignmentX(Component.CENTER_ALIGNMENT);
 		l.setFont(new Font(l.getFont().getName(), Font.PLAIN, 10));
 		this.add(l);

@@ -1,14 +1,14 @@
 package it.unibo.games.rpsls.game;
 
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 
 public class Utils {
 
-	public static String[] compareHits(IHit first, IHit second) {
+	public static String[] compareHits(ICommand first, ICommand second) {
 		String[] result = new String[2];
 	
-		String f = first.getName();
-		String s = second.getName();
+		String f = first.getCommandType();
+		String s = second.getCommandType();
 		
 		if (f.equals(s)) {
 			result[0] = "0";

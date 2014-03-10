@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 
 public class PanelHit extends JPanel {
 
-	private IHit hit;
+	private ICommand hit;
 	private JLabel icon;
 	private JLabel name;
 	
-	public PanelHit(IHit hit) {
+	public PanelHit(ICommand hit) {
 		super();
 		init();
 		setHit(hit);
@@ -47,18 +47,18 @@ public class PanelHit extends JPanel {
 		this.add(p1);
 	}
 	
-	public void setHit(IHit hit) {
+	public void setHit(ICommand hit) {
 		if (hit == null) {
 			clean();
 			return;
 		}
 		this.hit = hit;
 		File icon = Utils.getHitPanelIcon(hit);
-		String name = hit.getName();
+		String name = hit.getCommandType();
 		setIconAndLabel(icon, name);
 	}
 	
-	public IHit getHit() {
+	public ICommand getHit() {
 		return hit;
 	}
 	

@@ -10,7 +10,7 @@ import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class SimpleConnectorPrototype implements IConnector {
@@ -101,13 +101,13 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public boolean sendHit(IGame game, IPlayer player, IHit hit) {
+	public boolean sendHit(IGame game, IPlayer player, ICommand hit) {
 		debug(String.format("SEND HIT: %s %s %s", game.getURIToString(), player.getURIToString(), hit.getURIToString()));
 		return true;
 	}
 
 	@Override
-	public IHit getHit(IGame game, IPlayer player) {
+	public ICommand getHit(IGame game, IPlayer player) {
 		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
 		int i = (int) Math.random() % hits.length;
 		debug(String.format("GET HIT %s from %s", hits[i], player.getURIToString()));

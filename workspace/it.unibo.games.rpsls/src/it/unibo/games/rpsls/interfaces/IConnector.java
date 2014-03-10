@@ -27,7 +27,7 @@ public interface IConnector {
 	public IPlayer getIncomingPlayer(IGame game);
 	
 	// Hits
-	public boolean sendHit(IGame game, IPlayer player, IHit hit);
-	public IHit getHit(IGame game, IPlayer player);
+	public boolean sendHit(IGame game, IPlayer player, ICommand hit);
+	public ICommand getHit(IGame game, IPlayer player);
 	
 }

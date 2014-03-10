@@ -5,7 +5,7 @@ import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
 
@@ -175,9 +175,9 @@ public class MainWindow {
 		showView(viewJoinGame);
 	}
 	
-	public void sendHit(IHit hit) {
+	public void sendHit(ICommand hit) {
 		connector.sendHit(current_game, me, hit);
-		IHit received_hit = connector.getHit(current_game, enemy);
+		ICommand received_hit = connector.getHit(current_game, enemy);
 		viewMatch.receivedEnemyHit(received_hit);
 	}
 }

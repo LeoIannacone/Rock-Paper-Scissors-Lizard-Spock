@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
@@ -119,9 +119,9 @@ public class ViewMatch extends ViewDefault {
 		for (String h : hits) {
 			Hit hit = new Hit(h);
 			if(me_has_home)
-				hit.setPlayer(match.getHomePlayer());
+				hit.setIssuer(match.getHomePlayer());
 			else
-				hit.setPlayer(match.getGuestPlayer());
+				hit.setIssuer(match.getGuestPlayer());
 			ButtonHit b = new ButtonHit(new Hit(h));
 			b.setPanelGame(this);
 			buttonsHit.add(b);
@@ -158,7 +158,7 @@ public class ViewMatch extends ViewDefault {
 		winnerLabel.setText("");
 	}
 	
-	public void receivedEnemyHit(IHit hit) {
+	public void receivedEnemyHit(ICommand hit) {
 		enemyPanelHit.setHit(hit);
 		if (currentHitButton != null)
 			showLabelWinning();

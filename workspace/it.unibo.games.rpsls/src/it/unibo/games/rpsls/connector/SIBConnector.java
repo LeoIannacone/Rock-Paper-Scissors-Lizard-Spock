@@ -10,7 +10,7 @@ import sofia_kp.iKPIC_subscribeHandler;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
@@ -66,31 +66,54 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean createNewGame(IGame game) {
-
+		
+		/**
+		 * we need to add for each game session identified by URI:
+		 * 
+		 * 		- an HomePlayer
+		 * 		- a GuestPlayer (if not null)
+		 * 		- a GameStatus (initially set to WAITING)
+		 * 		- a Score (data property)
+		 * 		- a CommandInterface (a new URI that we must initialize)
+		 * 		- a GameDescription
+		 */
+		
 		Vector<Vector<String>> triples = new Vector<Vector<String>>();
 		
 		Vector<String> v;
 		String uri = game.getURIToString();
 		
+		//insert in SIB a new URI with type GameSession
 		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "GameSession", "URI", "URI");
 		triples.add(v);
 		
+		//HomePlayer
 		if(game.getHomePlayer() != null){
 			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasHome", NAME_SPACE + game.getHomePlayer().getURIToString(), "URI", "URI");
 			triples.add(v);
 		}
 		
+		//GuestPlayer
 		if(game.getGuestPlayer() != null){
 			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasGuest", NAME_SPACE + game.getGuestPlayer().getURIToString(), "URI", "URI");
 			triples.add(v);
 		}
 		
+		//Score
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
 		triples.add(v);
 		
+		//Status
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasStatus", NAME_SPACE + game.getStatus(), "URI", "URI");
 		triples.add(v);
 		
+		//CommandInterface
+		if( game.getCommandInterface() == null ){
+			game.setCommandInterface(new SIBCommandInterface());
+		}
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString() , "URI", "URI");
+		
+		//FIX-ME: GameDescription
 		
 		xml = kp.insert(triples);
 		
@@ -184,7 +207,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public boolean sendHit(IGame game, IPlayer player, IHit hit) {
+	public boolean sendHit(IGame game, IPlayer player, ICommand hit) {
 		
 		Vector<Vector<String>> triples = new Vector<Vector<String>>();
 		
@@ -214,7 +237,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public IHit getHit(IGame game, IPlayer player) {
+	public ICommand getHit(IGame game, IPlayer player) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -250,4 +273,5 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		}
 		return ack;
 	}
+
 }

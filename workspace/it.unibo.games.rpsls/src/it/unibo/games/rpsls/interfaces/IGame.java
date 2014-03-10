@@ -21,5 +21,8 @@ public interface IGame extends IConnectorEntity {
 	
 	public void setScore(String s);
 	public String getScore();
+
+	public void setCommandInterface(IConnectorEntity commandInterface);
+	public IConnectorEntity getCommandInterface();
 	
 }
