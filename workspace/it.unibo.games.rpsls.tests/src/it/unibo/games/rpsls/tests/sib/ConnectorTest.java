@@ -88,11 +88,12 @@ public class ConnectorTest {
 	}
 	
 	public static void testDeleteGame(){
-		Player home = new Player("testJoinHOME");
+		Player home = new Player("testDeleteHOME");
 		SIBC.createNewPlayer(home);
 		IGame g = new Game(home, null);
 		SIBC.createNewGame(g);
 		System.out.println("JUST_CREATED: " + g.toString());
 		SIBC.deleteGame(g);
+		System.out.println("Game Deleted");
 	}
 }
