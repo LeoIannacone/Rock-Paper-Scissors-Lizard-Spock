@@ -1,7 +1,10 @@
 package it.unibo.games.rpsls.tests.sib;
 
+import java.util.Vector;
+
 import it.unibo.games.rpsls.connector.Config;
 import it.unibo.games.rpsls.connector.SIBConnector;
+import it.unibo.games.rpsls.connector.Utils;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
@@ -15,7 +18,6 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 	public SubscriptionTest(){
 		
 		System.out.println("creating new subscription");
-		System.out.println("Query:\n     SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }");
 		String xml = "";
 	
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
@@ -78,10 +80,9 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 	
 	
 	public static void main(String [] args){
-		new SubscriptionTest();
-		
+//		new SubscriptionTest();
+		new SubscriptionTest(Utils.createSPARQLQuerySelectWhere(null, SIBConnector.NAME_SPACE + "hasName", null));
 	}
-
 
 	@Override
 	public void kpic_SIBEventHandler(String xml_received) {
@@ -116,7 +117,17 @@ class ThreadHandler implements Runnable {
 		SSAP_sparql_response deleted_row = xml_tools.get_SPARQL_indication_obsolete_results(xml);
 		if (inserted_row != null)
 		{
-			System.out.println("new: \n " + inserted_row.print_as_string());
+			
+			Vector<Vector<String[]>> results = inserted_row.getResults();
+			for (Vector<String[]> result : results){
+				for (String [] s : result){
+					 for (int i=0;i<s.length; i++){
+						System.out.println(i + ":" + s[i]);
+					 }
+				}
+			}
+			
+			
 		}
 		if (deleted_row != null)
 		{
