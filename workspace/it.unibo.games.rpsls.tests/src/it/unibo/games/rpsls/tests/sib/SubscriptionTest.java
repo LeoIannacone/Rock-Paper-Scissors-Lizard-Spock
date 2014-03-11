@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.tests.sib;
 
 import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.SIBConnector;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
@@ -8,50 +9,107 @@ import sofia_kp.iKPIC_subscribeHandler;
 
 public class SubscriptionTest implements iKPIC_subscribeHandler{
 	
-	private static KPICore kp;
-	private static SSAP_XMLTools xml_tools;
+	protected KPICore kp;
+	protected SSAP_XMLTools xml_tools = new SSAP_XMLTools();
 	
-	
-	public static void main(String [] args){
-		String xml = "";
+	public SubscriptionTest(){
 		
+		System.out.println("creating new subscription");
+		System.out.println("Query:\n     SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }");
+		String xml = "";
+	
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		
-		xml = kp.subscribeSPARQL("Select ?a ?b ?c where { ?a ?b ?c }");// SPARQL subscription to all triples
-		String subID = null;		
+		kp.setEventHandler(this);
+		
+		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }");// SPARQL subscription to all triples
+		
+		String subID = null;
+		
 		if(xml_tools.isSubscriptionConfirmed(xml))
 		{
-			try
-			{
+			try{
 				subID = xml_tools.getSubscriptionID(xml);
+				System.out.println("Subscription ID: " + subID);
 			}
-			catch(Exception e)
-			{
-
-			}
+			catch(Exception e){ e.printStackTrace(); }
 		}
-		else
-		{
+		else{
 			System.out.println ("Error during subscription");
 		}
+		
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 
 		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
+
+		System.out.println("constructor ended");
+	}
+	
+	
+	public SubscriptionTest(String subscription){
+		String xml = "";
+		
+		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
+		kp.join();
+		
+		kp.setEventHandler(this);
+		
+		xml = kp.subscribeSPARQL(subscription);// SPARQL subscription to all triples
+		
+		String subID = null;
+		
+		if(xml_tools.isSubscriptionConfirmed(xml))
+		{
+			try{
+				subID = xml_tools.getSubscriptionID(xml);
+			}
+			catch(Exception e){ e.printStackTrace(); }
+		}
+		else{
+			System.out.println ("Error during subscription");
+		}
+		
+		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
+
+		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
+
+		System.out.println("Created new subscription with query:\n      " + subscription);
+		
+	}
+	
+	
+	public static void main(String [] args){
+		new SubscriptionTest();
 		
 	}
 
 
 	@Override
 	public void kpic_SIBEventHandler(String xml_received) {
-		final String xml = xml_received;
-		new Thread(
-				new Runnable() {
-					public void run() {
-						System.out.println("added new triple");
-					}
-				}
-		);
-		
+		String xml2 = xml_received;
+		Thread t = new Thread(new ThreadHandler(xml2));
+		t.start();
 	}
 
+}
+
+
+class ThreadHandler implements Runnable {
+
+	private String xml; 
+	private SSAP_XMLTools xml_tools;
+	
+	public ThreadHandler(String xml) {
+		this.xml = xml;
+	}
+		
+	@Override
+	public void run() {
+		xml_tools = new SSAP_XMLTools();
+		System.out.println("new triple received from subscription: " + xml_tools.getSubscriptionID(this.xml));
+		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(this.xml);
+		//FIXME: find a representation
+		System.out.println("     " + resp.print_as_string());
+	}
+	
 }
