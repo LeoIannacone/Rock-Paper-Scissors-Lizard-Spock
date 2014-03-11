@@ -501,7 +501,21 @@ public class KP_GUI  extends Panel implements ActionListener, iKPIC_subscribeHan
 	    	taMemo.setText("");
 	    	taMemo.append("\nSPARQL QUERY!"); 
 	    	
-	    	ret = kp.querySPARQL(tfSQ.getText());
+	    	String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+	    	String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+	    	String OWL = "http://www.w3.org/2002/07/owl#";
+	    	String XSD = "http://www.w3.org/2001/XMLSchema#";
+	    	String NS = "http://rpsls.games.unibo.it/Ontology.owl#";
+	    	
+	    	String SPARQLquery = tfSQ.getText().replace("rdfs:", RDFS);
+	    	SPARQLquery = SPARQLquery.replace("rdf:", RDF);
+	    	SPARQLquery = SPARQLquery.replace("owl:", OWL);
+	    	SPARQLquery = SPARQLquery.replace("xsd:", XSD);
+	    	SPARQLquery = SPARQLquery.replace("namespace:", NS);
+	    	
+	    	System.out.println(SPARQLquery);
+	    			
+	    	ret = kp.querySPARQL(SPARQLquery);
 	    	
 	    	taMemo.append("SIB MESSAGE:\n"+ret+"\n\nKP-CORE MESSAGE:"+kp.getErrMess()+"("+kp.getErrID()+")\n");
 		    taMemo.append("SPARQLQuery confirmed:"+(this.xmlTools.isQueryConfirmed(ret)?"YES":"NO")+"\n");
