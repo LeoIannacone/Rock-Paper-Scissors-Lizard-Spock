@@ -1,5 +1,6 @@
 package it.unibo.games.rpsls.connector;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -263,7 +264,8 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString(), "URI", "URI");
 		triples.add(v);
 		
-		// TODO: manca il timestamp
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasTime", "" + new Date().getTime(), "URI", "literal");
+		triples.add(v);
 		
 		xml = kp.insert(triples);
 		
