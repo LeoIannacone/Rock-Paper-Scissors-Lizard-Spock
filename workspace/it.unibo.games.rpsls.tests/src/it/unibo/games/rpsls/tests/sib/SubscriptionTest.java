@@ -42,7 +42,6 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 
 		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
 
-		System.out.println("constructor ended");
 	}
 	
 	
@@ -106,10 +105,23 @@ class ThreadHandler implements Runnable {
 	@Override
 	public void run() {
 		xml_tools = new SSAP_XMLTools();
-		System.out.println("new triple received from subscription: " + xml_tools.getSubscriptionID(this.xml));
-		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(this.xml);
-		//FIXME: find a representation
-		System.out.println("     " + resp.print_as_string());
+		System.out.println("new triple received from subscription: " + xml_tools.getSubscriptionID(xml));
+		
+		/**
+		 * Print the variables of the SPARQL-query subscribed
+		 * 			we need to find a way to get this values!!
+		 */
+		
+		SSAP_sparql_response inserted_row = xml_tools.get_SPARQL_indication_new_results(xml);
+		SSAP_sparql_response deleted_row = xml_tools.get_SPARQL_indication_obsolete_results(xml);
+		if (inserted_row != null)
+		{
+			System.out.println("new: \n " + inserted_row.print_as_string());
+		}
+		if (deleted_row != null)
+		{
+			System.out.println("obsolete: \n " + deleted_row.print_as_string());
+		}
 	}
 	
 }
