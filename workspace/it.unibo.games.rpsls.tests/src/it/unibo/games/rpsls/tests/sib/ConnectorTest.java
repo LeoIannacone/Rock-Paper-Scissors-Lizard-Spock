@@ -1,5 +1,7 @@
 package it.unibo.games.rpsls.tests.sib;
 
+import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
+
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
@@ -17,13 +19,15 @@ public class ConnectorTest {
 		//trying connection to SIB
 		SIBC.connect();
 		
+		insertPlayer("");
+		
 //		insertGame();
 		
 //		testChangeStats();
 		
 //		testJoin();
 		
-		testDeleteGame();
+//		testDeleteGame();
 	}
 	
 	private static void insertGame() {
@@ -48,6 +52,9 @@ public class ConnectorTest {
 	}
 
 	public static Player insertPlayer(String s){
+		
+		if (s == null || s == "")
+			s = "test_insertPlayer";
 		//create new player
 		Player p = new Player(s);
 		p.getURIToString();
