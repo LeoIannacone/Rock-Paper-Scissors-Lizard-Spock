@@ -74,9 +74,21 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 		
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 
-		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
-
-		System.out.println("Created new subscription with query:\n      " + subscription);
+//		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
+		System.out.println("PLAYERS in SIB: \n");
+		Vector<Vector<String[]>> results = resp.getResults();
+		for (Vector<String[]> result : results){
+			for (String [] res : result){
+				 if(res[0].equals("subject")){
+					String uri = Utils.removePrefix(res[2]);
+					IPlayer p = SIBFactory.getInstance().getPlayer(uri);
+					System.out.println("name: " + p.getName());
+				 }
+			}
+		}
+		
+		
+//		System.out.println("Created new subscription with query:\n      " + subscription);
 		
 	}
 	
@@ -88,8 +100,8 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 
 	@Override
 	public void kpic_SIBEventHandler(String xml_received) {
-		String xml2 = xml_received;
-		Thread t = new Thread(new ThreadHandler(xml2));
+		String xml = xml_received;
+		Thread t = new Thread(new ThreadHandler(xml));
 		t.start();
 	}
 
@@ -128,24 +140,39 @@ class ThreadHandler implements Runnable {
 			 * 		Vector<Vector<String[2]>> = value
 			 */
 			
-			Vector<Vector<String[]>> results = inserted_row.getResults();
-			for (Vector<String[]> result : results){
-				for (String [] res : result){
-					 if(res[0].equals("subject")){
-						String uri = Utils.removePrefix(res[2]);
-						IPlayer p = SIBFactory.getInstance().getPlayer(uri);
-						System.out.println("name: " + p.getName());
-						System.out.println("score: " + p.getScore());
-					 }
-				}
-			}
+			/**
+			 * different methods for printing informations
+			 */
 			
+//			Vector<Vector<String[]>> results = inserted_row.getResults();
+//			for (Vector<String[]> result : results){
+//				for (String [] res : result){
+//					 if(res[0].equals("subject")){
+//						String uri = Utils.removePrefix(res[2]);
+//						IPlayer p = SIBFactory.getInstance().getPlayer(uri);
+//						System.out.println("name: " + p.getName());
+//						System.out.println("score: " + p.getScore());
+//					 }
+//				}
+//			}
+			
+//			Vector<String> variables = inserted_row.getVariablesNames();
+//			for( String var : variables){
+//				Vector<String[]> values = inserted_row.getResultsForVar(var);
+//				for (String[] val : values){
+//						System.out.println(var + " has value " + SSAP_sparql_response.getCellValue(val));
+//				}
+//			}
+			
+			Vector<String[]> values = inserted_row.getResultsForVar("subject");
+			for (String[] val : values){
+					System.out.println("subject has value " + SSAP_sparql_response.getCellValue(val));
+			}
 			
 		}
 		if (deleted_row != null)
 		{
 			System.out.println("obsolete: \n " + deleted_row.print_as_string());
 		}
-	}
-	
+	}	
 }
