@@ -40,7 +40,7 @@ public class SIBFactory {
 			triples = xml_tools.getQueryTriple(xml);
 			for(Vector<String> v : triples) {
 					p = new Player(v.get(2));
-					p.setURI(getValue(v.get(0)));
+					p.setURI(Utils.removePrefix(v.get(0)));
 			}
 			
 		}
@@ -61,8 +61,8 @@ public class SIBFactory {
 			String score = ""; // workaround if players are not yed defined
 			triples = xml_tools.getQueryTriple(xml);
 			for(Vector<String> v : triples) {
-				String what = getValue(v.get(1));
-				String value = getValue(v.get(2));
+				String what = Utils.removePrefix(v.get(1));
+				String value = Utils.removePrefix(v.get(2));
 				if (what.equals("HasStatus")) 
 					g.setStatus(value);
 				else if (what.equals("hasScore"))
@@ -79,11 +79,5 @@ public class SIBFactory {
 			g.setScore(score);
 		}
 		return g;
-	}
-	
-	private String getValue(String uri){
-		if (uri.contains("#"))
-			return uri.split("#")[1];
-		return uri;
 	}
 }
