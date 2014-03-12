@@ -81,7 +81,7 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 	
 	public static void main(String [] args){
 //		new SubscriptionTest();
-		new SubscriptionTest(Utils.createSPARQLQuerySelectWhere(null, SIBConnector.NAME_SPACE + "hasName", null));
+		new SubscriptionTest(Utils.createSimpleSPARQLQuerySelectWhere(null, SIBConnector.NAME_SPACE + "hasName", null));
 	}
 
 	@Override
