@@ -26,4 +26,10 @@ public class Utils {
 		return select+where;
 	}
 	
+	public static String removePrefix(String uri){
+		if (uri.contains("#"))
+			return uri.split("#")[1];
+		return uri;
+	}
+	
 }
