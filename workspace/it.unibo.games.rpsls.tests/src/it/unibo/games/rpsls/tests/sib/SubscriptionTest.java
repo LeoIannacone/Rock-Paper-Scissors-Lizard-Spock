@@ -4,7 +4,9 @@ import java.util.Vector;
 
 import it.unibo.games.rpsls.connector.Config;
 import it.unibo.games.rpsls.connector.SIBConnector;
+import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.connector.Utils;
+import it.unibo.games.rpsls.interfaces.IPlayer;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
@@ -118,11 +120,22 @@ class ThreadHandler implements Runnable {
 		if (inserted_row != null)
 		{
 			
+			/**
+			 * For each row:
+			 * 
+			 * 		Vector<Vector<String[0]>> = variable
+			 * 		Vector<Vector<String[1]>> = variable type (uri or literal)
+			 * 		Vector<Vector<String[2]>> = value
+			 */
+			
 			Vector<Vector<String[]>> results = inserted_row.getResults();
 			for (Vector<String[]> result : results){
-				for (String [] s : result){
-					 for (int i=0;i<s.length; i++){
-						System.out.println(i + ":" + s[i]);
+				for (String [] res : result){
+					 if(res[0].equals("subject")){
+						String uri = Utils.removePrefix(res[2]);
+						IPlayer p = SIBFactory.getInstance().getPlayer(uri);
+						System.out.println("name: " + p.getName());
+						System.out.println("score: " + p.getScore());
 					 }
 				}
 			}
