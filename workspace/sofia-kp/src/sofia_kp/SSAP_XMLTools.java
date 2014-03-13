@@ -69,10 +69,7 @@ public class SSAP_XMLTools
 	public SSAP_XMLTools() 
 	{
 		builder = new SAXBuilder();
-		this.nodeID           =null;
 		this.SMART_SPACE_NAME =null;
-		this.ANYURI           =null;
-
 	}
 
 	/**
