@@ -11,8 +11,9 @@ import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
 import sofia_kp.iKPIC_subscribeHandler;
+import sofia_kp.iKPIC_subscribeHandler2;
 
-public class SubscriptionTest implements iKPIC_subscribeHandler{
+public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 	
 	protected KPICore kp;
 	protected SSAP_XMLTools xml_tools = new SSAP_XMLTools();
@@ -24,9 +25,9 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 	
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		
-		kp.setEventHandler(this);
+		//kp.setEventHandler(this);
 		
-		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }");// SPARQL subscription to all triples
+		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }", this);// SPARQL subscription to all triples
 		
 		String subID = null;
 		
@@ -55,9 +56,11 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		
-		kp.setEventHandler(this);
+		// old kp sofia
+		//kp.setEventHandler(this);
+		//xml = kp.subscribeSPARQL(subscription);// SPARQL subscription to all triples
 		
-		xml = kp.subscribeSPARQL(subscription);// SPARQL subscription to all triples
+		xml = kp.subscribeSPARQL(subscription, this);
 		
 		String subID = null;
 		
@@ -98,11 +101,42 @@ public class SubscriptionTest implements iKPIC_subscribeHandler{
 		new SubscriptionTest(Utils.createSimpleSPARQLQuerySelectWhere(null, SIBConnector.NAME_SPACE + "hasName", null));
 	}
 
-	@Override
+	// old sofia_kp eventhandler
+	// @Ovveride
 	public void kpic_SIBEventHandler(String xml_received) {
 		String xml = xml_received;
 		Thread t = new Thread(new ThreadHandler(xml));
 		t.start();
+	}
+
+
+	@Override
+	public void kpic_RDFEventHandler(Vector<Vector<String>> newTriples,
+			Vector<Vector<String>> oldTriples, String indSequence, String subID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void kpic_SPARQLEventHandler(SSAP_sparql_response newResults,
+			SSAP_sparql_response oldResults, String indSequence, String subID) {
+		Thread t = new Thread(new ThreadHandler(newResults, oldResults, indSequence, subID));
+		t.start();
+	}
+
+
+	@Override
+	public void kpic_UnsubscribeEventHandler(String sub_ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void kpic_ExceptionEventHandler(Throwable SocketException) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
@@ -112,14 +146,32 @@ class ThreadHandler implements Runnable {
 
 	private String xml; 
 	private SSAP_XMLTools xml_tools;
+	private SSAP_sparql_response new_results;
+	private SSAP_sparql_response old_results;
+	private String subID;
+	private String indSequence;
+	
 	
 	public ThreadHandler(String xml) {
 		this.xml = xml;
+		xml_tools = new SSAP_XMLTools();
+		new_results = xml_tools.get_SPARQL_indication_new_results(xml);
+		old_results = xml_tools.get_SPARQL_indication_obsolete_results(xml);
+		subID = xml_tools.getSubscriptionID(xml);
+		indSequence = xml_tools.getSSAPmsgIndicationSequence(xml);
+	}
+	
+	public ThreadHandler(SSAP_sparql_response newResults,
+			SSAP_sparql_response oldResults, String indSequence, String subID) {
+		this.new_results = newResults;
+		this.old_results = oldResults;
+		this.indSequence = indSequence;
+		this.subID = subID;
 	}
 		
 	@Override
 	public void run() {
-		xml_tools = new SSAP_XMLTools();
+		
 		System.out.println("new triple received from subscription: " + xml_tools.getSubscriptionID(xml));
 		
 		/**
@@ -127,9 +179,7 @@ class ThreadHandler implements Runnable {
 		 * 			we need to find a way to get this values!!
 		 */
 		
-		SSAP_sparql_response inserted_row = xml_tools.get_SPARQL_indication_new_results(xml);
-		SSAP_sparql_response deleted_row = xml_tools.get_SPARQL_indication_obsolete_results(xml);
-		if (inserted_row != null)
+		if (new_results != null)
 		{
 			
 			/**
@@ -164,15 +214,15 @@ class ThreadHandler implements Runnable {
 //				}
 //			}
 			
-			Vector<String[]> values = inserted_row.getResultsForVar("subject");
+			Vector<String[]> values = new_results.getResultsForVar("subject");
 			for (String[] val : values){
 					System.out.println("subject has value " + SSAP_sparql_response.getCellValue(val));
 			}
 			
 		}
-		if (deleted_row != null)
+		if (old_results != null)
 		{
-			System.out.println("obsolete: \n " + deleted_row.print_as_string());
+			System.out.println("obsolete: \n " + old_results.print_as_string());
 		}
 	}	
 }
