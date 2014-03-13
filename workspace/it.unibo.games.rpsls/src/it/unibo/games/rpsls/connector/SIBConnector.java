@@ -113,6 +113,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			game.setCommandInterface(new SIBCommandInterface());
 		}
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString() , "URI", "URI");
+		triples.add(v);
 		
 		// TODO: GameDescription
 		
