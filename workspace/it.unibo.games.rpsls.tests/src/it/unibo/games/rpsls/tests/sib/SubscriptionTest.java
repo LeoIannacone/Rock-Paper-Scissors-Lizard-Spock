@@ -25,8 +25,6 @@ public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 	
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		
-		//kp.setEventHandler(this);
-		
 		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }", this);// SPARQL subscription to all triples
 		
 		String subID = null;
@@ -56,10 +54,6 @@ public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		
-		// old kp sofia
-		//kp.setEventHandler(this);
-		//xml = kp.subscribeSPARQL(subscription);// SPARQL subscription to all triples
-		
 		xml = kp.subscribeSPARQL(subscription, this);
 		
 		String subID = null;
@@ -77,7 +71,6 @@ public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 		
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 
-//		System.out.println(resp.print_as_string());//the representation of variables and corresponding values in human readable format
 		System.out.println("PLAYERS in SIB: \n");
 		Vector<Vector<String[]>> results = resp.getResults();
 		for (Vector<String[]> result : results){
@@ -97,16 +90,7 @@ public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 	
 	
 	public static void main(String [] args){
-//		new SubscriptionTest();
 		new SubscriptionTest(Utils.createSimpleSPARQLQuerySelectWhere(null, SIBConnector.NAME_SPACE + "hasName", null));
-	}
-
-	// old sofia_kp eventhandler
-	// @Ovveride
-	public void kpic_SIBEventHandler(String xml_received) {
-		String xml = xml_received;
-		Thread t = new Thread(new ThreadHandler(xml));
-		t.start();
 	}
 
 
@@ -172,8 +156,6 @@ class ThreadHandler implements Runnable {
 	@Override
 	public void run() {
 		
-		System.out.println("new triple received from subscription: " + xml_tools.getSubscriptionID(xml));
-		
 		/**
 		 * Print the variables of the SPARQL-query subscribed
 		 * 			we need to find a way to get this values!!
@@ -193,26 +175,6 @@ class ThreadHandler implements Runnable {
 			/**
 			 * different methods for printing informations
 			 */
-			
-//			Vector<Vector<String[]>> results = inserted_row.getResults();
-//			for (Vector<String[]> result : results){
-//				for (String [] res : result){
-//					 if(res[0].equals("subject")){
-//						String uri = Utils.removePrefix(res[2]);
-//						IPlayer p = SIBFactory.getInstance().getPlayer(uri);
-//						System.out.println("name: " + p.getName());
-//						System.out.println("score: " + p.getScore());
-//					 }
-//				}
-//			}
-			
-//			Vector<String> variables = inserted_row.getVariablesNames();
-//			for( String var : variables){
-//				Vector<String[]> values = inserted_row.getResultsForVar(var);
-//				for (String[] val : values){
-//						System.out.println(var + " has value " + SSAP_sparql_response.getCellValue(val));
-//				}
-//			}
 			
 			Vector<String[]> values = new_results.getResultsForVar("subject");
 			for (String[] val : values){
