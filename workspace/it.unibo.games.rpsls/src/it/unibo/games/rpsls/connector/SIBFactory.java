@@ -24,11 +24,11 @@ public class SIBFactory {
 	private SIBFactory(){
 		SIBC = SIBConnector.getInstance();
 		kp = SIBC.getKP();
+		xml_tools = SIBC.getXMLTools();
 	}
 	
 	public IPlayer getPlayer(String PlayerURI){
 		boolean ack;
-		xml_tools = SIBC.getXMLTools();
 		Player p = null;
 		Vector<Vector<String>> triples;
 		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + PlayerURI, SIBConnector.NAME_SPACE + "hasName", null, "uri", "literal");
