@@ -10,7 +10,7 @@ package sofia_kp;
 
 import java.util.Vector;
 
-public interface iKPIC_subscribeHandler {
+public interface iKPIC_subscribeHandler2 {
 	
 	String subID = "";
 
@@ -21,9 +21,15 @@ public interface iKPIC_subscribeHandler {
      * @param xml the string representation of the XML event message received from the SIB
      * 
      */
-	public void kpic_SIBEventHandler(String xml);
+	//public void kpic_SIBEventHandler(String xml);
 	
+	public void kpic_RDFEventHandler(Vector<Vector<String>> newTriples, Vector<Vector<String>> oldTriples, String indSequence, String subID );
 	
+	public void kpic_SPARQLEventHandler(SSAP_sparql_response newResults, SSAP_sparql_response oldResults, String indSequence, String subID );
+	
+	public void kpic_UnsubscribeEventHandler(String sub_ID );
+	
+	public void kpic_ExceptionEventHandler(Throwable SocketException );
 
 	
 }
