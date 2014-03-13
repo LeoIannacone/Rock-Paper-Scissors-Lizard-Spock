@@ -19,13 +19,13 @@ public class ConnectorTest {
 		//trying connection to SIB
 		SIBC.connect();
 		
-		insertPlayer("");
+//		insertPlayer("");
 		
 //		insertGame();
 		
 //		testChangeStats();
 		
-//		testJoin();
+		testJoin();
 		
 //		testDeleteGame();
 	}
@@ -88,6 +88,7 @@ public class ConnectorTest {
 		Player guest = new Player("testJoinGUEST");
 		SIBC.createNewPlayer(guest);
 		
+		g.setURI("Game_5bb2db99-2e4e-4e7b-a17b-15ea707fe071");
 		SIBC.joinGame(g, guest);
 		
 		g = SIBFactory.getInstance().getGame(g.getURIToString());
