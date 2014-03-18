@@ -61,7 +61,7 @@ public class MainWindow {
 	public MainWindow() {
 		read_me_from_file();
 		initialize();
-		connector = SimpleConnectorPrototype.getInstance();
+		connector = SIBConnector.getInstance();
 	}
 	
 	private void read_me_from_file() {
@@ -171,7 +171,7 @@ public class MainWindow {
 	public void showJoinGames(IPlayer player) {
 		List<IGame> games = connector.getWaitingGames();
 		set_me(player);
-		viewJoinGame.setWaitingGames(games);
+		viewJoinGame.appendWaitingGames(games);
 		showView(viewJoinGame);
 	}
 	
