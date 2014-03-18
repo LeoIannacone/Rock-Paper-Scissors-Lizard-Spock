@@ -5,9 +5,11 @@ import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
+import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class ConnectorTest {
 	
@@ -25,9 +27,11 @@ public class ConnectorTest {
 		
 //		testChangeStats();
 		
-		testJoin();
+//		testJoin();
 		
 //		testDeleteGame();
+		
+		testSendHit();
 	}
 	
 	private static void insertGame() {
@@ -87,8 +91,6 @@ public class ConnectorTest {
 		System.out.println("JUST_CREATED: " + g.toString());
 		Player guest = new Player("testJoinGUEST");
 		SIBC.createNewPlayer(guest);
-		
-		g.setURI("Game_5bb2db99-2e4e-4e7b-a17b-15ea707fe071");
 		SIBC.joinGame(g, guest);
 		
 		g = SIBFactory.getInstance().getGame(g.getURIToString());
@@ -103,5 +105,14 @@ public class ConnectorTest {
 		System.out.println("JUST_CREATED: " + g.toString());
 		SIBC.deleteGame(g);
 		System.out.println("Game Deleted");
+	}
+	
+	public static void testSendHit(){
+		IGame g = SIBFactory.getInstance().getGame("Game_c34e8d3b-fb98-4944-b365-adab5949acc2");
+		SIBC.createNewGame(g);
+		System.out.println("Created game: " + g.toString());
+		Hit hit = new Hit("Paper");
+		SIBC.sendHit(g, g.getHomePlayer(), hit);
+		System.out.println("Hit sended: " + hit.toString());
 	}
 }
