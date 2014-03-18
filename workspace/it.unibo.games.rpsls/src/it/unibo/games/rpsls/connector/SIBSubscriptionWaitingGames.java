@@ -51,13 +51,12 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 				String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 				waitingGames.add((SIBFactory.getInstance().getGame(uri)));
 		}
-		if(!waitingGames.isEmpty()){
-			System.out.println("Waiting games:");
-			for (IGame g : waitingGames){
-				System.out.println("  " + g.toString());
-			}
-		}
-		notifyObservers();
+//		if(!waitingGames.isEmpty()){
+//			System.out.println("Waiting games:");
+//			for (IGame g : waitingGames){
+//				System.out.println("  " + g.toString());
+//			}
+//		}
 	}
 	
 	public List<IGame> getWaitingGames(){

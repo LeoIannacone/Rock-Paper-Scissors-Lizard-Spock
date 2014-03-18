@@ -4,6 +4,7 @@ import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
 
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
+import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -31,9 +32,14 @@ public class ConnectorTest {
 		
 //		testDeleteGame();
 		
-		testSendHit();
+//		testSendHit();
+		testSubscriptionWaitingGames();
 	}
 	
+	private static void testSubscriptionWaitingGames() {
+		new SIBSubscriptionWaitingGames();
+	}
+
 	private static void insertGame() {
 		//create players
 		Player p1 = insertPlayer("Pippo");

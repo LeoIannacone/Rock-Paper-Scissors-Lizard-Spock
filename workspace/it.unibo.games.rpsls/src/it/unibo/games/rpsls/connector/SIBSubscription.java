@@ -1,8 +1,6 @@
 package it.unibo.games.rpsls.connector;
 
-import it.unibo.games.rpsls.interfaces.IPlayer;
 
-import java.util.Observable;
 import java.util.Vector;
 
 import sofia_kp.KPICore;
@@ -10,7 +8,7 @@ import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
 import sofia_kp.iKPIC_subscribeHandler2;
 
-public class SIBSubscription extends Observable implements iKPIC_subscribeHandler2 {
+public class SIBSubscription implements iKPIC_subscribeHandler2 {
 	
 	protected KPICore kp;
 	protected SSAP_XMLTools xml_tools = new SSAP_XMLTools();
@@ -50,21 +48,6 @@ public class SIBSubscription extends Observable implements iKPIC_subscribeHandle
 		// here we only print, override for each subclasses with management of object
 		//remember:
 
-		/**
-		 * For each row:
-		 * 
-		 * 		Vector<Vector<String[0]>> = variable
-		 * 		Vector<Vector<String[1]>> = variable type (uri or literal)
-		 * 		Vector<Vector<String[2]>> = value
-		 */
-		
-		/**
-		 * with this we can obtain the value of variable "subject" we can change the name to obtain others
-		 */
-//		Vector<String[]> values = new_results.getResultsForVar("subject");
-//		for (String[] val : values){
-//				System.out.println("subject has value " + SSAP_sparql_response.getCellValue(val));
-//		}
 		resp.print_as_string();
 	}
 
@@ -76,8 +59,6 @@ public class SIBSubscription extends Observable implements iKPIC_subscribeHandle
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 	@Override
 	public void kpic_UnsubscribeEventHandler(String sub_ID) {
