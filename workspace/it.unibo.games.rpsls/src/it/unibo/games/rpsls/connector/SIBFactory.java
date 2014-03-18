@@ -75,9 +75,15 @@ public class SIBFactory {
 					IPlayer guest = getPlayer(value);
 					g.setGuestPlayer(guest);
 				}
+				else if (what.equals("HasCommandInterface")){
+					IConnectorEntity commandInterface= new SIBCommandInterface();
+					commandInterface.setURI(value);
+					g.setCommandInterface(commandInterface);
+				}
 			}
 			g.setScore(score);
 		}
 		return g;
 	}
+
 }
