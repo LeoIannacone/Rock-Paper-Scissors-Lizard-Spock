@@ -29,6 +29,6 @@ Subscription for newHit:
 
 prova per test:
 	
-	SELECT ?type WHERE { <http://rpsls.games.unibo.it/Ontology.owl#SIBCommandInterface_62bf472b-2453-4545-b75f-8896cea907a9> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#Player_84abf0b4-db79-4f3c-9d1f-6630fbc2c251> . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasCommandType> ?type }
+	SELECT ?type WHERE { <http://rpsls.games.unibo.it/Ontology.owl#SIBCommandInterface_59bd7cac-6094-4cc5-8f5a-73fb8f3f7b43> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#Player_1d0a34a8-0fb0-4fac-b688-7972f2cabe78> . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasCommandType> ?type }
 
 
