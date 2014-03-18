@@ -256,13 +256,13 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Command", "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "HasCommandType", NAME_SPACE + hit.getCommandType(), "URI", "URI");
+		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandType", NAME_SPACE + hit.getCommandType(), "URI", "URI");
 		triples.add(v);
 		
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasIssuer", NAME_SPACE + player.getURIToString(), "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString(), "URI", "URI");
+		v = xml_tools.newTriple(NAME_SPACE + game.getCommandInterface().getURIToString(), NAME_SPACE + "HasCommand", NAME_SPACE + uri , "URI", "URI");
 		triples.add(v);
 		
 		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasTime", "" + new Date().getTime(), "URI", "literal");
