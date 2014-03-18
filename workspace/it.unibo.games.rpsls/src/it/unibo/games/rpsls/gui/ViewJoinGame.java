@@ -23,6 +23,7 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 
 	private HashMap<String, IGame> matches;
 	private JList<String> list;
+	Vector<String> listData;
 	private JButton join;
 	private JButton back;
 	
@@ -31,15 +32,19 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
 	}
-	
-	public void setWaitingGames(List<IGame> matches) {
+
+	public void appendWaitingGames(List<IGame> games) {
+		this.listData = new Vector<String>();
 		this.matches = new HashMap<String, IGame>();
-		Vector<String> listData = new Vector<String>();
-		for (IGame m : matches) {
-			String home = m.getHomePlayer().getName();
-			this.matches.put(home, m);
-			listData.add(home);
+		for (IGame g : games) {
+			this.appendWaitingGames(g);
 		}
+	}
+
+	public void appendWaitingGames(IGame game) {
+		String home = game.getHomePlayer().getName();
+		this.matches.put(home, game);
+		this.listData.add(home);
 		list.setListData(listData);
 	}
 	
