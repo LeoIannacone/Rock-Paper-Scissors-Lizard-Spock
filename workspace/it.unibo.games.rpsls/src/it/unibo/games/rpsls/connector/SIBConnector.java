@@ -9,6 +9,7 @@ import sofia_kp.SSAP_XMLTools;
 import sofia_kp.iKPIC_subscribeHandler;
 
 import it.unibo.games.rpsls.game.Game;
+import it.unibo.games.rpsls.gui.ViewJoinGame;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
@@ -321,6 +322,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			ack = xml_tools.isInsertConfirmed(xml);
 		}
 		return ack;
+	}
+	
+	public void getWaitingGames(ViewJoinGame view){
+		new SIBSubscriptionWaitingGames(view);
 	}
 
 }

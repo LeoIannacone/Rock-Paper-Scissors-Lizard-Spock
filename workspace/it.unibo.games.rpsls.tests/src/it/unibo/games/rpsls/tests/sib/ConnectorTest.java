@@ -37,14 +37,13 @@ public class ConnectorTest {
 	}
 	
 	private static void testSubscriptionWaitingGames() {
-		new SIBSubscriptionWaitingGames();
+		new SIBSubscriptionWaitingGames(null);
 	}
 
 	private static void insertGame() {
 		//create players
 		Player p1 = insertPlayer("Pippo");
 		Player p2 = insertPlayer("Pluto");
-		Player p3 = insertPlayer("xxx");
 		
 		//create new games
 		Game g1 = new Game(p1, null);
@@ -53,8 +52,8 @@ public class ConnectorTest {
 		if(SIBC.createNewGame(g1))
 			System.out.println("game added correctly");
 
-		Game g2 = new Game(p2, p3);
-		System.out.println("created new game with uri " + g1.getURIToString());
+		Game g2 = new Game(p2, null);
+		System.out.println("created new game with uri " + g2.getURIToString());
 		//insert game 1 in sib
 		if(SIBC.createNewGame(g2))
 			System.out.println("game added correctly");

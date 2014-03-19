@@ -42,6 +42,7 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 	}
 
 	public void appendWaitingGames(IGame game) {
+		System.out.println(" " + game.getHomePlayer().toString());
 		String home = game.getHomePlayer().getName();
 		this.matches.put(home, game);
 		this.listData.add(home);

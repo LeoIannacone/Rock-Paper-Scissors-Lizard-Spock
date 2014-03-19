@@ -31,7 +31,7 @@ public class MainWindow {
 	private ViewMatch viewMatch;
 	private ViewJoinGame viewJoinGame;
 	
-	private IConnector connector;
+	private SIBConnector connector;
 	
 	private IPlayer me;
 	private IPlayer enemy;
@@ -169,10 +169,9 @@ public class MainWindow {
 	}
 	
 	public void showJoinGames(IPlayer player) {
-		List<IGame> games = connector.getWaitingGames();
 		set_me(player);
-		viewJoinGame.appendWaitingGames(games);
 		showView(viewJoinGame);
+		connector.getWaitingGames(viewJoinGame);
 	}
 	
 	public void sendHit(ICommand hit) {
