@@ -170,23 +170,26 @@ public class ViewMatch extends ViewDefault {
 	private void showLabelWinning() {
 		if (enemyPanelHit == null || currentHitButton == null)
 			return;
-		
-		String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
-		
-		int i = Integer.parseInt(info[0]);
-		
-		if (i != 0) {
-			winnerLabel.setText(info[1]);
+		try{
+			String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
+			int i = Integer.parseInt(info[0]);
+			
+			if (i != 0) {
+				winnerLabel.setText(info[1]);
+			}
+			if (i > 0) {
+				if (me_has_home) versus.setText("→"); else versus.setText("←");
+				mePanelScore.increaseScore();
+			}
+			else if (i == 0) versus.setText("=");
+			else {
+				if (me_has_home) versus.setText("←"); else versus.setText("→");
+				enemyPanelScore.increaseScore();
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			System.exit(1);
 		}
-		if (i > 0) {
-			if (me_has_home) versus.setText("→"); else versus.setText("←");
-			mePanelScore.increaseScore();
-		}
-		else if (i == 0) versus.setText("=");
-		else {
-			if (me_has_home) versus.setText("←"); else versus.setText("→");
-			enemyPanelScore.increaseScore();
-		}	
 	}
 }
 
