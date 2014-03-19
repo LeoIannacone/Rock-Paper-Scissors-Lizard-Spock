@@ -4,8 +4,9 @@ import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
 
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
-import it.unibo.games.rpsls.connector.SIBSubscriptionJoinGame;
+import it.unibo.games.rpsls.connector.SIBSubscriptionHit;
 import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingGames;
+import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingIncomingPlayer;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -33,41 +34,52 @@ public class ConnectorTest {
 		
 //		testDeleteGame();
 		
-//		testSendHit();
+		testSendHit("Game_eebf7947-d321-48b4-8edd-94f281da702c");
 //		testSubscriptionWaitingGames();
-		testSubscriptionJoinGame();
+//		testSubscriptionJoinGame();
+		
+//		testSubsctriptionHit();
 	}
 	
+	private static void testSubsctriptionHit() {
+		IPlayer home = new Player("homeSubscriptionHit");
+		System.out.println("Home: " + home.getURIToString());
+		SIBC.createNewPlayer(home);
+		IPlayer guest = new Player("guestSubscriptionHit");
+		System.out.println("Guest: " + guest.getURIToString());
+		SIBC.createNewPlayer(guest);
+		IGame game = new Game(home, guest);
+		SIBC.createNewGame(game);
+		System.out.println("Game: " + game.getURIToString());
+		System.out.println("waiting new hit on commandInterface: " + game.getCommandInterface().getURIToString());
+		new SIBSubscriptionHit(game, null);
+	}
+
 	private static void testSubscriptionWaitingGames() {
 		new SIBSubscriptionWaitingGames(null);
 	}
 	
-	private static void testSubscriptionJoinGame(){
-		IGame game = SIBFactory.getInstance().getGame("Game_aa14919d-00b6-4843-b329-863292896122");
-		new SIBSubscriptionJoinGame(null, game);
-	}
+//	private static void testSubscriptionJoinGame(){
+//		IGame game = SIBFactory.getInstance().getGame("Game_aa14919d-00b6-4843-b329-863292896122");
+//		new SIBSubscriptionWaitingIncomingPlayer(null, game);
+//	}
 
-	private static void insertGame() {
+	private static IGame insertGame() {
 		//create players
-		Player p1 = insertPlayer("Pippo");
-		Player p2 = insertPlayer("Pluto");
+		IPlayer p1 = insertPlayer("Pippo");
+		IPlayer p2 = insertPlayer("Pluto");
 		
 		//create new games
-		Game g1 = new Game(p1, null);
-		System.out.println("created new game with uri " + g1.getURIToString());
+		Game game = new Game(p1, p2);
+		System.out.println("created new game with uri " + game.getURIToString());
 		//insert game 1 in sib
-		if(SIBC.createNewGame(g1))
+		if(SIBC.createNewGame(game))
 			System.out.println("game added correctly");
-
-		Game g2 = new Game(p2, null);
-		System.out.println("created new game with uri " + g2.getURIToString());
-		//insert game 1 in sib
-		if(SIBC.createNewGame(g2))
-			System.out.println("game added correctly");
+		return game;
 		
 	}
 
-	public static Player insertPlayer(String s){
+	public static IPlayer insertPlayer(String s){
 		
 		if (s == null || s == "")
 			s = "test_insertPlayer";
@@ -120,11 +132,16 @@ public class ConnectorTest {
 	}
 	
 	public static void testSendHit(){
-		IGame g = SIBFactory.getInstance().getGame("Game_c34e8d3b-fb98-4944-b365-adab5949acc2");
-		SIBC.createNewGame(g);
-		System.out.println("Created game: " + g.toString());
+		IGame g = insertGame();
 		Hit hit = new Hit("Paper");
 		SIBC.sendHit(g, g.getHomePlayer(), hit);
+		System.out.println("Hit sended: " + hit.toString());
+	}
+	
+	public static void testSendHit(String uriGame){
+		IGame g = SIBFactory.getInstance().getGame(uriGame);
+		Hit hit = new Hit("Paper");
+		SIBC.sendHit(g, g.getGuestPlayer(), hit);
 		System.out.println("Hit sended: " + hit.toString());
 	}
 }

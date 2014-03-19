@@ -22,7 +22,7 @@ public class SIBInitiator {
 	
 	
 	// set true to clear SIB
-	protected boolean clearSIB = false;
+	protected boolean clearSIB = true;
 	
 	public static void main(String[] argv)
 	{
