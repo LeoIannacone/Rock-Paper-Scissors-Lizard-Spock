@@ -34,11 +34,11 @@ public class ConnectorTest {
 		
 //		testDeleteGame();
 		
-		testSendHit("Game_f14c8b73-23db-4613-9b9b-e214dab30022");
+//		testSendHit("Game_f14c8b73-23db-4613-9b9b-e214dab30022");
 //		testSubscriptionWaitingGames();
 //		testSubscriptionJoinGame();
 		
-//		testSubsctriptionHit();
+		testSubsctriptionHit();
 	}
 	
 	private static void testSubsctriptionHit() {
@@ -53,6 +53,13 @@ public class ConnectorTest {
 		System.out.println("Game: " + game.getURIToString());
 		System.out.println("waiting new hit on commandInterface: " + game.getCommandInterface().getURIToString());
 		new SIBSubscriptionHit(game, null);
+		try {
+			Thread.sleep(20000);
+			testSendHit(game.getURIToString());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static void testSubscriptionWaitingGames() {
@@ -140,7 +147,7 @@ public class ConnectorTest {
 	
 	public static void testSendHit(String uriGame){
 		IGame g = SIBFactory.getInstance().getGame(uriGame);
-		Hit hit = new Hit("Paper");
+		Hit hit = new Hit(Hit.PAPER);
 		SIBC.sendHit(g, g.getGuestPlayer(), hit);
 		System.out.println("Hit sended: " + hit.toString());
 	}
