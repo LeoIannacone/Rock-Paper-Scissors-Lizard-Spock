@@ -36,7 +36,7 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 			System.out.println ("Error during subscription");
 		}	
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
-//		getNewObjectsFromResults(resp);
+		getNewObjectsFromResults(resp);
 	}
 
 	public void kpic_SPARQLEventHandler(SSAP_sparql_response newResults,

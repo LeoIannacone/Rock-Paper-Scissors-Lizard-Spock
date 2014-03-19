@@ -49,16 +49,12 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		Vector<String[]> values = resp.getResultsForVar("game");
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
-			if (viewJoinGame != null){
-				System.out.println("new waiting game: " + SIBFactory.getInstance().getGame(uri).getHomePlayer().toString());
-
+			if (viewJoinGame != null)
 				viewJoinGame.appendWaitingGames(SIBFactory.getInstance().getGame(uri));
-			}
 			else{
 				IGame g = SIBFactory.getInstance().getGame(uri);
 				System.out.println("Waiting games:");
 				System.out.println("  " + g.toString());
-				System.out.println("  " + g.getHomePlayer().toString());
 			}
 		}
 	}
