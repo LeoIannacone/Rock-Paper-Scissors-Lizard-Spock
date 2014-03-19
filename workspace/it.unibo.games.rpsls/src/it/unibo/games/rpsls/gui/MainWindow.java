@@ -161,6 +161,7 @@ public class MainWindow implements IObserver {
 	
 	public void joinGame(IGame game) {
 		current_game = game;
+		set_me(me);
 		game.setGuestPlayer(me);
 		game.setHomeAsOpponent(true);
 		enemy = game.getHomePlayer();
