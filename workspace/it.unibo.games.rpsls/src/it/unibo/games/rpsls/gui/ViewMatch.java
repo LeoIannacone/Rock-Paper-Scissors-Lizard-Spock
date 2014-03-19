@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
@@ -39,7 +40,7 @@ public class ViewMatch extends ViewDefault {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.me_has_home = me_has_home;
-		init();	
+		init();
 	}
 	
 	private void init() {

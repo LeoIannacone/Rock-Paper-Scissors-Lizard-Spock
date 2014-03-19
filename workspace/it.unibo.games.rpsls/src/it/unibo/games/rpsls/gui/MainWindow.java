@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.connector.SIBConnector;
+import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
@@ -74,6 +75,7 @@ public class MainWindow implements IObserver {
 			me = new Player(info[0]);
 			me.setURI(info[1]);
 			r.close();
+			me = SIBFactory.getInstance().getPlayer(me.getURIToString());
 		} catch (Exception e) {
 			me = null;
 		}
@@ -131,6 +133,7 @@ public class MainWindow implements IObserver {
 	}
 	
 	public void showViewMatch() {
+		connector.watchForHit(current_game, current_game.getOpponent(), this);
 		showView(viewMatch);
 	}
 	
@@ -159,11 +162,12 @@ public class MainWindow implements IObserver {
 	public void joinGame(IGame game) {
 		current_game = game;
 		game.setGuestPlayer(me);
+		game.setHomeAsOpponent(true);
 		enemy = game.getHomePlayer();
 		connector.joinGame(current_game, me);
 		viewMatch = new ViewMatch(current_game, false);
 		viewMatch.setMainWindow(this);
-		showView(viewMatch);
+		showViewMatch();
 	}
 	
 	public void showJoinGames(IPlayer player) {
@@ -191,8 +195,7 @@ public class MainWindow implements IObserver {
 
 	@Override
 	public void updateHit(ICommand hit) {
-		// TODO Auto-generated method stub
-		
+		viewMatch.receivedEnemyHit(hit);
 	}
 
 	@Override
@@ -201,6 +204,6 @@ public class MainWindow implements IObserver {
 		enemy = game.getGuestPlayer();
 		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
-		showView(viewMatch);
+		showViewMatch();
 	}
 }
