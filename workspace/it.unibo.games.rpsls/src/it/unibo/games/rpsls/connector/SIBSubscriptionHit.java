@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.connector;
 
 import it.unibo.games.rpsls.game.Hit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
 
@@ -13,10 +14,9 @@ public class SIBSubscriptionHit extends SIBSubscription {
 
 	protected IObserver observer;
 
-	protected static String SUBSCRIPTION_QUERY= "SELECT ?type WHERE { " +
+	protected static String SUBSCRIPTION_QUERY= "SELECT ?uri_command WHERE { " +
 			"<http://rpsls.games.unibo.it/Ontology.owl#%s> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . " +
-			"?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#%s> . " +
-			"?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasCommandType> ?type }";
+			"?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#%s> }";
 
 
 	public SIBSubscriptionHit(IGame game, IObserver observer){
@@ -43,13 +43,13 @@ public class SIBSubscriptionHit extends SIBSubscription {
 
 	@Override
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
-		Vector<String[]> values = resp.getResultsForVar("type");
+		Vector<String[]> values = resp.getResultsForVar("uri_command");
 		for (String[] val : values){
-			String type = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
+			String uri_command = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
+			ICommand c = SIBFactory.getInstance().getHit(uri_command);
 			if (observer != null)
-				observer.updateHit(new Hit(type));
+				observer.updateHit(c);
 			else{
-				Hit c = new Hit(type);
 				System.out.println("Hit received:");
 				System.out.println("  " + c.getCommandType());
 			}
