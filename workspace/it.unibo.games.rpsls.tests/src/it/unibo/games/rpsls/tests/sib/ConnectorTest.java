@@ -54,7 +54,7 @@ public class ConnectorTest {
 		System.out.println("waiting new hit on commandInterface: " + game.getCommandInterface().getURIToString());
 		new SIBSubscriptionHit(game, null);
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(2000);
 			testSendHit(game.getURIToString());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -148,7 +148,8 @@ public class ConnectorTest {
 	public static void testSendHit(String uriGame){
 		IGame g = SIBFactory.getInstance().getGame(uriGame);
 		Hit hit = new Hit(Hit.PAPER);
-		SIBC.sendHit(g, g.getGuestPlayer(), hit);
+		hit.setIssuer(g.getGuestPlayer());
+		SIBC.sendHit(g, hit.getIssuer(), hit);
 		System.out.println("Hit sended: " + hit.toString());
 	}
 }

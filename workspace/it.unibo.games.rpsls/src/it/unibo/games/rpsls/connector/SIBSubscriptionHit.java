@@ -24,8 +24,7 @@ public class SIBSubscriptionHit extends SIBSubscription {
 		this.observer = observer;
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
-		System.out.println(String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()));
-		xml = kp.subscribeSPARQL(String.format(SUBSCRIPTION_QUERY, game.getCommandInterface(), game.getOpponent()), this);
+		xml = kp.subscribeSPARQL(String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()), this);
 		subID = null;
 		if(xml_tools.isSubscriptionConfirmed(xml))
 		{
