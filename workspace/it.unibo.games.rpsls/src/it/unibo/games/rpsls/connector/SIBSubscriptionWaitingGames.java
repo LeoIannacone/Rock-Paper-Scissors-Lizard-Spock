@@ -28,7 +28,7 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		xml = kp.subscribeSPARQL(SUBSCRIPTION_QUERY, this);
-		String subID = null;
+		subID = null;
 		if(xml_tools.isSubscriptionConfirmed(xml))
 		{
 			try{

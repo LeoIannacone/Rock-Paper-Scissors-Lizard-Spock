@@ -69,8 +69,9 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 
 	@Override
 	public void kpic_UnsubscribeEventHandler(String sub_ID) {
+		System.out.println("unsuscribe");
 		if(sub_ID != null){
-			kp.unsubscribe(sub_ID);
+			System.out.println(kp.unsubscribe(sub_ID));
 			this.subID = null;
 			System.out.println("Unsuscribed " + sub_ID);
 		}
