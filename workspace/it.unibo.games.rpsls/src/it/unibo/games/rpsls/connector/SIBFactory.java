@@ -15,11 +15,6 @@ public class SIBFactory {
 	protected KPICore  kp;
 	protected SSAP_XMLTools xml_tools;
 	
-	/**
-	 * 		WORKAROUND: SSAP_XMLTools.ANYURI returns a string that contains "null"
-	 */
-	protected static String ANYURI ="http://www.nokia.com/NRC/M3/sib#any";
-	
 	public static SIBFactory getInstance(){
 		if (instance == null)
 			instance = new SIBFactory();
@@ -36,7 +31,7 @@ public class SIBFactory {
 		boolean ack;
 		Player p = null;
 		Vector<Vector<String>> triples;
-		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + PlayerURI, SIBConnector.NAME_SPACE + "hasName", ANYURI, "uri", "literal");
+		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + PlayerURI, SIBConnector.NAME_SPACE + "hasName", null, "uri", "literal");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
 			System.out.println ("Error during RDF-M3 query");
@@ -56,7 +51,7 @@ public class SIBFactory {
 		boolean ack;
 		Game g = new Game(null, null);
 		Vector<Vector<String>> triples;
-		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + GameURI, ANYURI , ANYURI, "uri", "uri");
+		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + GameURI, null , null, "uri", "uri");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
 			System.out.println ("Error during RDF-M3 query");
