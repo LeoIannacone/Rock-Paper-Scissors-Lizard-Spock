@@ -4,6 +4,7 @@ import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
 
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
+import it.unibo.games.rpsls.connector.SIBSubscriptionJoinGame;
 import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
@@ -33,11 +34,17 @@ public class ConnectorTest {
 //		testDeleteGame();
 		
 //		testSendHit();
-		testSubscriptionWaitingGames();
+//		testSubscriptionWaitingGames();
+		testSubscriptionJoinGame();
 	}
 	
 	private static void testSubscriptionWaitingGames() {
 		new SIBSubscriptionWaitingGames(null);
+	}
+	
+	private static void testSubscriptionJoinGame(){
+		IGame game = SIBFactory.getInstance().getGame("Game_aa14919d-00b6-4843-b329-863292896122");
+		new SIBSubscriptionJoinGame(null, game);
 	}
 
 	private static void insertGame() {
