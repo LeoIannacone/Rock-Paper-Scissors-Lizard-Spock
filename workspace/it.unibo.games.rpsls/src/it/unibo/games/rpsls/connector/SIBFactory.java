@@ -5,6 +5,7 @@ import java.util.Vector;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import it.unibo.games.rpsls.game.Game;
+import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.*;
 
@@ -87,5 +88,34 @@ public class SIBFactory {
 		}
 		return g;
 	}
-
+	
+	public ICommand getHit (String CommandURI) {
+		boolean ack;
+		ICommand c = new Hit("");
+		Vector<Vector<String>> triples;
+		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + CommandURI, null, null, "uri", "uri");
+		ack = xml_tools.isQueryConfirmed(xml);
+		if(!ack)
+			System.out.println ("Error during RDF-M3 query");
+		else
+		{
+			triples = xml_tools.getQueryTriple(xml);
+			for(Vector<String> v : triples) {
+				String what = Utils.removePrefix(v.get(1));
+				String value = Utils.removePrefix(v.get(2));
+				
+				if (what.equals("hasTime"))
+					c.setTime(Long.parseLong(value));
+				
+				else if (what.equals("HasIssuer")) {
+					c.setIssuer(SIBFactory.getInstance().getPlayer(value));
+				}
+				else if (what.equals("HasCommandType")) {
+					c.setCommandType(value);
+				}
+			}
+			
+		}
+		return c;
+	}
 }
