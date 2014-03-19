@@ -18,6 +18,7 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	private static SIBConnector instance;
+	private static SIBSubscriptionWaitingGames waitingGames;
 	
 	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -325,7 +326,13 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 	
 	public void getWaitingGames(ViewJoinGame view){
-		new SIBSubscriptionWaitingGames(view);
+		waitingGames = new SIBSubscriptionWaitingGames(view);
+	}
+	
+	public void unsubscribeWaitingGame(){
+		if (waitingGames != null && waitingGames.getSubID() != null){
+			waitingGames.kpic_UnsubscribeEventHandler(waitingGames.getSubID());
+		}
 	}
 
 }

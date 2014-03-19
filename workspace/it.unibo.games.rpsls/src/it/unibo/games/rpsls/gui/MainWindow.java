@@ -59,9 +59,9 @@ public class MainWindow {
 	 * Create the application.
 	 */
 	public MainWindow() {
+		connector = SIBConnector.getInstance();
 		read_me_from_file();
 		initialize();
-		connector = SIBConnector.getInstance();
 	}
 	
 	private void read_me_from_file() {
@@ -124,6 +124,7 @@ public class MainWindow {
 	}
 	
 	public void showViewWelcome() {
+		connector.unsubscribeWaitingGame();
 		showView(viewWelcome);
 	}
 	
@@ -170,6 +171,7 @@ public class MainWindow {
 	
 	public void showJoinGames(IPlayer player) {
 		set_me(player);
+		viewJoinGame.reset();
 		showView(viewJoinGame);
 		connector.getWaitingGames(viewJoinGame);
 	}

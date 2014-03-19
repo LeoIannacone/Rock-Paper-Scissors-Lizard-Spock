@@ -34,9 +34,6 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 	}
 
 	public void appendWaitingGames(List<IGame> games) {
-		//Moved to init
-//		this.listData = new Vector<String>();
-//		this.matches = new HashMap<String, IGame>();
 		for (IGame g : games) {
 			this.appendWaitingGames(g);
 		}
@@ -48,6 +45,11 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		this.matches.put(home, game);
 		this.listData.add(home);
 		list.setListData(listData);
+	}
+	
+	public void reset() {
+		this.listData = new Vector<String>();
+		this.matches = new HashMap<String, IGame>();
 	}
 	
 	private void init() {

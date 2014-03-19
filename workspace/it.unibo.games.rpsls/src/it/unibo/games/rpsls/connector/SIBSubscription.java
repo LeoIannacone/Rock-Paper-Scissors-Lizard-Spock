@@ -13,6 +13,7 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 	protected KPICore kp;
 	protected SSAP_XMLTools xml_tools = new SSAP_XMLTools();
 	protected SSAP_sparql_response resp;
+	protected String subID;
 	
 	public SIBSubscription(){
 		
@@ -23,7 +24,7 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		xml = kp.subscribeSPARQL(query, this);
-		String subID = null;
+		subID = null;
 		if(xml_tools.isSubscriptionConfirmed(xml))
 		{
 			try{
@@ -42,6 +43,12 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 			SSAP_sparql_response oldResults, String indSequence, String subID) {
 		Thread t = new Thread(new ThreadHandler(newResults, oldResults, indSequence, subID));
 		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
@@ -62,8 +69,11 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 
 	@Override
 	public void kpic_UnsubscribeEventHandler(String sub_ID) {
-		// TODO Auto-generated method stub
-		
+		if(sub_ID != null){
+			kp.unsubscribe(sub_ID);
+			this.subID = null;
+			System.out.println("Unsuscribed " + sub_ID);
+		}
 	}
 
 	@Override
@@ -113,5 +123,9 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 				System.out.println("obsolete: \n " + old_results.print_as_string());
 			}
 		}
+	}
+	
+	public String getSubID(){
+		return subID;
 	}
 }
