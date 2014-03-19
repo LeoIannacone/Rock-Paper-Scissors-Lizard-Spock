@@ -17,11 +17,13 @@ public class Game extends ConnectorEntity implements IGame {
 	private IPlayer home;
 	private IPlayer guest;
 	private String status;
+	private boolean homeAsOpponent;
 	
 	public Game(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
 		this.status = WAITING;
+		this.homeAsOpponent = false;
 	}
 	
 	@Override
@@ -123,5 +125,17 @@ public class Game extends ConnectorEntity implements IGame {
 	@Override
 	public IConnectorEntity getCommandInterface() {
 		return this.commandInterface;
+	}
+
+	@Override
+	public void setHomeAsOpponent(boolean isOpponent) {
+		this.homeAsOpponent = isOpponent;
+	}
+
+	@Override
+	public IPlayer getOpponent() {
+		if (this.homeAsOpponent)
+			return home;
+		return guest;
 	}
 }

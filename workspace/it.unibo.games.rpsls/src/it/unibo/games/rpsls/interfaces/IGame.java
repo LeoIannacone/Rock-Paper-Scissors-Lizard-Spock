@@ -25,4 +25,7 @@ public interface IGame extends IConnectorEntity {
 	public void setCommandInterface(IConnectorEntity commandInterface);
 	public IConnectorEntity getCommandInterface();
 	
+	public void setHomeAsOpponent(boolean isOpponent);
+	public IPlayer getOpponent();
+
 }
