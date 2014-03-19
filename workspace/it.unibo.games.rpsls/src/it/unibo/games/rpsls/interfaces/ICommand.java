@@ -10,4 +10,6 @@ public interface ICommand extends Comparable<ICommand>, IConnectorEntity {
 	
 	public boolean equals(ICommand i);
 	
+	public void setTime(long time);
+	public long getTime();
 }

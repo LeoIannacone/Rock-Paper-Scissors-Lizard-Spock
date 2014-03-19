@@ -1,5 +1,7 @@
 package it.unibo.games.rpsls.game;
 
+import java.util.Date;
+
 import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
@@ -14,9 +16,11 @@ public class Hit extends ConnectorEntity implements ICommand {
 	
 	private String name;
 	private IPlayer player;
+	private long time;
 	
 	public Hit(String name) {
 		this.name = name;
+		this.time = -1;
 	}
 	
 	@Override
@@ -50,5 +54,17 @@ public class Hit extends ConnectorEntity implements ICommand {
 	@Override
 	public IPlayer getIssuer() {
 		return player;
+	}
+
+	@Override
+	public void setTime(long time) {
+		this.time = time;
+	}
+
+	@Override
+	public long getTime() {
+		if (this.time <= 0)
+			time = new Date().getTime();
+		return time;
 	}
 }
