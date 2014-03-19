@@ -56,7 +56,7 @@ public class SSAP_XMLTools
 		builder = new SAXBuilder();
 		this.nodeID           =nodeID;
 		this.SMART_SPACE_NAME =SMART_SPACE_NAME;
-		this.ANYURI           =ANYURI;
+		this.ANYURI           = (ANYURI == null ? this.ANYURI : ANYURI);
 
 	}//public KPXML(String HOST,int PORT,String SMART_SPACE_NAME)
 
