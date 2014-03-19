@@ -25,29 +25,29 @@ public class Utils {
 		String Sp = Hit.SPOCK;
 		String R = Hit.ROCK;
 		
-		if (f == L) {
-			if(s == Sp)	r = "poisons";
-			else if (s == P) r = "eats";
+		if (f.equals(L)) {
+			if(s.equals(Sp))	r = "poisons";
+			else if (s.equals(P)) r = "eats";
 		}
 		
-		else if (f == Sc) {
-			if (s == L) r = "decapitates";
-			else if (s == P) r = "cuts";
+		else if (f.equals(Sc)) {
+			if (s.equals(L)) r = "decapitates";
+			else if (s.equals(P)) r = "cuts";
 		}
 		
-		else if (f == Sp) {
-			if (s == Sc) r = "smashes";
-			else if (s == R) r = "vaporizes";
+		else if (f.equals(Sp)) {
+			if (s.equals(Sc)) r = "smashes";
+			else if (s.equals(R)) r = "vaporizes";
 		}
 		
-		else if (f == P) {
-			if (s == R) r = "covers";
-			else if (s == Sp) r = "diproves";
+		else if (f.equals(P)) {
+			if (s.equals(R)) r = "covers";
+			else if (s.equals(Sp)) r = "diproves";
 		}
 		
-		else if (f == R) {
-			if (s == Sc) r = "crushes";
-			else if (s == L) r = "crushes";
+		else if (f.equals(R)) {
+			if (s.equals(Sc)) r = "crushes";
+			else if (s.equals(L)) r = "crushes";
 		}
 		
 		else {
