@@ -1,13 +1,9 @@
 package it.unibo.games.rpsls.connector;
 
 import it.unibo.games.rpsls.game.Hit;
-import it.unibo.games.rpsls.gui.ViewJoinGame;
-import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import sofia_kp.KPICore;
@@ -15,7 +11,6 @@ import sofia_kp.SSAP_sparql_response;
 
 public class SIBSubscriptionHit extends SIBSubscription {
 
-	protected List<IGame> waitingGames = null;
 	protected IObserver observer;
 
 	protected static String SUBSCRIPTION_QUERY= "SELECT ?type WHERE { " +
@@ -48,14 +43,13 @@ public class SIBSubscriptionHit extends SIBSubscription {
 
 	@Override
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
-		waitingGames = new ArrayList<IGame>();
 		Vector<String[]> values = resp.getResultsForVar("type");
 		for (String[] val : values){
 			String type = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			if (observer != null)
 				observer.updateHit(new Hit(type));
 			else{
-				ICommand c = new Hit(type);
+				Hit c = new Hit(type);
 				System.out.println("Hit received:");
 				System.out.println("  " + c.getCommandType());
 			}

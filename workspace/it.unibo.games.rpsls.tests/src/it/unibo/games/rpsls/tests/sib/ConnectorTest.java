@@ -34,7 +34,7 @@ public class ConnectorTest {
 		
 //		testDeleteGame();
 		
-		testSendHit("Game_eebf7947-d321-48b4-8edd-94f281da702c");
+		testSendHit("Game_f14c8b73-23db-4613-9b9b-e214dab30022");
 //		testSubscriptionWaitingGames();
 //		testSubscriptionJoinGame();
 		
