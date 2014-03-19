@@ -1,18 +1,16 @@
 package it.unibo.games.rpsls.connector;
 
-import it.unibo.games.rpsls.gui.MainWindow;
-import it.unibo.games.rpsls.gui.ViewJoinGame;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_sparql_response;
 
 public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
-	protected MainWindow mainWindow;
+	protected IObserver observer;
 	protected String uriGame="";
 	protected IGame game;
 
@@ -20,9 +18,9 @@ public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
 			"<http://rpsls.games.unibo.it/Ontology.owl#HasGuest> ?uri_player }";
 
 
-	public SIBSubscriptionWaitingIncomingPlayer(MainWindow mainWindow, IGame game){
+	public SIBSubscriptionWaitingIncomingPlayer(IGame game, IObserver observer){
 		String xml = "";
-		this.mainWindow = mainWindow;
+		this.observer = observer;
 		
 		this.game = game;
 		uriGame = this.game.getURIToString();
@@ -52,10 +50,10 @@ public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
 		IPlayer p = null;
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
-			if (mainWindow != null){
+			if (observer != null){
 				p = SIBFactory.getInstance().getPlayer(uri);
 				game.setGuestPlayer(p);
-				mainWindow.showViewMatch(game);
+				observer.updateIncomingPlayer(game);
 			}
 			else{
 				p = SIBFactory.getInstance().getPlayer(uri);

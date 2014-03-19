@@ -1,7 +1,7 @@
 package it.unibo.games.rpsls.connector;
 
-import it.unibo.games.rpsls.gui.ViewJoinGame;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import sofia_kp.SSAP_sparql_response;
 public class SIBSubscriptionWaitingGames extends SIBSubscription {
 
 	protected List<IGame> waitingGames = null;
-	protected ViewJoinGame viewJoinGame;
+	protected IObserver observer;
 
 	protected final static String SUBSCRIPTION_QUERY= "SELECT ?game WHERE "+
 			"{ ?game <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " +
@@ -22,9 +22,9 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 			"<http://rpsls.games.unibo.it/Ontology.owl#waiting>}";
 
 
-	public SIBSubscriptionWaitingGames(ViewJoinGame view){
+	public SIBSubscriptionWaitingGames(IObserver observer){
 		String xml = "";
-		viewJoinGame = view;
+		this.observer = observer;
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		xml = kp.subscribeSPARQL(SUBSCRIPTION_QUERY, this);
@@ -49,8 +49,8 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		Vector<String[]> values = resp.getResultsForVar("game");
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
-			if (viewJoinGame != null)
-				viewJoinGame.appendWaitingGames(SIBFactory.getInstance().getGame(uri));
+			if (observer != null)
+				observer.updateWaitingGames(SIBFactory.getInstance().getGame(uri));
 			else{
 				IGame g = SIBFactory.getInstance().getGame(uri);
 				System.out.println("Waiting games:");

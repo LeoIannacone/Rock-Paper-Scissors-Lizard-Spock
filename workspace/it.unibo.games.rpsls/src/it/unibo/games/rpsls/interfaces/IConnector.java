@@ -1,7 +1,5 @@
 package it.unibo.games.rpsls.interfaces;
 
-import java.util.List;
-
 public interface IConnector {
 	
 	// Will be a Singleton
@@ -13,7 +11,6 @@ public interface IConnector {
 	
 	// Games
 	public boolean createNewGame(IGame game);
-	public List<IGame> getWaitingGames();
 	public boolean joinGame(IGame game, IPlayer player);
 	public boolean leaveGame(IGame game, IPlayer player);
 	public boolean endGame(IGame game);
@@ -21,13 +18,20 @@ public interface IConnector {
 	public boolean updateGameStatus(IGame game, String status);
 	public String getGameStatus(IGame game);
 	public boolean updateGameScore(IGame game);
+	// Game subscribe
+	public void watchForWaitingGames(IObserver observer);
+	public void unwatchForWaitingGames();
 	
 	// Player
 	public boolean createNewPlayer(IPlayer player);
-	public IPlayer getIncomingPlayer(IGame game);
+	// Player subscribe
+	public void watchForIncomingPlayer(IGame game, IObserver observer);
+	public void unwatchForIncomingPlayer();
 	
 	// Hits
 	public boolean sendHit(IGame game, IPlayer player, ICommand hit);
-	public ICommand getHit(IGame game, IPlayer player);
+	// Hits subscribe
+	public void watchForHit(IGame game, IPlayer player, IObserver observer);
+	public void unwatchForHit();
 	
 }

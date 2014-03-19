@@ -1,7 +1,6 @@
 package it.unibo.games.rpsls.connector;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Vector;
 
 import sofia_kp.KPICore;
@@ -9,16 +8,17 @@ import sofia_kp.SSAP_XMLTools;
 import sofia_kp.iKPIC_subscribeHandler;
 
 import it.unibo.games.rpsls.game.Game;
-import it.unibo.games.rpsls.gui.ViewJoinGame;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
+import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	private static SIBConnector instance;
-	private static SIBSubscriptionWaitingGames waitingGames;
+	private SIBSubscriptionWaitingGames waitingGamesSubscription;
+	private SIBSubscriptionWaitingIncomingPlayer incomingPlayerSubscription;
 	
 	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -128,12 +128,6 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		}
 		
 		return ack;
-	}
-
-	@Override
-	public List<IGame> getWaitingGames() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -281,17 +275,6 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		return ack;
 	}
 
-	@Override
-	public ICommand getHit(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IPlayer getIncomingPlayer(IGame game) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public KPICore getKP(){
 		return kp;
@@ -325,14 +308,40 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		return ack;
 	}
 	
-	public void getWaitingGames(ViewJoinGame view){
-		waitingGames = new SIBSubscriptionWaitingGames(view);
+	@Override
+	public void watchForWaitingGames(IObserver observer) {
+		waitingGamesSubscription = new SIBSubscriptionWaitingGames(observer);
 	}
-	
-	public void unsubscribeWaitingGame(){
-		if (waitingGames != null && waitingGames.getSubID() != null){
-			waitingGames.kpic_UnsubscribeEventHandler(waitingGames.getSubID());
+
+	@Override
+	public void unwatchForWaitingGames() {
+		if (waitingGamesSubscription != null && waitingGamesSubscription.getSubID() != null){
+			waitingGamesSubscription.kpic_UnsubscribeEventHandler(waitingGamesSubscription.getSubID());
 		}
+	}
+
+	@Override
+	public void watchForIncomingPlayer(IGame game, IObserver observer) {
+		incomingPlayerSubscription = new SIBSubscriptionWaitingIncomingPlayer(game, observer);
+	}
+
+	@Override
+	public void unwatchForIncomingPlayer() {
+		if (incomingPlayerSubscription != null && incomingPlayerSubscription.getSubID() != null){
+			incomingPlayerSubscription.kpic_UnsubscribeEventHandler(incomingPlayerSubscription.getSubID());
+		}		
+	}
+
+	@Override
+	public void watchForHit(IGame game, IPlayer player, IObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unwatchForHit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -11,6 +11,7 @@ import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
+import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class SimpleConnectorPrototype implements IConnector {
@@ -45,17 +46,6 @@ public class SimpleConnectorPrototype implements IConnector {
 	public boolean createNewGame(IGame game) {
 		debug("CREATE new GAME: " + game.getURIToString());
 		return true;
-	}
-
-	@Override
-	public List<IGame> getWaitingGames() {
-		List<IGame> WaitingGames = new ArrayList<IGame>();
-		
-		WaitingGames.add(new Game(new Player("Pippo"), null));
-		WaitingGames.add(new Game(new Player("Pluto"), null));
-		
-		debug("GET waiting GAMES ...");
-		return WaitingGames;
 	}
 
 	@Override
@@ -107,28 +97,6 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public ICommand getHit(IGame game, IPlayer player) {
-		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
-		int i = (int) Math.random() % hits.length;
-		debug(String.format("GET HIT %s from %s", hits[i], player.getURIToString()));
-		return new Hit(hits[i]);
-	}
-
-	@Override
-	public IPlayer getIncomingPlayer(IGame game) {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Player player = new Player("Carlo");
-		game.setGuestPlayer(player);
-		debug(String.format("GET incoming P: %s", player.getURIToString()));	
-		return player;
-	}
-
-	@Override
 	public void init() {
 		// TODO Auto-generated method stub
 		
@@ -138,5 +106,56 @@ public class SimpleConnectorPrototype implements IConnector {
 	public boolean updateGameScore(IGame game) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void watchForWaitingGames(IObserver observer) {
+		List<IGame> WaitingGames = new ArrayList<IGame>();
+		
+		WaitingGames.add(new Game(new Player("Pippo"), null));
+		WaitingGames.add(new Game(new Player("Pluto"), null));
+		
+		debug("GET waiting GAMES ...");
+		observer.updateWaitingGames(WaitingGames);
+	}
+
+	@Override
+	public void unwatchForWaitingGames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void watchForIncomingPlayer(IGame game, IObserver observer) {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Player player = new Player("Carlo");
+		game.setGuestPlayer(player);
+		debug(String.format("GET incoming P: %s", player.getURIToString()));	
+		observer.updateIncomingPlayer(game);	
+	}
+
+	@Override
+	public void unwatchForIncomingPlayer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void watchForHit(IGame game, IPlayer player, IObserver observer) {
+		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
+		int i = (int) Math.random() % hits.length;
+		debug(String.format("GET HIT %s from %s", hits[i], player.getURIToString()));
+		observer.updateHit(new Hit(hits[i]));
+	}
+
+	@Override
+	public void unwatchForHit() {
+		// TODO Auto-generated method stub
+		
 	}
 }
