@@ -69,12 +69,12 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			if (observer != null){
-				Debug.print(2, this.getClass().getCanonicalName() +  ":removeObsoleteObject: Game " + uri + "is not waiting yet");
+				Debug.print(2, this.getClass().getCanonicalName() +  ":removeObsoleteObject: Game " + uri + "is not longer waiting");
 				observer.updateWaitingGames(SIBFactory.getInstance().getGame(uri));
 			}
 			else{
 				IGame g = SIBFactory.getInstance().getGame(uri);
-				System.out.println("Game " + uri + "is not waiting yet");
+				System.out.println("Game " + uri + "is not longer waiting");
 				System.out.println("  " + g.toString());
 			}
 		}
