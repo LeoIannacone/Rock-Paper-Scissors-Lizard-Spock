@@ -43,9 +43,9 @@ public class SIBFactory {
 					p = new Player(v.get(2));
 					p.setURI(Utils.removePrefix(v.get(0)));
 			}
-			
+			return p;
 		}
-		return p;	
+		return null;	
 	}
 	
 	public IGame getGame(String GameURI){
@@ -85,8 +85,9 @@ public class SIBFactory {
 				}
 			}
 			g.setScore(score);
+			return g;
 		}
-		return g;
+		return null;
 	}
 	
 	public ICommand getHit (String CommandURI) {
@@ -99,6 +100,7 @@ public class SIBFactory {
 			System.err.println ("Error during RDF-M3 query");
 		else
 		{
+			c.setURI(CommandURI);
 			triples = xml_tools.getQueryTriple(xml);
 			for(Vector<String> v : triples) {
 				String what = Utils.removePrefix(v.get(1));
@@ -114,8 +116,8 @@ public class SIBFactory {
 					c.setCommandType(value);
 				}
 			}
-			
+			return c;
 		}
-		return c;
+		return null;
 	}
 }
