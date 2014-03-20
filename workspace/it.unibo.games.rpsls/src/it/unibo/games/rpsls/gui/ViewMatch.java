@@ -33,6 +33,8 @@ public class ViewMatch extends ViewDefault {
 	
 	private boolean me_has_home;
 	
+	private ICommand receivedEnemyHit;
+	
 	public ViewMatch(IGame match, boolean me_has_home) {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -120,7 +122,7 @@ public class ViewMatch extends ViewDefault {
 				hit.setIssuer(match.getHomePlayer());
 			else
 				hit.setIssuer(match.getGuestPlayer());
-			ButtonHit b = new ButtonHit(new Hit(h));
+			ButtonHit b = new ButtonHit(hit);
 			b.setPanelGame(this);
 			buttonsHit.add(b);
 			p1.add(b);
@@ -130,10 +132,11 @@ public class ViewMatch extends ViewDefault {
 	}
 	
 	public void clickedButtonHit(ButtonHit clicked) {
-		if (currentHitButton == clicked)
+		if (currentHitButton != null)
 			return;
 		for (ButtonHit b : buttonsHit) {
 			if (b.equals(clicked)) {
+				b.setEnabled(false);
 				currentHitButton = clicked;
 				b.getModel().setSelected(true);
 				mePanelHit.setHit(b.getHit());
@@ -143,25 +146,33 @@ public class ViewMatch extends ViewDefault {
 			}
 		}
 		mainWindow.sendHit(clicked.getHit());
+		showEnemyHit();
 	}
 	
 	public void clean() {
 		currentHitButton = null;
-		
-		for (ButtonHit b: buttonsHit)
-			b.setEnabled(true);
+		receivedEnemyHit = null;
 		mePanelHit.clean();
 		enemyPanelHit.clean();
 		versus.setText("");
 		winnerLabel.setText("");
+		for (ButtonHit b: buttonsHit)
+			b.setEnabled(true);
+	}
+	
+	private void showEnemyHit() {
+		if (receivedEnemyHit == null)
+			return;
+		enemyPanelHit.setHit(receivedEnemyHit);
+		showLabelWinning();
+		CleanerThread c = new CleanerThread(this);
+		c.start();
 	}
 	
 	public void receivedEnemyHit(ICommand hit) {
-		enemyPanelHit.setHit(hit);
+		receivedEnemyHit = hit;
 		if (currentHitButton != null)
-			showLabelWinning();
-		CleanerThread c = new CleanerThread(this);
-		c.start();
+			showEnemyHit();
 	}
 	
 	private void showLabelWinning() {
