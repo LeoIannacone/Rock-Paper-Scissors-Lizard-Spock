@@ -30,7 +30,7 @@ public class SIBSubscriptionHit extends SIBSubscription {
 			try{
 				subID = xml_tools.getSubscriptionID(xml);
 				Debug.print(2, this.getClass().getName() + "Subscription confirmed with ID: " + subID);
-				Debug.print(2, this.getClass().getName() + "    SPARQLquery = " + String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()));
+				Debug.print(2, this.getClass().getName() + "\n    SPARQLquery = " + String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()));
 			}
 			catch(Exception e){ e.printStackTrace(); }
 		}
@@ -51,7 +51,7 @@ public class SIBSubscriptionHit extends SIBSubscription {
 			String uri_command = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			ICommand c = SIBFactory.getInstance().getHit(uri_command);
 			if (observer != null){
-				Debug.print(2, this.getClass().getName() +":getNewObjectFromResults: " + c.getIssuer().getURIToString() + " has played " + c.getCommandType());
+				Debug.print(2, this.getClass().getName() +":getNewObjectFromResults: " + "received from " + c.getIssuer().getName() + ": " + c.getCommandType() + ": " + c.getURIToString()  );
 				observer.updateHit(c);
 			}
 			else{
