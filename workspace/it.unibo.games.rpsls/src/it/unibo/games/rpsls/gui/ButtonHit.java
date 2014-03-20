@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.interfaces.ICommand;
 
 import javax.imageio.ImageIO;
@@ -31,6 +32,8 @@ public class ButtonHit extends JButton implements ActionListener {
 	}
 	
 	public ICommand getHit() {
+		// workaround every time get hit return a with a different UUID
+		hit.setURI(new Hit("").getURI());
 		return hit;
 	}
 	
