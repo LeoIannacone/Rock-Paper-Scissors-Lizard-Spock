@@ -182,8 +182,8 @@ public class ViewMatch extends ViewDefault {
 			String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
 			int i = Integer.parseInt(info[0]);
 			
-			String ltr = "<html>&rarr;</html>"; // →
-			String rtl = "<html>&larr;</html>"; // ←
+			String ltr = "\u2192"; // →
+			String rtl = "\u2190"; // ←
 
 			if (i != 0) {
 				winnerLabel.setText(info[1]);
