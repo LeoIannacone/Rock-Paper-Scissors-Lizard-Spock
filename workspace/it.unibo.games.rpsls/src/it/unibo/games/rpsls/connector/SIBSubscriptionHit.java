@@ -26,10 +26,11 @@ public class SIBSubscriptionHit extends SIBSubscription {
 		kp.join();
 		xml = kp.subscribeSPARQL(String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()), this);
 		subID = null;
-		if(xml_tools.isSubscriptionConfirmed(xml))
-		{
+		if(xml_tools.isSubscriptionConfirmed(xml)){
 			try{
 				subID = xml_tools.getSubscriptionID(xml);
+				Debug.print(2, this.getClass().getName() + "Subscription confirmed with ID: " + subID);
+				Debug.print(2, this.getClass().getName() + "    SPARQLquery = " + String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()));
 			}
 			catch(Exception e){ e.printStackTrace(); }
 		}
@@ -43,11 +44,14 @@ public class SIBSubscriptionHit extends SIBSubscription {
 	@Override
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
 		Vector<String[]> values = resp.getResultsForVar("uri_command");
+		Debug.print(2, this.getClass().getName() + ":getNewObjectFromResults: Received " + values.size() + "new values");
+		int counter = 0;
 		for (String[] val : values){
+			Debug.print(2, this.getClass().getName() + ":getNewObjectFromResults: value " + counter++);
 			String uri_command = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			ICommand c = SIBFactory.getInstance().getHit(uri_command);
 			if (observer != null){
-				Debug.print(2, c.getIssuer().getURIToString() + " has played " + c.getCommandType());
+				Debug.print(2, this.getClass().getName() +":getNewObjectFromResults: " + c.getIssuer().getURIToString() + " has played " + c.getCommandType());
 				observer.updateHit(c);
 			}
 			else{
