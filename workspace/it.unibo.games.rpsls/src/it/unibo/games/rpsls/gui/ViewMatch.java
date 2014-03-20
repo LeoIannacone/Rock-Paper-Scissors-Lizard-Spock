@@ -5,13 +5,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import it.unibo.games.rpsls.connector.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Hit;
-import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -174,16 +171,19 @@ public class ViewMatch extends ViewDefault {
 			String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
 			int i = Integer.parseInt(info[0]);
 			
+			String ltr = "<html>&rarr;</html>"; // →
+			String rtl = "<html>&larr;</html>"; // ←
+
 			if (i != 0) {
 				winnerLabel.setText(info[1]);
 			}
 			if (i > 0) {
-				if (me_has_home) versus.setText("→"); else versus.setText("←");
+				if (me_has_home) versus.setText(ltr); else versus.setText(rtl);
 				mePanelScore.increaseScore();
 			}
 			else if (i == 0) versus.setText("=");
 			else {
-				if (me_has_home) versus.setText("←"); else versus.setText("→");
+				if (me_has_home) versus.setText(rtl); else versus.setText(ltr);
 				enemyPanelScore.increaseScore();
 			}
 		}catch (Exception e){
