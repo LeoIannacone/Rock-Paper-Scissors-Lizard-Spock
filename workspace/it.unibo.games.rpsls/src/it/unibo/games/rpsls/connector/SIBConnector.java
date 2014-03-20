@@ -41,9 +41,9 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 	
 	private SIBConnector() {
-		Debug.print(2, "Connecting to " + Config.SIB_NAME + " @ " + Config.SIB_HOST + ":" + Config.SIB_PORT);
+		Debug.print(2, this.getClass().getCanonicalName() + ": SIBConnector: " + "Connecting to " + Config.SIB_NAME + " @ " + Config.SIB_HOST + ":" + Config.SIB_PORT);
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
-		Debug.print(2, "Connected");
+		Debug.print(2, this.getClass().getCanonicalName() + ": SIBConnector: " + "Connected");
 		xml_tools = new SSAP_XMLTools();
 	}
 	
@@ -60,7 +60,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if (!ack)
 			System.err.println("Error: unable to join the SIB");
 		else
-			Debug.print(2, "SIB joined");
+			Debug.print(2, this.getClass().getCanonicalName() + ": connect: " + "SIB joined");
 
 	}
 
@@ -72,7 +72,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			System.err.println ("Error during LEAVE");
 		}   
 		else
-			Debug.print(2, "SIB leaved");
+			Debug.print(2, this.getClass().getCanonicalName() + ": disconnect: " + "SIB leaved");
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			System.err.println ("Error Inserting new Game in the SIB");
 		}
 		else
-			Debug.print(2, "Created new game:\n     " + game.toString());
+			Debug.print(2, this.getClass().getCanonicalName() + ": createNewGame: " + "Created new game:\n     " + game.toString());
 		return ack;
 	}
 
@@ -156,7 +156,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if (ack){
 			game.setGuestPlayer(player);
 			ack = updateGameScore(game);
-			Debug.print(2, player.getURIToString() + " joined " + game.getURIToString());
+			Debug.print(2, this.getClass().getCanonicalName() + ": joinGame: " + player.getURIToString() + " joined " + game.getURIToString());
 		}
 		else 
 			System.err.println("Error joining game");
@@ -177,7 +177,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 */
 		ack = updateGameStatus(game, Game.ENDED);
 		if (ack)
-			Debug.print(2, game.getURIToString() + " ended");
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " + game.getURIToString() + " ended");
 		else
 			System.err.println("Error ending game");
 		return ack;
@@ -192,7 +192,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		
 		String xml = kp.remove(NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
 		if(xml_tools.isRemoveConfirmed(xml))
-			Debug.print(2, game.getURIToString() + " deleted");
+			Debug.print(2, this.getClass().getCanonicalName() + ": deleteGame: " + game.getURIToString() + " deleted");
 		else
 			System.err.println("Error removing game");
 		return xml_tools.isRemoveConfirmed(xml);
@@ -214,7 +214,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			ack = xml_tools.isInsertConfirmed(xml);
 			if (ack){
 				game.setStatus(status);
-				Debug.print(2, game.getURIToString() + " has been updated:\n    " + game.toString());
+				Debug.print(2, this.getClass().getCanonicalName() + ": updateGameStatus: " + game.getURIToString() + " has been updated:\n    " + game.toString());
 			}
 			else
 				System.err.println("Error updating game status");
@@ -254,7 +254,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			System.err.println ("Error Inserting new Player in the SIB");
 		}
 		else
-			Debug.print(2, "Created " + player.getURIToString() + " with name: " + player.getName());
+			Debug.print(2, this.getClass().getCanonicalName() + ": createNewPlayer: " + "Created " + player.getURIToString() + " with name: " + player.getName());
 		return ack;
 	}
 
@@ -297,7 +297,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			System.err.println ("Error Inserting new Hit in the SIB");
 		}
 		else
-			Debug.print(2, player.getURIToString() + " has played " + hit.getCommandType());
+			Debug.print(2, this.getClass().getCanonicalName() + ": sendHit: " + player.getURIToString() + " has played " + hit.getCommandType() + ": " + hit.getURIToString());
 		return ack;
 	}
 
@@ -330,7 +330,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if(ack){
 			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
 			ack = xml_tools.isInsertConfirmed(xml);
-			Debug.print(2, "The score in " + game.getURIToString() + " is now " + game.getScore());
+			Debug.print(2, this.getClass().getCanonicalName() + ": updateGameScore: " + "The score in " + game.getURIToString() + " is now " + game.getScore());
 		}
 		else{
 			System.err.println("Error updatig score");
