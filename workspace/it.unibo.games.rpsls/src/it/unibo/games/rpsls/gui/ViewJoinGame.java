@@ -2,6 +2,7 @@ package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -40,10 +41,19 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 	}
 
 	public void appendWaitingGames(IGame game) {
-		System.out.println("appendWaitingGames : " + game.getHomePlayer().getName());
 		String home = game.getHomePlayer().getName();
-		this.matches.put(home, game);
-		this.listData.add(home);
+		if (game.getStatus().equals(Game.WAITING)) {
+			Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: new waiting game: " + game.getHomePlayer().getName());
+			this.matches.put(home, game);
+			this.listData.add(home);
+		} 
+		else {
+			Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: removing game: " + game.getHomePlayer().getName());
+			if (this.matches.containsKey(home)) {
+				this.matches.remove(home);
+				this.listData.remove(home);
+			}
+		}
 		list.setListData(listData);
 	}
 	
