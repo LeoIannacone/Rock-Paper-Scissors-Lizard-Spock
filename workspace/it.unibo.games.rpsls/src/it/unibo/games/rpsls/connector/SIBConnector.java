@@ -297,7 +297,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			System.err.println ("Error Inserting new Hit in the SIB");
 		}
 		else
-			Debug.print(2, this.getClass().getCanonicalName() + ": sendHit: " + player.getURIToString() + " has played " + hit.getCommandType() + ": " + hit.getURIToString());
+			Debug.print(2, this.getClass().getCanonicalName() + ": sendHit: " + player.getName() + " has played " + hit.getCommandType() + ": " + hit.getURIToString());
 		return ack;
 	}
 
