@@ -40,7 +40,7 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		else{
 			System.err.println ("Error during subscription");
 		}	
-		Debug.print(2, "Subscription confirmed to query\n    " + SUBSCRIPTION_QUERY);
+		Debug.print(2, this.getClass().getCanonicalName() + ": Subscription confirmed to query\n    " + SUBSCRIPTION_QUERY);
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
 	}
@@ -52,12 +52,29 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			if (observer != null){
-				Debug.print(2, "New game is waiting for incoming player: " + uri);
+				Debug.print(2, this.getClass().getCanonicalName() + ": getNewObjectFromResults: New game is waiting for incoming player: " + uri);
 				observer.updateWaitingGames(SIBFactory.getInstance().getGame(uri));
 			}
 			else{
 				IGame g = SIBFactory.getInstance().getGame(uri);
-				System.out.println("Waiting games:");
+				System.out.println("New game is waiting for incoming player: " + uri);
+				System.out.println("  " + g.toString());
+			}
+		}
+	}
+	
+	@Override
+	public void removeObsoleteObject(SSAP_sparql_response resp){
+		Vector<String[]> values = resp.getResultsForVar("game");
+		for (String[] val : values){
+			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
+			if (observer != null){
+				Debug.print(2, this.getClass().getCanonicalName() +  ":removeObsoleteObject: Game " + uri + "is not waiting yet");
+				observer.updateWaitingGames(SIBFactory.getInstance().getGame(uri));
+			}
+			else{
+				IGame g = SIBFactory.getInstance().getGame(uri);
+				System.out.println("Game " + uri + "is not waiting yet");
 				System.out.println("  " + g.toString());
 			}
 		}

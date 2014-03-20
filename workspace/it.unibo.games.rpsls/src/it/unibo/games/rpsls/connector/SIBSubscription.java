@@ -122,12 +122,17 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 				getNewObjectsFromResults(new_results);
 			}
 			if (old_results != null){
-				System.out.println("obsolete: \n " + old_results.print_as_string());
+				removeObsoleteObject(old_results);
 			}
 		}
 	}
 	
 	public String getSubID(){
 		return subID;
+	}
+
+	public void removeObsoleteObject(SSAP_sparql_response resp) {
+		resp.print_as_string();
+		
 	}
 }

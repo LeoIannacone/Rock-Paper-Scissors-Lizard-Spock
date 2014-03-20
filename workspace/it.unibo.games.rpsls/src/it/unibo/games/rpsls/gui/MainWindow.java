@@ -49,7 +49,7 @@ public class MainWindow implements IObserver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Debug.setLeve(2);
+					Debug.setLevel(2);
 					MainWindow window = new MainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {

@@ -16,7 +16,7 @@ public class Debug {
 		}
 	}
 	
-	public static void setLeve(int level){
+	public static void setLevel(int level){
 		LEVEL = level;
 	}
 }
