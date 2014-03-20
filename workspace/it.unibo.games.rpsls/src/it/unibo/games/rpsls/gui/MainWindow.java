@@ -10,6 +10,7 @@ import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -48,6 +49,7 @@ public class MainWindow implements IObserver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Debug.setLeve(2);
 					MainWindow window = new MainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
