@@ -13,6 +13,7 @@ import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
+import it.unibo.games.rpsls.utils.Debug;
 
 public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
@@ -40,7 +41,9 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 	
 	private SIBConnector() {
+		Debug.print(2, "Connecting to " + Config.SIB_NAME + " @ " + Config.SIB_HOST + ":" + Config.SIB_PORT);
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
+		Debug.print(2, "Connected");
 		xml_tools = new SSAP_XMLTools();
 	}
 	
@@ -56,16 +59,20 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		ack = xml_tools.isJoinConfirmed(xml);
 		if (!ack)
 			System.err.println("Error: unable to join the SIB");
+		else
+			Debug.print(2, "SIB joined");
+
 	}
 
 	@Override
 	public void disconnect() {
 		xml = kp.leave();
 		ack = xml_tools.isLeaveConfirmed(xml);
-		if(!ack)
-		{
+		if(!ack){
 			System.err.println ("Error during LEAVE");
 		}   
+		else
+			Debug.print(2, "SIB leaved");
 	}
 
 	@Override
@@ -123,11 +130,11 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		xml = kp.insert(triples);
 		
 		ack = xml_tools.isInsertConfirmed(xml);
-		if(!ack)
-		{
+		if(!ack){
 			System.err.println ("Error Inserting new Game in the SIB");
 		}
-		
+		else
+			Debug.print(2, "Created new game:\n     " + game.toString());
 		return ack;
 	}
 
@@ -149,13 +156,16 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if (ack){
 			game.setGuestPlayer(player);
 			ack = updateGameScore(game);
+			Debug.print(2, player.getURIToString() + " joined " + game.getURIToString());
 		}
+		else 
+			System.err.println("Error joining game");
 		return ack;
 	}
 
 	@Override
 	public boolean leaveGame(IGame game, IPlayer player) {
-		// TODO Auto-generated method stub
+//		Debug.print(2, player.getURIToString() + " leaved " + game.getURIToString());
 		return false;
 	}
 
@@ -165,8 +175,12 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		/**
 		 * simply change the game status
 		 */
-		
-		return updateGameStatus(game, Game.ENDED);
+		ack = updateGameStatus(game, Game.ENDED);
+		if (ack)
+			Debug.print(2, game.getURIToString() + " ended");
+		else
+			System.err.println("Error ending game");
+		return ack;
 	}
 
 	@Override
@@ -177,6 +191,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 */
 		
 		String xml = kp.remove(NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
+		if(xml_tools.isRemoveConfirmed(xml))
+			Debug.print(2, game.getURIToString() + " deleted");
+		else
+			System.err.println("Error removing game");
 		return xml_tools.isRemoveConfirmed(xml);
 	}
 
@@ -194,8 +212,15 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if(ack){
 			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", NAME_SPACE + status, "URI", "URI");
 			ack = xml_tools.isInsertConfirmed(xml);
-			game.setStatus(status);
+			if (ack){
+				game.setStatus(status);
+				Debug.print(2, game.getURIToString() + " has been updated:\n    " + game.toString());
+			}
+			else
+				System.err.println("Error updating game status");
 		}
+		else
+			System.err.println("Error removing old game status");
 		return ack;
 	}
 
@@ -225,11 +250,11 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		xml = kp.insert(triples);
 		
 		ack = xml_tools.isInsertConfirmed(xml);
-		if(!ack)
-		{
+		if(!ack){
 			System.err.println ("Error Inserting new Player in the SIB");
 		}
-		
+		else
+			Debug.print(2, "Created " + player.getURIToString() + " with name: " + player.getName());
 		return ack;
 	}
 
@@ -268,11 +293,11 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		xml = kp.insert(triples);
 		
 		ack = xml_tools.isInsertConfirmed(xml);
-		if(!ack)
-		{
+		if(!ack){
 			System.err.println ("Error Inserting new Hit in the SIB");
 		}
-		
+		else
+			Debug.print(2, player.getURIToString() + " has played " + hit.getCommandType());
 		return ack;
 	}
 
@@ -305,6 +330,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		if(ack){
 			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
 			ack = xml_tools.isInsertConfirmed(xml);
+			Debug.print(2, "The score in " + game.getURIToString() + " is now " + game.getScore());
+		}
+		else{
+			System.err.println("Error updatig score");
 		}
 		return ack;
 	}

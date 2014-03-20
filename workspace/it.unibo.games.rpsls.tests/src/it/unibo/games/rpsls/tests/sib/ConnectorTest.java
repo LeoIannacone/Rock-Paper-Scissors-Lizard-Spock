@@ -1,7 +1,5 @@
 package it.unibo.games.rpsls.tests.sib;
 
-import com.hp.hpl.jena.shared.wg.TestInputStreamFactory;
-
 import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.connector.SIBSubscriptionHit;

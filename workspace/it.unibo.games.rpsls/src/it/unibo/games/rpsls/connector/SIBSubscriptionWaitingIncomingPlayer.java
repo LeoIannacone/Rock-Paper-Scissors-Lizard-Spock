@@ -3,6 +3,7 @@ package it.unibo.games.rpsls.connector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
 
@@ -38,7 +39,7 @@ public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
 			catch(Exception e){ e.printStackTrace(); }
 		}
 		else{
-			System.out.println ("Error during subscription");
+			System.err.println ("Error during subscription");
 		}	
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
@@ -50,19 +51,19 @@ public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
 		IPlayer p = null;
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
+			p = SIBFactory.getInstance().getPlayer(uri);
 			if (observer != null){
-				p = SIBFactory.getInstance().getPlayer(uri);
+				Debug.print(2, p.getURIToString() + " joined " + game.getURIToString());
 				game.setGuestPlayer(p);
 				observer.updateIncomingPlayer(game);
 			}
 			else{
-				p = SIBFactory.getInstance().getPlayer(uri);
 				game.setGuestPlayer(p);
 				System.out.println("Player joined:");
 				System.out.println("  " + p.toString());
 			}
 			
-			System.out.println(game.getGuestPlayer().getName() + " is joined");
+			Debug.print(2, game.getGuestPlayer().getName() + " is joined");
 		}
 	}
 }

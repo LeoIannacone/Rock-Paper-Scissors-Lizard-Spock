@@ -2,6 +2,7 @@ package it.unibo.games.rpsls.connector;
 
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,9 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 			catch(Exception e){ e.printStackTrace(); }
 		}
 		else{
-			System.out.println ("Error during subscription");
+			System.err.println ("Error during subscription");
 		}	
+		Debug.print(2, "Subscription confirmed to query\n    " + SUBSCRIPTION_QUERY);
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
 	}
@@ -49,8 +51,10 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 		Vector<String[]> values = resp.getResultsForVar("game");
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
-			if (observer != null)
+			if (observer != null){
+				Debug.print(2, "New game is waiting for incoming player: " + uri);
 				observer.updateWaitingGames(SIBFactory.getInstance().getGame(uri));
+			}
 			else{
 				IGame g = SIBFactory.getInstance().getGame(uri);
 				System.out.println("Waiting games:");

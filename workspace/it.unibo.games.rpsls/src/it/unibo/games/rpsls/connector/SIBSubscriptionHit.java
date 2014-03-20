@@ -1,9 +1,9 @@
 package it.unibo.games.rpsls.connector;
 
-import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
 
@@ -26,15 +26,16 @@ public class SIBSubscriptionHit extends SIBSubscription {
 		kp.join();
 		xml = kp.subscribeSPARQL(String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()), this);
 		subID = null;
-		if(xml_tools.isSubscriptionConfirmed(xml))
-		{
+		if(xml_tools.isSubscriptionConfirmed(xml)){
 			try{
 				subID = xml_tools.getSubscriptionID(xml);
+				Debug.print(2, this.getClass().getName() + "Subscription confirmed with ID: " + subID);
+				Debug.print(2, this.getClass().getName() + "    SPARQLquery = " + String.format(SUBSCRIPTION_QUERY, game.getCommandInterface().getURIToString(), game.getOpponent().getURIToString()));
 			}
 			catch(Exception e){ e.printStackTrace(); }
 		}
 		else{
-			System.out.println ("Error during subscription");
+			System.err.println ("Error during subscription");
 		}	
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
@@ -43,11 +44,16 @@ public class SIBSubscriptionHit extends SIBSubscription {
 	@Override
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
 		Vector<String[]> values = resp.getResultsForVar("uri_command");
+		Debug.print(2, this.getClass().getName() + ":getNewObjectFromResults: Received " + values.size() + "new values");
+		int counter = 0;
 		for (String[] val : values){
+			Debug.print(2, this.getClass().getName() + ":getNewObjectFromResults: value " + counter++);
 			String uri_command = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			ICommand c = SIBFactory.getInstance().getHit(uri_command);
-			if (observer != null)
+			if (observer != null){
+				Debug.print(2, this.getClass().getName() +":getNewObjectFromResults: " + c.getIssuer().getURIToString() + " has played " + c.getCommandType());
 				observer.updateHit(c);
+			}
 			else{
 				System.out.println("Hit received:");
 				System.out.println("  " + c.getCommandType());
