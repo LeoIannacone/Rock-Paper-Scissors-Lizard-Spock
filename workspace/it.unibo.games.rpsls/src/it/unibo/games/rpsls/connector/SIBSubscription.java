@@ -1,6 +1,8 @@
 package it.unibo.games.rpsls.connector;
 
 
+import it.unibo.games.rpsls.utils.Debug;
+
 import java.util.Vector;
 
 import sofia_kp.KPICore;
@@ -33,8 +35,9 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 			catch(Exception e){ e.printStackTrace(); }
 		}
 		else{
-			System.out.println ("Error during subscription");
+			System.err.println("Error during subscription");
 		}	
+		Debug.print(2, "Subscription confirmed to query\n    " + query);
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
 	}
@@ -69,11 +72,9 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 
 	@Override
 	public void kpic_UnsubscribeEventHandler(String sub_ID) {
-		System.out.println("unsuscribe");
 		if(sub_ID != null){
-			System.out.println(kp.unsubscribe(sub_ID));
+			Debug.print(2, kp.unsubscribe(sub_ID));
 			this.subID = null;
-			System.out.println("Unsuscribed " + sub_ID);
 		}
 	}
 

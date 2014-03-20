@@ -35,7 +35,7 @@ public class SIBFactory {
 		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + PlayerURI, SIBConnector.NAME_SPACE + "hasName", null, "uri", "literal");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
-			System.out.println ("Error during RDF-M3 query");
+			System.err.println("Error during RDF-M3 query");
 		else
 		{
 			triples = xml_tools.getQueryTriple(xml);
@@ -55,7 +55,7 @@ public class SIBFactory {
 		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + GameURI, null , null, "uri", "uri");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
-			System.out.println ("Error during RDF-M3 query");
+			System.err.println ("Error during RDF-M3 query");
 		else
 		{
 			g.setURI(GameURI);
@@ -96,7 +96,7 @@ public class SIBFactory {
 		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + CommandURI, null, null, "uri", "uri");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
-			System.out.println ("Error during RDF-M3 query");
+			System.err.println ("Error during RDF-M3 query");
 		else
 		{
 			triples = xml_tools.getQueryTriple(xml);

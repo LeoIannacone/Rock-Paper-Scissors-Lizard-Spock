@@ -4,7 +4,7 @@ public class Debug {
 	
 	/**
 	 * 0 - disable
-	 * 1 - interaction
+	 * 1 - interactions
 	 * 2 - SIB debug
 	 */
 	
@@ -14,5 +14,9 @@ public class Debug {
 		if (level<=LEVEL){
 			System.out.println(String.format(" debug [%d] - %s", level, message));
 		}
+	}
+	
+	public static void setLeve(int level){
+		LEVEL = level;
 	}
 }

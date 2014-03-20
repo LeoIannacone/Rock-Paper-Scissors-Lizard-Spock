@@ -1,9 +1,9 @@
 package it.unibo.games.rpsls.connector;
 
-import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
 
@@ -34,7 +34,7 @@ public class SIBSubscriptionHit extends SIBSubscription {
 			catch(Exception e){ e.printStackTrace(); }
 		}
 		else{
-			System.out.println ("Error during subscription");
+			System.err.println ("Error during subscription");
 		}	
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
@@ -46,8 +46,10 @@ public class SIBSubscriptionHit extends SIBSubscription {
 		for (String[] val : values){
 			String uri_command = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			ICommand c = SIBFactory.getInstance().getHit(uri_command);
-			if (observer != null)
+			if (observer != null){
+				Debug.print(2, c.getIssuer().getURIToString() + " has played " + c.getCommandType());
 				observer.updateHit(c);
+			}
 			else{
 				System.out.println("Hit received:");
 				System.out.println("  " + c.getCommandType());
