@@ -197,6 +197,11 @@ public class ViewMatch extends ViewDefault {
 				if (me_has_home) versus.setText(rtl); else versus.setText(ltr);
 				enemyPanelScore.increaseScore();
 			}
+			if (match.getHomePlayer().getScore() >= mainWindow.MAX_RESULT ||
+				match.getGuestPlayer().getScore() >= mainWindow.MAX_RESULT)
+			{
+				mainWindow.showViewWin();
+			}
 		}catch (Exception e){
 			e.printStackTrace();
 			System.exit(1);

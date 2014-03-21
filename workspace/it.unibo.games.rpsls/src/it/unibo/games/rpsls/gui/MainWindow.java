@@ -33,6 +33,7 @@ public class MainWindow implements IObserver {
 	private ViewWelcome viewWelcome;
 	private ViewMatch viewMatch;
 	private ViewJoinGame viewJoinGame;
+	private ViewWin viewWin;
 	
 	private SIBConnector connector;
 	
@@ -41,6 +42,8 @@ public class MainWindow implements IObserver {
 	private IGame current_game;
 	
 	private String ME_FILENAME = "player.info";
+	
+	public int MAX_RESULT = 3;
 
 	/**
 	 * Launch the application.
@@ -114,21 +117,19 @@ public class MainWindow implements IObserver {
 		frame.setTitle("RPSLS");
 		frame.setResizable(false);
 		frame.setSize(315, 450);
-		
-		viewWelcome = new ViewWelcome(me);
-		viewWelcome.setMainWindow(this);
-		
-		Game m = new Game(new Player("Leo"), new Player("Carlo"));
-		viewMatch = new ViewMatch(m, true);
-		viewMatch.setMainWindow(this);
-		
-		viewJoinGame = new ViewJoinGame();
-		viewJoinGame.setMainWindow(this);
-		
+			
 		showViewWelcome();
 	}
 	
+	public void showViewWin() {
+		viewWin = new ViewWin(current_game);
+		viewWin.setMainWindow(this);
+		showView(viewWin);
+	}
+	
 	public void showViewWelcome() {
+		viewWelcome = new ViewWelcome(me);
+		viewWelcome.setMainWindow(this);
 		connector.unwatchForWaitingGames();
 		connector.unwatchForIncomingPlayer();
 		showView(viewWelcome);
@@ -164,8 +165,8 @@ public class MainWindow implements IObserver {
 	public void joinGame(IGame game) {
 		current_game = game;
 		set_me(me);
-		game.setGuestPlayer(me);
-		game.setHomeAsOpponent(true);
+		current_game.setGuestPlayer(me);
+		current_game.setHomeAsOpponent(true);
 		enemy = game.getHomePlayer();
 		connector.joinGame(current_game, me);
 		viewMatch = new ViewMatch(current_game, false);
@@ -175,6 +176,8 @@ public class MainWindow implements IObserver {
 	
 	public void showJoinGames(IPlayer player) {
 		set_me(player);
+		viewJoinGame = new ViewJoinGame();
+		viewJoinGame.setMainWindow(this);
 		viewJoinGame.reset();
 		showView(viewJoinGame);
 		connector.watchForWaitingGames(this);
@@ -182,8 +185,6 @@ public class MainWindow implements IObserver {
 	
 	public void sendHit(ICommand hit) {
 		connector.sendHit(current_game, me, hit);
-//		ICommand received_hit = connector.getHit(current_game, enemy);
-//		viewMatch.receivedEnemyHit(received_hit);
 	}
 
 	@Override
