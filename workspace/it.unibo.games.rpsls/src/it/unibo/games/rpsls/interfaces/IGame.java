@@ -27,5 +27,6 @@ public interface IGame extends IConnectorEntity {
 	
 	public void setHomeAsOpponent(boolean isOpponent);
 	public IPlayer getOpponent();
+	public IPlayer getMe();
 
 }

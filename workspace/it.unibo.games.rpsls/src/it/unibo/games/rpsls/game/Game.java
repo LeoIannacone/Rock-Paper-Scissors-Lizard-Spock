@@ -138,4 +138,11 @@ public class Game extends ConnectorEntity implements IGame {
 			return home;
 		return guest;
 	}
+
+	@Override
+	public IPlayer getMe() {
+		if (! this.homeAsOpponent)
+			return home;
+		return guest;
+	}
 }
