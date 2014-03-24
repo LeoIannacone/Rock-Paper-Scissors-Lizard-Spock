@@ -166,8 +166,8 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean leaveGame(IGame game, IPlayer player) {
-//		Debug.print(2, player.getURIToString() + " leaved " + game.getURIToString());
-		return false;
+		Debug.print(2, player.getURIToString() + " leaved " + game.getURIToString());
+		return updateGameStatus(game, Game.ENDED);
 	}
 
 	@Override
@@ -383,6 +383,14 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	public void unwatchForGameEnded() {
 		if (leaveSubscription != null && leaveSubscription.getSubID() != null)
 			leaveSubscription.kpic_UnsubscribeEventHandler(leaveSubscription.getSubID());
+	}
+
+	@Override
+	public void unwatchAll() {
+		unwatchForIncomingPlayer();
+		unwatchForGameEnded();
+		unwatchForHit();
+		unwatchForWaitingGames();
 	}
 
 }
