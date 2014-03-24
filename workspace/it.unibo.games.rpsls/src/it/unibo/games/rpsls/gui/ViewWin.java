@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 public class ViewWin extends ViewDefault implements ActionListener {
 	
 	private IGame game;
-	private MainWindow mainWindow;
 
 	public ViewWin(IGame game) {
 		this.game = game;
