@@ -125,6 +125,8 @@ public class MainWindow implements IObserver {
 		viewWin = new ViewWin(current_game);
 		viewWin.setMainWindow(this);
 		showView(viewWin);
+		connector.updateGameStatus(current_game, Game.ENDED);
+		current_game = null;
 	}
 	
 	public void showViewWelcome() {
@@ -152,7 +154,8 @@ public class MainWindow implements IObserver {
 	}
 	
 	public void deleteGame() {
-		
+		connector.deleteGame(current_game);
+		current_game = null;
 	}
 	
 	public void createNewGame(IPlayer player) {
@@ -209,5 +212,12 @@ public class MainWindow implements IObserver {
 		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
 		showViewMatch();
+	}
+
+	@Override
+	public void udpateGameEnded(IGame game) {
+		if (game.getURI().equals(current_game.getURI())) {
+			showViewWin();
+		}
 	}
 }

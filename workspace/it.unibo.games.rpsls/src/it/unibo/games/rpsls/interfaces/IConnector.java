@@ -27,6 +27,8 @@ public interface IConnector {
 	// Player subscribe
 	public void watchForIncomingPlayer(IGame game, IObserver observer);
 	public void unwatchForIncomingPlayer();
+	public void watchForGameEnded(IGame game);
+	public void unwatchForGameEnded();
 	
 	// Hits
 	public boolean sendHit(IGame game, IPlayer player, ICommand hit);

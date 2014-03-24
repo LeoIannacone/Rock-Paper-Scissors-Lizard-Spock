@@ -11,4 +11,6 @@ public interface IObserver {
 	
 	public void updateIncomingPlayer(IGame game);
 	
+	public void udpateGameEnded(IGame game);
+	
 }

@@ -373,4 +373,16 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 			hitSubscription.kpic_UnsubscribeEventHandler(hitSubscription.getSubID());
 	}
 
+	@Override
+	public void watchForGameEnded(IGame game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unwatchForGameEnded() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
