@@ -177,14 +177,16 @@ public class MainWindow implements IObserver {
 	
 	public void createNewGame(IPlayer player) {
 		set_me(player);
+		me.setScore(0);
 		current_game = new Game(me, null);
 		connector.createNewGame(current_game);
 		connector.watchForIncomingPlayer(current_game, this);
 	}
 	
 	public void joinGame(IGame game) {
-		current_game = game;
 		set_me(me);
+		me.setScore(0);
+		current_game = game;
 		current_game.setGuestPlayer(me);
 		current_game.setHomeAsOpponent(true);
 		enemy = game.getHomePlayer();
