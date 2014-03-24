@@ -224,8 +224,8 @@ public class MainWindow implements IObserver {
 
 	@Override
 	public void updateIncomingPlayer(IGame game) {
-		current_game = game;
-		enemy = game.getGuestPlayer();
+		current_game.setGuestPlayer(game.getGuestPlayer());
+		enemy = current_game.getGuestPlayer();
 		viewMatch = new ViewMatch(current_game, true);
 		viewMatch.setMainWindow(this);
 		showViewMatch();
@@ -235,6 +235,8 @@ public class MainWindow implements IObserver {
 	public void udpateGameEnded(IGame game) {
 //		if (game.getURI().equals(current_game.getURI())) {
 			showViewWin();
+			if (!(current_game.getHomeScore() >= 3 || current_game.getGuestScore() >= 3))
+				viewWin.setTitle("Enemy leaved");
 //		}
 	}
 }

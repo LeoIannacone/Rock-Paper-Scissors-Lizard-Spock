@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 public class ViewWin extends ViewDefault implements ActionListener {
 	
 	private IGame game;
+	private JLabel title;
 
 	public ViewWin(IGame game) {
 		this.game = game;
@@ -29,22 +30,22 @@ public class ViewWin extends ViewDefault implements ActionListener {
 	private void initialize() {
 		JPanel p1 = new JPanel();
 		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
-		JLabel win = new JLabel();
+		title = new JLabel();
 		IPlayer me = game.getMe();
 		IPlayer enemy = game.getOpponent();
 		String label = "You WIN";
-		win.setForeground(Color.GREEN);
+		title.setForeground(Color.GREEN);
 		if (me.getScore() < enemy.getScore()) {
-			win.setForeground(Color.RED);
+			title.setForeground(Color.RED);
 			label = "You loose";
 		}
 		
-		win.setAlignmentX(CENTER_ALIGNMENT);
-		win.setAlignmentY(CENTER_ALIGNMENT);
-		win.setText(label);
-		win.setFont(new Font(win.getFont().getName(), Font.PLAIN, 36));
+		title.setAlignmentX(CENTER_ALIGNMENT);
+		title.setAlignmentY(CENTER_ALIGNMENT);
+		title.setText(label);
+		title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 36));
 		p1.add(Box.createRigidArea(new Dimension(0, 60)));
-		p1.add(win);
+		p1.add(title);
 		p1.add(Box.createRigidArea(new Dimension(0, 40)));
 		
 		JPanel p2 = new JPanel(new FlowLayout());
@@ -67,6 +68,10 @@ public class ViewWin extends ViewDefault implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		mainWindow.showViewWelcome();
+	}
+	
+	public void setTitle(String title) {
+		this.title.setText(title);
 	}
 	
 }

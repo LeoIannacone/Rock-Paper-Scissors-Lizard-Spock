@@ -41,20 +41,22 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 	}
 
 	public void appendWaitingGames(IGame game) {
-		String home = game.getHomePlayer().getName();
-		if (game.getStatus().equals(Game.WAITING)) {
-			Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: new waiting game: " + game.getHomePlayer().getName());
-			this.matches.put(home, game);
-			this.listData.add(home);
-		} 
-		else {
-			Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: removing game: " + game.getHomePlayer().getName());
-			if (this.matches.containsKey(home)) {
-				this.matches.remove(home);
-				this.listData.remove(home);
+		try {
+			String home = game.getHomePlayer().getName();
+			if (game.getStatus().equals(Game.WAITING)) {
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: new waiting game: " + game.getHomePlayer().getName());
+				this.matches.put(home, game);
+				this.listData.add(home);
+			} 
+			else {
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: removing game: " + game.getHomePlayer().getName());
+				if (this.matches.containsKey(home)) {
+					this.matches.remove(home);
+					this.listData.remove(home);
+				}
 			}
-		}
-		list.setListData(listData);
+			list.setListData(listData);
+		} catch (Exception e) {}
 	}
 	
 	public void reset() {

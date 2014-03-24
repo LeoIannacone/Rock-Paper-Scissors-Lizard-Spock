@@ -171,4 +171,10 @@ public class SimpleConnectorPrototype implements IConnector {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void unwatchAll() {
+		// TODO Auto-generated method stub
+		
+	}
 }
