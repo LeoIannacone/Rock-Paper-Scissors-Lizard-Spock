@@ -158,4 +158,16 @@ public class SimpleConnectorPrototype implements IConnector {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void watchForGameEnded(IGame game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unwatchForGameEnded() {
+		// TODO Auto-generated method stub
+		
+	}
 }
