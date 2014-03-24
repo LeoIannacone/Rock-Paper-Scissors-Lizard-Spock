@@ -151,16 +151,20 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		
 		boolean ack;
 		String xml = "";
-		ack = updateGameStatus(game, Game.ACTIVE);
-		if (ack) xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasGuest", NAME_SPACE + player.getURIToString(), "URI", "URI");
-		ack = ack && xml_tools.isInsertConfirmed(xml);
-		if (ack){
+		xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasGuest", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		ack = xml_tools.isInsertConfirmed(xml);
+		if (ack) {
 			game.setGuestPlayer(player);
+			game.setScore("0-0");
 			ack = updateGameScore(game);
 			Debug.print(2, this.getClass().getCanonicalName() + ": joinGame: " + player.getURIToString() + " joined " + game.getURIToString());
+		
+			ack = updateGameStatus(game, Game.ACTIVE);
+			if (! ack)
+				System.err.println("Error joining game");
 		}
 		else 
-			System.err.println("Error joining game");
+			System.err.println("SIBConnector:updateGameStatus: error inserting guest player");
 		return ack;
 	}
 
