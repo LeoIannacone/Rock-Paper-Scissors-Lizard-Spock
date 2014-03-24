@@ -37,7 +37,7 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 		else{
 			System.err.println("Error during subscription");
 		}	
-		Debug.print(2, "Subscription confirmed to query\n    " + query);
+		Debug.print(2, this.getClass().getCanonicalName() + ": Subscription confirmed to query\n    " + query);
 		SSAP_sparql_response resp = xml_tools.get_SPARQL_query_results(xml);//An object to manage the sparql response
 		getNewObjectsFromResults(resp);
 	}
@@ -73,7 +73,7 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 	@Override
 	public void kpic_UnsubscribeEventHandler(String sub_ID) {
 		if(sub_ID != null){
-			Debug.print(2, kp.unsubscribe(sub_ID));
+			Debug.print(2, this.getClass().getCanonicalName() + ": unsubscribing: " + kp.unsubscribe(sub_ID));
 			this.subID = null;
 		}
 	}
