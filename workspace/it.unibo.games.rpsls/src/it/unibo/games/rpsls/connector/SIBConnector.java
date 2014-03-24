@@ -21,6 +21,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	private SIBSubscriptionWaitingGames waitingGamesSubscription;
 	private SIBSubscriptionWaitingIncomingPlayer incomingPlayerSubscription;
 	private SIBSubscriptionHit hitSubscription;
+	private SIBSubscriptionLeaveGame leaveSubscription;
 	
 	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -374,15 +375,14 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public void watchForGameEnded(IGame game) {
-		// TODO Auto-generated method stub
-		
+	public void watchForGameEnded(IGame game, IObserver observer) {
+		leaveSubscription = new SIBSubscriptionLeaveGame(game, observer);
 	}
 
 	@Override
 	public void unwatchForGameEnded() {
-		// TODO Auto-generated method stub
-		
+		if (leaveSubscription != null && leaveSubscription.getSubID() != null)
+			leaveSubscription.kpic_UnsubscribeEventHandler(leaveSubscription.getSubID());
 	}
 
 }
