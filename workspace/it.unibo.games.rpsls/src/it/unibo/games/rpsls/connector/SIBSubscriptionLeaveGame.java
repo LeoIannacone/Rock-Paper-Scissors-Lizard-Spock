@@ -1,8 +1,11 @@
 package it.unibo.games.rpsls.connector;
 
+import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.utils.Debug;
+
+import java.util.Vector;
 
 
 import sofia_kp.KPICore;
@@ -13,8 +16,8 @@ public class SIBSubscriptionLeaveGame extends SIBSubscription {
 	protected IObserver observer;
 	protected IGame game;
 	
-	protected static String SUBSCRIPTION_QUERY= "SELECT ?uri_game WHERE {  " +
-			"%s <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> <http://rpsls.games.unibo.it/Ontology.owl#ended> }";
+	protected static String SUBSCRIPTION_QUERY= "SELECT ?status WHERE {  " +
+			"<http://rpsls.games.unibo.it/Ontology.owl#%s> <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> ?status }";
 
 
 	public SIBSubscriptionLeaveGame(IGame game, IObserver observer){
@@ -24,6 +27,7 @@ public class SIBSubscriptionLeaveGame extends SIBSubscription {
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		kp.join();
 		xml = kp.subscribeSPARQL(String.format(SUBSCRIPTION_QUERY, game.getURIToString()), this);
+		Debug.print(2, String.format(SUBSCRIPTION_QUERY, game.getURIToString()));
 		subID = null;
 		if(xml_tools.isSubscriptionConfirmed(xml)){
 			try{
@@ -42,13 +46,23 @@ public class SIBSubscriptionLeaveGame extends SIBSubscription {
 
 	@Override
 	public void getNewObjectsFromResults(SSAP_sparql_response resp) {
-		if (observer != null){
-			Debug.print(2, this.getClass().getCanonicalName() +":getNewObjectFromResults: " + game.getURIToString() + " ended"  );
-			observer.udpateGameEnded(game);
-		}
-		else{
-			System.out.println("Game Ended:");
-			System.out.println("  " + game.getURIToString());
+		Vector<String[]> values = resp.getResultsForVar("status");
+		Debug.print(2, this.getClass().getCanonicalName() + ":getNewObjectFromResults: Received " + values.size() + " new values");
+		int counter = 0;
+		for (String[] val : values){
+			String status = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
+			Debug.print(2, this.getClass().getCanonicalName() + ":getNewObjectFromResults: value " + counter++);
+			if (observer != null){
+				if(Utils.removePrefix(status).equals(Game.ENDED)){
+					Debug.print(2, this.getClass().getCanonicalName() +":getNewObjectFromResults: " + game.getURIToString() + ": ended");
+					observer.udpateGameEnded(game);
+				}
+			}
+			else{
+				System.out.println("Game ended:");
+				System.out.println(game.getURIToString() + ": ended");
+			}
 		}
 	}
 }
+
