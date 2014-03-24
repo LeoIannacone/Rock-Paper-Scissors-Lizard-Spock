@@ -36,4 +36,7 @@ public interface IConnector {
 	public void watchForHit(IGame game, IPlayer player, IObserver observer);
 	public void unwatchForHit();
 	
+	//unsubscribe all
+	public void unwatchAll();
+	
 }

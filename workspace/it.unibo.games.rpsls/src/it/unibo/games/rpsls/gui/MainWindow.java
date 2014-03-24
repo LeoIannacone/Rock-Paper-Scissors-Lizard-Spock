@@ -118,8 +118,12 @@ public class MainWindow implements IObserver {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				Debug.print(1, "Closing window");
 				if (current_game != null) {
 //					connector.endGame(current_game);
+					Debug.print(2, this.getClass().getCanonicalName() + ": Close all subscription");
+					connector.unwatchAll();
+					Debug.print(1, "Leaving game: " + current_game.getURIToString());
 					connector.leaveGame(current_game, me);
 				}
 			}
@@ -136,7 +140,8 @@ public class MainWindow implements IObserver {
 		viewWin.setMainWindow(this);
 		showView(viewWin);
 		connector.updateGameStatus(current_game, Game.ENDED);
-		current_game = null;
+		connector.unwatchAll();
+//		current_game = null;
 	}
 	
 	public void showViewWelcome() {
@@ -165,8 +170,9 @@ public class MainWindow implements IObserver {
 	}
 	
 	public void deleteGame() {
-		connector.deleteGame(current_game);
-		current_game = null;
+		connector.leaveGame(current_game, me);
+//		connector.deleteGame(current_game);
+//		current_game = null;
 	}
 	
 	public void createNewGame(IPlayer player) {
@@ -227,8 +233,8 @@ public class MainWindow implements IObserver {
 
 	@Override
 	public void udpateGameEnded(IGame game) {
-		if (game.getURI().equals(current_game.getURI())) {
+//		if (game.getURI().equals(current_game.getURI())) {
 			showViewWin();
-		}
+//		}
 	}
 }
