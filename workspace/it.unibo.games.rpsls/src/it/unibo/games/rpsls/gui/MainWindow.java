@@ -14,6 +14,8 @@ import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -114,6 +116,14 @@ public class MainWindow implements IObserver {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (current_game != null) {
+//					connector.endGame(current_game);
+					connector.leaveGame(current_game, me);
+				}
+			}
+		});
 		frame.setTitle("RPSLS");
 		frame.setResizable(false);
 		frame.setSize(315, 450);
@@ -139,6 +149,7 @@ public class MainWindow implements IObserver {
 	
 	public void showViewMatch() {
 		connector.watchForHit(current_game, current_game.getOpponent(), this);
+		connector.watchForGameEnded(current_game, this);
 		showView(viewMatch);
 	}
 	
