@@ -132,30 +132,34 @@ public class MainWindow implements IObserver {
 		showViewConfigConnector();
 	}
 	
+	public void init() {
+		connector = SIBConnector.getInstance();
+		initialize_me();
+		showViewWelcome();
+	}
+	
 	public void showViewConfigConnector() {
 		viewConfig = new ViewConfigConnector();
 		viewConfig.setMainWindow(this);
 		showView(viewConfig);
 	}
 	
-	public void showViewWin() {
-		initialize_me();
-		viewWin = new ViewWin(current_game);
-		viewWin.setMainWindow(this);
-		showView(viewWin);
-		connector.updateGameStatus(current_game, Game.ENDED);
-		connector.unwatchAll();
-//		current_game = null;
-	}
-	
 	public void showViewWelcome() {
-		connector = SIBConnector.getInstance();
 		viewWelcome = new ViewWelcome(me);
 		viewWelcome.setMainWindow(this);
 		connector.unwatchForWaitingGames();
 		connector.unwatchForIncomingPlayer();
 		showView(viewWelcome);
 	}
+	
+	public void showViewWin() {
+		viewWin = new ViewWin(current_game);
+		viewWin.setMainWindow(this);
+		showView(viewWin);
+		connector.updateGameStatus(current_game, Game.ENDED);
+		connector.unwatchAll();
+	}
+	
 	
 	public void showViewMatch() {
 		connector.watchForHit(current_game, current_game.getOpponent(), this);

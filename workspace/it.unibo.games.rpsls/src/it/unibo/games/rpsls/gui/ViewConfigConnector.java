@@ -87,7 +87,7 @@ public class ViewConfigConnector extends ViewDefault implements ActionListener{
 			Config.SIB_HOST = ip;
 			Config.SIB_PORT = port_num;
 			
-			mainWindow.showViewWelcome();
+			mainWindow.init();
 			
 		} catch (NumberFormatException ex){
 			warn(port);
