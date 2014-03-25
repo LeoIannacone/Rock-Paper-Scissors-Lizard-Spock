@@ -1,12 +1,13 @@
 package it.unibo.games.rpsls.gui;
 
+import it.unibo.games.rpsls.interfaces.ICommand;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import it.unibo.games.rpsls.interfaces.IHit;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -17,11 +18,11 @@ import javax.swing.JPanel;
 
 public class PanelHit extends JPanel {
 
-	private IHit hit;
+	private ICommand hit;
 	private JLabel icon;
 	private JLabel name;
 	
-	public PanelHit(IHit hit) {
+	public PanelHit(ICommand hit) {
 		super();
 		init();
 		setHit(hit);
@@ -47,32 +48,32 @@ public class PanelHit extends JPanel {
 		this.add(p1);
 	}
 	
-	public void setHit(IHit hit) {
+	public void setHit(ICommand hit) {
 		if (hit == null) {
 			clean();
 			return;
 		}
 		this.hit = hit;
-		File icon = Utils.getHitPanelIcon(hit);
-		String name = hit.getName();
+		String icon = Utils.getHitPanelIcon(hit);
+		String name = hit.getCommandType();
 		setIconAndLabel(icon, name);
 	}
 	
-	public IHit getHit() {
+	public ICommand getHit() {
 		return hit;
 	}
 	
 	public void clean() {
 		this.hit = null;
-		File icon = Utils.getHitPanelIconBlank();
+		String icon = Utils.getHitPanelIconBlank();
 		String name = " ";
 		setIconAndLabel(icon, name);
 	}
 	
-	private void setIconAndLabel(File icon, String name) {
+	private void setIconAndLabel(String icon, String name) {
 		BufferedImage image;
 		try {
-			image = ImageIO.read(icon);
+			image = ImageIO.read(this.getClass().getResource(icon));
 			this.icon.setIcon(new ImageIcon(image));
 		} catch (IOException e) {
 			e.printStackTrace();

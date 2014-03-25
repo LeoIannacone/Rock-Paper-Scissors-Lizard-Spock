@@ -1,23 +1,22 @@
 package it.unibo.games.rpsls.gui;
 
-import java.io.File;
-
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
+import it.unibo.games.rpsls.interfaces.IConnectorEntity;
 
 public class Utils {
-	
-	public static File getHitButtonIcon(IHit hit) {
-		return getIcon(hit.getName(), 32);
+		
+	public static String getHitButtonIcon(ICommand hit) {
+		return getIcon(hit.getCommandType(), 32);
 	}
 	
-	public static File getHitPanelIcon(IHit hit) {
-		return getIcon(hit.getName(), 96);
+	public static String getHitPanelIcon(ICommand hit) {
+		return getIcon(hit.getCommandType(), 96);
 	}
-	public static File getHitPanelIconBlank() {
+	public static String getHitPanelIconBlank() {
 		return getIcon("hit-blank", 96);
 	}
-	private static File getIcon(String name, int dimension) {
-		return new File(String.format("data/%s-%d.png", name, dimension));
+	private static String getIcon(String name, int dimension) {
+		return String.format("data/%s-%d.png", name, dimension);
 	}
 
 	public static String capitalize(String str) {
@@ -26,4 +25,9 @@ public class Utils {
 		return Character.toUpperCase(str.charAt(0)) + str.substring(1);
 	}
 	
+	public static String getSubID(IConnectorEntity entity) {
+		String uri = entity.getURIToString();
+		int len = uri.length();
+		return uri.substring(len - 4);
+	}
 }

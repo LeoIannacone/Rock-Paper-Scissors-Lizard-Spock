@@ -2,6 +2,7 @@ package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -19,10 +20,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.sun.imageio.plugins.common.SubImageInputStream;
+
 public class ViewJoinGame extends ViewDefault implements ActionListener, MouseListener {
 
 	private HashMap<String, IGame> matches;
 	private JList<String> list;
+	Vector<String> listData;
 	private JButton join;
 	private JButton back;
 	
@@ -31,19 +35,42 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		init();
 	}
-	
-	public void setWaitingGames(List<IGame> matches) {
-		this.matches = new HashMap<String, IGame>();
-		Vector<String> listData = new Vector<String>();
-		for (IGame m : matches) {
-			String home = m.getHomePlayer().getName();
-			this.matches.put(home, m);
-			listData.add(home);
+
+	public void appendWaitingGames(List<IGame> games) {
+		for (IGame g : games) {
+			this.appendWaitingGames(g);
 		}
-		list.setListData(listData);
+	}
+
+	public void appendWaitingGames(IGame game) {
+		try {
+			String id = String.format("%s (%s)", game.getHomePlayer().getName(), Utils.getSubID(game));
+			
+			if (game.getStatus().equals(Game.WAITING)) {
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: new waiting game: " + game.getHomePlayer().getName());
+				this.matches.put(id, game);
+				this.listData.add(id);
+			} 
+			else {
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: removing game: " + game.getHomePlayer().getName());
+				if (this.matches.containsKey(id)) {
+					this.matches.remove(id);
+					this.listData.remove(id);
+				}
+			}
+			list.setListData(listData);
+		} catch (Exception e) {}
+	}
+	
+	public void reset() {
+		this.listData = new Vector<String>();
+		this.matches = new HashMap<String, IGame>();
 	}
 	
 	private void init() {
+		
+		this.listData = new Vector<String>();
+		this.matches = new HashMap<String, IGame>();
 
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		

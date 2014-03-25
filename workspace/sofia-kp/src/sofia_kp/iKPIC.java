@@ -31,6 +31,15 @@ public interface iKPIC
      */
     public void setEventHandler(iKPIC_subscribeHandler eh);
     
+    /**
+     * Set the event handler
+     * @param eh an object that implement the kp_subscribeHandler2 interface
+     * 
+     *
+     */
+    
+    public void setEventHandler2(iKPIC_subscribeHandler2 eh);
+    
     
     
     /****************************************************\

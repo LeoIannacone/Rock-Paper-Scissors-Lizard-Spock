@@ -6,11 +6,9 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import it.unibo.games.rpsls.game.Hit;
-import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.game.Utils;
-import it.unibo.games.rpsls.interfaces.IHit;
+import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -35,11 +33,13 @@ public class ViewMatch extends ViewDefault {
 	
 	private boolean me_has_home;
 	
+	private ICommand receivedEnemyHit;
+	
 	public ViewMatch(IGame match, boolean me_has_home) {
 		this.match = match;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.me_has_home = me_has_home;
-		init();	
+		init();
 	}
 	
 	private void init() {
@@ -119,10 +119,10 @@ public class ViewMatch extends ViewDefault {
 		for (String h : hits) {
 			Hit hit = new Hit(h);
 			if(me_has_home)
-				hit.setPlayer(match.getHomePlayer());
+				hit.setIssuer(match.getHomePlayer());
 			else
-				hit.setPlayer(match.getGuestPlayer());
-			ButtonHit b = new ButtonHit(new Hit(h));
+				hit.setIssuer(match.getGuestPlayer());
+			ButtonHit b = new ButtonHit(hit);
 			b.setPanelGame(this);
 			buttonsHit.add(b);
 			p1.add(b);
@@ -132,10 +132,11 @@ public class ViewMatch extends ViewDefault {
 	}
 	
 	public void clickedButtonHit(ButtonHit clicked) {
-		if (currentHitButton == clicked)
+		if (currentHitButton != null)
 			return;
 		for (ButtonHit b : buttonsHit) {
 			if (b.equals(clicked)) {
+				b.setEnabled(false);
 				currentHitButton = clicked;
 				b.getModel().setSelected(true);
 				mePanelHit.setHit(b.getHit());
@@ -145,47 +146,66 @@ public class ViewMatch extends ViewDefault {
 			}
 		}
 		mainWindow.sendHit(clicked.getHit());
+		showEnemyHit();
 	}
 	
 	public void clean() {
 		currentHitButton = null;
-		
-		for (ButtonHit b: buttonsHit)
-			b.setEnabled(true);
+		receivedEnemyHit = null;
 		mePanelHit.clean();
 		enemyPanelHit.clean();
 		versus.setText("");
 		winnerLabel.setText("");
+		for (ButtonHit b: buttonsHit)
+			b.setEnabled(true);
 	}
 	
-	public void receivedEnemyHit(IHit hit) {
-		enemyPanelHit.setHit(hit);
-		if (currentHitButton != null)
-			showLabelWinning();
+	private void showEnemyHit() {
+		if (receivedEnemyHit == null)
+			return;
+		enemyPanelHit.setHit(receivedEnemyHit);
+		showLabelWinning();
 		CleanerThread c = new CleanerThread(this);
 		c.start();
+	}
+	
+	public void receivedEnemyHit(ICommand hit) {
+		receivedEnemyHit = hit;
+		if (currentHitButton != null)
+			showEnemyHit();
 	}
 	
 	private void showLabelWinning() {
 		if (enemyPanelHit == null || currentHitButton == null)
 			return;
-		
-		String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
-		
-		int i = Integer.parseInt(info[0]);
-		
-		if (i != 0) {
-			winnerLabel.setText(info[1]);
+		try{
+			String[] info = Utils.compareHits(currentHitButton.getHit(), enemyPanelHit.getHit());
+			int i = Integer.parseInt(info[0]);
+			
+			String ltr = "\u2192"; // →
+			String rtl = "\u2190"; // ←
+
+			if (i != 0) {
+				winnerLabel.setText(info[1]);
+			}
+			if (i > 0) {
+				if (me_has_home) versus.setText(ltr); else versus.setText(rtl);
+				mePanelScore.increaseScore();
+			}
+			else if (i == 0) versus.setText("=");
+			else {
+				if (me_has_home) versus.setText(rtl); else versus.setText(ltr);
+				enemyPanelScore.increaseScore();
+			}
+			if (match.getHomePlayer().getScore() >= mainWindow.MAX_RESULT ||
+				match.getGuestPlayer().getScore() >= mainWindow.MAX_RESULT)
+			{
+				mainWindow.showViewWin();
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			System.exit(1);
 		}
-		if (i > 0) {
-			if (me_has_home) versus.setText("→"); else versus.setText("←");
-			mePanelScore.increaseScore();
-		}
-		else if (i == 0) versus.setText("=");
-		else {
-			if (me_has_home) versus.setText("←"); else versus.setText("→");
-			enemyPanelScore.increaseScore();
-		}	
 	}
 }
 

@@ -4,3 +4,7 @@
 
 # REMOVE ALL BIN FILES
 workspace/*/bin/*
+
+# REMOVE ALL .DS_Store FILES
+.DS_Store
+*/.DS_Store

@@ -29,6 +29,7 @@ public class SSAP_XMLTools
 {
 
 	org.jdom2.input.SAXBuilder builder = null;
+	Document messageDoc = null;
 
 	/**
 	 * SSAP specification protocol element
@@ -37,7 +38,7 @@ public class SSAP_XMLTools
 	private int    transaction_id =0;
 	private int    subscription_id=0;
 
-	public String ANYURI="http://www.nokia.com/NRC/M3/sib#any";
+	public static String ANYURI="http://www.nokia.com/NRC/M3/sib#any";
 	private String SMART_SPACE_NAME;
 
 	/**
@@ -55,7 +56,7 @@ public class SSAP_XMLTools
 		builder = new SAXBuilder();
 		this.nodeID           =nodeID;
 		this.SMART_SPACE_NAME =SMART_SPACE_NAME;
-		this.ANYURI           =ANYURI;
+		this.ANYURI           = (ANYURI == null ? this.ANYURI : ANYURI);
 
 	}//public KPXML(String HOST,int PORT,String SMART_SPACE_NAME)
 
@@ -68,10 +69,7 @@ public class SSAP_XMLTools
 	public SSAP_XMLTools() 
 	{
 		builder = new SAXBuilder();
-		this.nodeID           =null;
 		this.SMART_SPACE_NAME =null;
-		this.ANYURI           =null;
-
 	}
 
 	/**
@@ -86,17 +84,30 @@ public class SSAP_XMLTools
 	 */
 	public Hashtable SibXMLMessageParser(String xml, String id[])
 	{   
-		if(xml==null){System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser: XML message is null");return null;}
-		if(id==null){System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser:id is null");return null;}
+		if(xml==null)
+		{
+			System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser: XML message is null")
+			;return null;
+			}
+		if(id==null)
+		{
+			System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser:id is null");
+			return null;
+			}
 
 		Document doc=null;
 		try {
+			//System.out.println("################" + xml);
 			doc = builder.build(new ByteArrayInputStream(xml.getBytes()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		if(doc==null){System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser:doc is null");return null;}
+		if(doc==null)
+		{
+			System.out.println("ERROR:SSAP_XMLTools:SibXMLMessageParser:doc is null");
+			return null;
+			}
 
 		Hashtable hashtable = new Hashtable();
 
@@ -108,6 +119,7 @@ public class SSAP_XMLTools
 
 		for(int i=0; i< id.length; i++)
 		{   
+
 			hashtable.put(id[i],root.getChild(id[i], ns ).getText() );
 
 		}//for(int i=0; i< e.size(); i++)
@@ -523,7 +535,21 @@ public class SSAP_XMLTools
 	 */
 	public String getSubscriptionID(String xml)
 	{   //<parameter name = "subscription_id">2</parameter>	  
+		
 		return getParameterElement(xml,"name", "subscription_id").getValue();
+	}//public String getSubscriptionID(String xml)
+	
+	
+	/**
+	 * The persistent update confirmation message bring with him an updatedID
+	 * This method return the updatedID
+	 *  
+	 * @param xml the SIB xml message
+	 * @return the event subscription ID if available
+	 */
+	public String getUpdateID(String xml)
+	{   //<parameter name = "update_id">2</parameter>	  
+		return getParameterElement(xml,"name", "update_id").getValue();
 	}//public String getSubscriptionID(String xml)
 
 
@@ -638,7 +664,6 @@ public class SSAP_XMLTools
 	{String st=s==null?"URI":s_type;
 	String ot=o==null?"URI":o_type;
 
-
 	return     
 			"<SSAP_message><transaction_type>QUERY</transaction_type><message_type>REQUEST</message_type>"
 			+"<transaction_id>"+ ++transaction_id +"</transaction_id>"
@@ -648,9 +673,9 @@ public class SSAP_XMLTools
 			+"<parameter name = \"query\"><triple_list>"
 			+"<triple>"
 
-    +"        <subject   type=\""+st+"\">"+(s==null?ANYURI:s)+"</subject>"
-    +"        <predicate>"+                (p==null?ANYURI:p)+"</predicate>"
-    +"        <object    type=\""+ot+"\">"+(o==null?ANYURI:o)+"</object>"
+    +"<subject type=\""+st+"\">"+(s==null?ANYURI:s)+"</subject>"
+    +"<predicate>"+                (p==null?ANYURI:p)+"</predicate>"
+    +"<object type=\""+ot+"\">"+(o==null?ANYURI:o)+"</object>"
 
     +"</triple>"
     +"</triple_list>" 
@@ -731,11 +756,11 @@ public class SSAP_XMLTools
 	String ot=o==null?"URI":tripleVector.elementAt(i).elementAt(4);
 
 	tripleList=tripleList
-			+" <triple>"        
-			+"  <subject type=\""+st+"\">"+ (s==null?ANYURI:s)+"</subject>"
-			+"  <predicate>"+                                                   (p==null?ANYURI:p)+"</predicate>"
-			+"  <object type=\"" +ot+"\">"+ (o==null?ANYURI:o)+"</object>"
-			+" </triple>";
+			+"<triple>"        
+			+"<subject type=\""+st+"\">"+ (s==null?ANYURI:s)+"</subject>"
+			+"<predicate>"+                                                   (p==null?ANYURI:p)+"</predicate>"
+			+"<object type=\"" +ot+"\">"+ (o==null?ANYURI:o)+"</object>"
+			+"</triple>";
 	}
 	return tripleList+"</triple_list>";
 	}//private String getTripleListFromTripleVector( Vector<Vector<String>> tripleList )
@@ -765,13 +790,13 @@ public class SSAP_XMLTools
 			+"<parameter name=\"confirm\">TRUE</parameter>"
 			+"<parameter name=\"insert_graph\"  encoding=\"RDF-M3\">"
 			+"<triple_list>"
-			+" <triple>"
+			+"<triple>"
 
-    +"  <subject type=\""+s_type+"\">"+ s+"</subject>"
-    +"  <predicate>"+                   p+"</predicate>"
-    +"  <object type=\""+o_type+"\">"+  o+"</object>"
+    +"<subject type=\""+s_type+"\">"+ s+"</subject>"
+    +"<predicate>"+                   p+"</predicate>"
+    +"<object type=\""+o_type+"\">"+  o+"</object>"
 
-    +" </triple>"
+    +"</triple>"
     +"</triple_list>"
     +"</parameter>"
     +"</SSAP_message>";   		
@@ -841,7 +866,7 @@ public class SSAP_XMLTools
  		   +"<predicate>"+(p==null?ANYURI:p)+"</predicate>"
  		   +"<object type=\""+o_type+"\">"+(o==null?ANYURI:o)+"</object>"
 
- 		   +" </triple>"
+ 		   +"</triple>"
  		   +"</triple_list>"
  		   +"</parameter>"
  		   +"</SSAP_message>";
@@ -916,20 +941,22 @@ public class SSAP_XMLTools
 			//insert (NEW)
 
  		   +"<triple_list><triple>"
- 		   +"        <subject type=\""+sn_type+"\">"+ sn+"</subject>"
- 		   +"        <predicate>"+                    pn+"</predicate>"
- 		   +"        <object type=\""+on_type+"\">"+  on+"</object>"		   
- 		   +" </triple></triple_list>"
+ 		   +"<subject type=\""+sn_type+"\">"+ sn+"</subject>"
+ 		   +"<predicate>"+                    pn+"</predicate>"
+ 		   +"<object type=\""+on_type+"\">"+  on+"</object>"		   
+ 		   +"</triple></triple_list>"
 
           +"</parameter>"
 
           +"<parameter name = \"remove_graph\" encoding = \""+"RDF-M3"+"\">"
           //remove (OLD)
           +"<triple_list><triple>"
-          +"        <subject type=\""+so_type+"\">"+ so+"</subject>"
-          +"        <predicate>"+                    po+"</predicate>"
-          +"        <object type=\""+oo_type+"\">"+  oo+"</object>"		   
-          +" </triple></triple_list>"
+          
+           +"<subject type=\""+so_type+"\">"+(so==null?ANYURI:so)+"</subject>"
+ 		   +"<predicate>"+(po==null?ANYURI:po)+"</predicate>"
+ 		   +"<object type=\""+oo_type+"\">"+(oo==null?ANYURI:oo)+"</object>"
+          	   
+          +"</triple></triple_list>"
 
           +"</parameter>"
           +"<parameter name = \"confirm\">TRUE</parameter>"
@@ -1000,7 +1027,7 @@ public class SSAP_XMLTools
 	 * 
 	 * @return a string representation of the XML message to send to the SIB 
 	 */
-	String subscribeRDF(String s,String p,String o,String o_type)
+	public String subscribeRDF(String s,String p,String o,String o_type)
 	{++transaction_id;
 	subscription_id=transaction_id;
 
@@ -1013,17 +1040,44 @@ public class SSAP_XMLTools
 			+"<transaction_id>"+ transaction_id +"</transaction_id>"
 			+"<node_id>"+nodeID+"</node_id>" //+"<node_id>{"+nodeID+"}</node_id>"
 			+"<space_id>"+ SMART_SPACE_NAME +"</space_id>"
-			+"<parameter name = \"type\">RDF-M3</parameter>" 
-			+		"<parameter name = \"query\"><triple_list><triple>"
-
-     +"        <subject                      >"+(s==null?ANYURI:s)+"</subject>"
-     +"        <predicate>"+                    (p==null?ANYURI:p)+"</predicate>"
-     +"        <object    type=\""+o_type+"\">"+(o==null?ANYURI:o)+"</object>"        
-
-     +"		</triple></triple_list></parameter></SSAP_message>";
+			+"<parameter name=\"type\">RDF-M3</parameter>" 
+			+"<parameter name=\"query\"><triple_list><triple>"
+            +"<subject>"+(s==null?ANYURI:s)+"</subject>"
+            +"<predicate>"+                    (p==null?ANYURI:p)+"</predicate>"
+            +"<object type=\""+o_type+"\">"+(o==null?ANYURI:o)+"</object>"        
+            +"</triple></triple_list></parameter></SSAP_message>";
 	}//String subscribe()
+	
+	/**
+	 * Make the SUBSCRIPTION SSAP message 
+	 *  
+	 * @param triples the triples patterns to subscribe
+	 * 
+	 * @return a string representation of the XML message to send to the SIB 
+	 */
+	public String subscribeRDF(Vector<Vector<String> > triples)
+	{
+		++transaction_id;
+		subscription_id=transaction_id;
 
-	String subscribeSPARQL (String query)
+		
+
+
+		return 
+				"<SSAP_message>" 
+				+"<transaction_type>SUBSCRIBE</transaction_type><message_type>REQUEST</message_type>" 
+				+"<transaction_id>"+ transaction_id +"</transaction_id>"
+				+"<node_id>"+nodeID+"</node_id>" //+"<node_id>{"+nodeID+"}</node_id>"
+				+"<space_id>"+ SMART_SPACE_NAME +"</space_id>"
+				+"<parameter name=\"type\">RDF-M3</parameter>" 
+				+"<parameter name=\"query\">" 
+				+ this.getTripleListFromTripleVector(triples)
+				+"</parameter>"
+				+"</SSAP_message>";        
+		
+	}
+
+	public String subscribeSPARQL (String query)
 	{
 		return 
 				"<SSAP_message>" 
@@ -1042,7 +1096,8 @@ public class SSAP_XMLTools
 	 * @return a string representation of the XML answer message from the SIB 
 	 */
 	public String unsubscribe()
-	{return 
+	{
+		return 
 			"<SSAP_message>"
 			+ "<transaction_type>UNSUBSCRIBE</transaction_type>"
 			+ "<message_type>REQUEST</message_type>"
@@ -1053,6 +1108,20 @@ public class SSAP_XMLTools
          + "<parameter name = \"subscription_id\">" + subscription_id + "</parameter>"
          + "</SSAP_message>";
 	}//String unsubscribe()
+	
+	public String cancel_persistent_update(String update_id)
+	{
+	return 
+			"<SSAP_message>"
+			+ "<transaction_type>CANCEL_PERSISTENT_UPDATE</transaction_type>"
+			+ "<message_type>REQUEST</message_type>"
+
+         + "<transaction_id>"+ ++transaction_id +"</transaction_id>"
+         + "<node_id>"+nodeID+"</node_id>" //+ "<node_id>{"+nodeID+"}</node_id>"
+         +"<space_id>"+ SMART_SPACE_NAME +"</space_id>"
+         + "<parameter name = \"update_id\">" + update_id + "</parameter>"
+         + "</SSAP_message>";
+	}
 
 
 	/**
@@ -1214,7 +1283,7 @@ public class SSAP_XMLTools
 	 */
 	private final String newXmlNodeTAG(String name, String type, String content)
 	{
-		String str_name=name.equals("")?"":" name=\""+name+"\"";
+		String str_name=name.equals("")?"":"name=\""+name+"\"";
 		String str_type=type.equals("")?"":"type=\""+type+"\"";
 
 		return "<node "+str_name+" "+str_type+" >"+content+"</node>";
@@ -1698,7 +1767,17 @@ public class SSAP_XMLTools
 			return null;
 		}
 	}
-
+	public String getSSAPmsgIndicationSequence(String xml)
+	{ //System.out.println("SSAP_XMLTools:getSSAPmsgStatus:xml content:\n"+xml);
+		if(getParameterElement(xml,"name", "ind_sequence")!= null)
+		{
+			return getParameterElement(xml,"name", "ind_sequence").getValue();
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 	/**
 	 * Make the SELECT SPARQL query SSAP message
@@ -1727,7 +1806,7 @@ public class SSAP_XMLTools
 	 * @return the query with correct substitution of the xml entities
 	 * 
 	 */
-	private String correctEntityReferences(String query){
+	public String correctEntityReferences(String query){
 
 		String new_query = new String();
 
@@ -1749,13 +1828,33 @@ public class SSAP_XMLTools
 
 	public String update_sparql (String sparql_update)
 	{
-		return  "<SSAP_message><transaction_type>UPDATE</transaction_type>"
+		return  "<SSAP_message><transaction_type>QUERY</transaction_type>"
 				+"<message_type>REQUEST</message_type>"
 				+"<transaction_id>"+ transaction_id +"</transaction_id>"
 				+"<node_id>"+nodeID+"</node_id>" //+"<node_id>{"+nodeID+"}</node_id>"
 				+"<space_id>"+ SMART_SPACE_NAME +"</space_id>"
 				+"<parameter name = \"insert_graph\" encoding = \""+"SPARQL-UPDATE"+"\">"
 				+correctEntityReferences(sparql_update)
+				+"</parameter>"
+				+"<parameter name = \"confirm\">TRUE</parameter>"
+				+"</SSAP_message>";
+	}
+	
+	/**
+	 * 
+	 * @param query the persistent sparql update query
+	 * @return SSAP  message to be sent to the SIB to support SPARQL queries in SIBs supporting it
+	 */
+	
+	public String persistent_update(String query )
+	{
+		return  "<SSAP_message><transaction_type>PERSISTENT_UPDATE</transaction_type>"
+				+"<message_type>REQUEST</message_type>"
+				+"<transaction_id>"+ transaction_id +"</transaction_id>"
+				+"<node_id>"+nodeID+"</node_id>" //+"<node_id>{"+nodeID+"}</node_id>"
+				+"<space_id>"+ SMART_SPACE_NAME +"</space_id>"
+				+"<parameter name = \"query\" encoding = \""+"SPARQL-UPDATE"+"\">"
+				+correctEntityReferences(query)
 				+"</parameter>"
 				+"<parameter name = \"confirm\">TRUE</parameter>"
 				+"</SSAP_message>";

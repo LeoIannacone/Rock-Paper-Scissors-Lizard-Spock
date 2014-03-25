@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.game;
 
 import it.unibo.games.rpsls.connector.ConnectorEntity;
+import it.unibo.games.rpsls.interfaces.IConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
@@ -11,14 +12,18 @@ public class Game extends ConnectorEntity implements IGame {
 	public static String WAITING = "waiting";
 	public static String PAUSED = "paused";
 	
+	protected IConnectorEntity commandInterface;
+	
 	private IPlayer home;
 	private IPlayer guest;
 	private String status;
+	private boolean homeAsOpponent;
 	
 	public Game(IPlayer home, IPlayer guest) {
 		this.home = home;
 		this.guest = guest;
 		this.status = WAITING;
+		this.homeAsOpponent = false;
 	}
 	
 	@Override
@@ -81,4 +86,63 @@ public class Game extends ConnectorEntity implements IGame {
 		return status;
 	}
 
+	@Override
+	public void setScore(String s) {
+		try{
+			String [] a = s.split("-");
+			home.setScore(Integer.parseInt(a[0]));
+			guest.setScore(Integer.parseInt(a[1]));
+		} catch(Exception e) {}
+	}
+
+	@Override
+	public String getScore() {
+		try{
+			return home.getScore() + "-" + guest.getScore();
+		}catch(Exception e){
+			return "";
+		}
+	}
+
+	
+	public String toString() {
+		try {
+			return String.format("%s [%s] - %s vs %s - score: %s", getURIToString(), getStatus(), getHomePlayer().getName(), getGuestPlayer().getName(), getScore());
+		} catch (Exception e) {
+			try {
+				return String.format("%s [%s] - %s", getURIToString(), getStatus(), getHomePlayer().getName());
+			} catch (Exception e1) {
+				return String.format("%s [%s]", getURIToString(), getStatus());
+			}
+		}
+	}
+
+	@Override
+	public void setCommandInterface(IConnectorEntity commandInterface) {
+		this.commandInterface = commandInterface;
+	}
+
+	@Override
+	public IConnectorEntity getCommandInterface() {
+		return this.commandInterface;
+	}
+
+	@Override
+	public void setHomeAsOpponent(boolean isOpponent) {
+		this.homeAsOpponent = isOpponent;
+	}
+
+	@Override
+	public IPlayer getOpponent() {
+		if (this.homeAsOpponent)
+			return home;
+		return guest;
+	}
+
+	@Override
+	public IPlayer getMe() {
+		if (! this.homeAsOpponent)
+			return home;
+		return guest;
+	}
 }

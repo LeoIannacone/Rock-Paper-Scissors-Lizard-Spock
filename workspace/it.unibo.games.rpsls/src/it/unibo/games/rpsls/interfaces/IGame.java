@@ -19,4 +19,14 @@ public interface IGame extends IConnectorEntity {
 	public void setStatus(String status);
 	public String getStatus();
 	
+	public void setScore(String s);
+	public String getScore();
+
+	public void setCommandInterface(IConnectorEntity commandInterface);
+	public IConnectorEntity getCommandInterface();
+	
+	public void setHomeAsOpponent(boolean isOpponent);
+	public IPlayer getOpponent();
+	public IPlayer getMe();
+
 }

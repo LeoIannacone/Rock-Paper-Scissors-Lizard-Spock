@@ -1,12 +1,14 @@
 package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.game.Player;
+import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -33,6 +35,7 @@ public class ViewWelcome extends ViewDefault {
 	private JButton stop;
 	private JButton join;
 	private JLabel loadingDots;
+	private JLabel subIDLabel;
 	
 	private IPlayer me;
 	
@@ -83,21 +86,32 @@ public class ViewWelcome extends ViewDefault {
 		panelCenter = new JPanel();
 		panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
 		panelCenter.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelCenter.setAlignmentY(Component.TOP_ALIGNMENT);
 		try {
 			JPanel p1 = new JPanel(new FlowLayout());
-			image = ImageIO.read(new File("data/rpsls-tab.png"));
+			image = ImageIO.read(this.getClass().getResourceAsStream("data/rpsls-tab.png"));
 			JLabel center = new JLabel(new ImageIcon(image));
 			p1.add(center);
 			panelCenter.add(p1);
 			
-			JPanel p2 = new JPanel(new FlowLayout());
-			URL u = new File("data/loading-dots.gif").toURI().toURL();
+			JPanel p2 = new JPanel();
+			p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+			p2.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			URL u = new File("data/loading-dots.gif").toURI().toURL();
+			URL u = this.getClass().getResource("data/loading-dots.gif");
 			ImageIcon i = new ImageIcon(u);
 			loadingDots = new JLabel(i);
 			loadingDots.setVisible(false);
+			loadingDots.setAlignmentX(Component.CENTER_ALIGNMENT);
 			p2.add(loadingDots);
+					
+			subIDLabel = new JLabel("");
+			subIDLabel.setVisible(false);
+			subIDLabel.setFont(new Font(subIDLabel.getFont().getName(), Font.PLAIN, 16));
+			subIDLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+			p2.add(subIDLabel);
+			
 			panelCenter.add(p2);
+
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -125,7 +139,8 @@ public class ViewWelcome extends ViewDefault {
 				if (name.getText().length() > 0) {
 					turnPanel(true);
 					Player p = new Player(name.getText());
-					mainWindow.createNewGame(p);
+					IGame game = mainWindow.createNewGame(p);
+					subIDLabel.setText(Utils.getSubID(game));
 				}
 			}
 		};
@@ -173,6 +188,7 @@ public class ViewWelcome extends ViewDefault {
 		nameLabel.setVisible(!startingGame);
 		name.setVisible(!startingGame);
 		loadingDots.setVisible(startingGame);
+		subIDLabel.setVisible(startingGame);
 		
 		start.setVisible(!startingGame);
 		join.setVisible(!startingGame);

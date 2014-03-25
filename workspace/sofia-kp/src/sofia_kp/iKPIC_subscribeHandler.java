@@ -8,7 +8,11 @@
 
 package sofia_kp;
 
+import java.util.Vector;
+
 public interface iKPIC_subscribeHandler {
+	
+	String subID = "";
 
     /**
      * This method is the handler for event 
@@ -18,5 +22,8 @@ public interface iKPIC_subscribeHandler {
      * 
      */
 	public void kpic_SIBEventHandler(String xml);
+	
+	
+
 	
 }

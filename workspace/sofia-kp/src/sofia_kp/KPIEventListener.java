@@ -117,7 +117,7 @@ public class KPIEventListener extends KPICore implements /*iKPIC,*/ iKPIC_subscr
      * @return a null value string in case of error otherwise an empty string 
      */
 
-	public boolean addRDFsubscription(String s,String p,String o,String o_type,iKPIC_subscribeHandler sh)
+	public boolean addRDFsubscription(String s,String p,String o,String o_type,iKPIC_subscribeHandler2 sh)
 	{
 	 KPICore kp = new KPICore(HOST,PORT,SSNM);	
 		
