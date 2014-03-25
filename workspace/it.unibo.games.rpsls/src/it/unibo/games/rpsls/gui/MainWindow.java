@@ -4,12 +4,10 @@ import it.unibo.games.rpsls.connector.SIBConnector;
 import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
-import it.unibo.games.rpsls.interfaces.IConnector;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
-import it.unibo.games.rpsls.prototypes.SimpleConnectorPrototype;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
@@ -36,6 +34,7 @@ public class MainWindow implements IObserver {
 	private ViewMatch viewMatch;
 	private ViewJoinGame viewJoinGame;
 	private ViewWin viewWin;
+	private ViewConfigConnector viewConfig;
 	
 	private SIBConnector connector;
 	
@@ -67,9 +66,7 @@ public class MainWindow implements IObserver {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
-		connector = SIBConnector.getInstance();
-		initialize_me();
+	public MainWindow() {		
 		initialize();
 	}
 	
@@ -132,10 +129,17 @@ public class MainWindow implements IObserver {
 		frame.setResizable(false);
 		frame.setSize(315, 450);
 			
-		showViewWelcome();
+		showViewConfigConnector();
+	}
+	
+	public void showViewConfigConnector() {
+		viewConfig = new ViewConfigConnector();
+		viewConfig.setMainWindow(this);
+		showView(viewConfig);
 	}
 	
 	public void showViewWin() {
+		initialize_me();
 		viewWin = new ViewWin(current_game);
 		viewWin.setMainWindow(this);
 		showView(viewWin);
@@ -145,6 +149,7 @@ public class MainWindow implements IObserver {
 	}
 	
 	public void showViewWelcome() {
+		connector = SIBConnector.getInstance();
 		viewWelcome = new ViewWelcome(me);
 		viewWelcome.setMainWindow(this);
 		connector.unwatchForWaitingGames();
