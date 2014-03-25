@@ -1,25 +1,22 @@
 package it.unibo.games.rpsls.gui;
 
-import java.io.File;
-
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IConnectorEntity;
-import it.unibo.games.rpsls.interfaces.IGame;
 
 public class Utils {
-	
-	public static File getHitButtonIcon(ICommand hit) {
+		
+	public static String getHitButtonIcon(ICommand hit) {
 		return getIcon(hit.getCommandType(), 32);
 	}
 	
-	public static File getHitPanelIcon(ICommand hit) {
+	public static String getHitPanelIcon(ICommand hit) {
 		return getIcon(hit.getCommandType(), 96);
 	}
-	public static File getHitPanelIconBlank() {
+	public static String getHitPanelIconBlank() {
 		return getIcon("hit-blank", 96);
 	}
-	private static File getIcon(String name, int dimension) {
-		return new File(String.format("data/%s-%d.png", name, dimension));
+	private static String getIcon(String name, int dimension) {
+		return String.format("data/%s-%d.png", name, dimension);
 	}
 
 	public static String capitalize(String str) {

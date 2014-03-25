@@ -1,12 +1,13 @@
 package it.unibo.games.rpsls.gui;
 
+import it.unibo.games.rpsls.interfaces.ICommand;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import it.unibo.games.rpsls.interfaces.ICommand;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -53,7 +54,7 @@ public class PanelHit extends JPanel {
 			return;
 		}
 		this.hit = hit;
-		File icon = Utils.getHitPanelIcon(hit);
+		String icon = Utils.getHitPanelIcon(hit);
 		String name = hit.getCommandType();
 		setIconAndLabel(icon, name);
 	}
@@ -64,15 +65,15 @@ public class PanelHit extends JPanel {
 	
 	public void clean() {
 		this.hit = null;
-		File icon = Utils.getHitPanelIconBlank();
+		String icon = Utils.getHitPanelIconBlank();
 		String name = " ";
 		setIconAndLabel(icon, name);
 	}
 	
-	private void setIconAndLabel(File icon, String name) {
+	private void setIconAndLabel(String icon, String name) {
 		BufferedImage image;
 		try {
-			image = ImageIO.read(icon);
+			image = ImageIO.read(this.getClass().getResource(icon));
 			this.icon.setIcon(new ImageIcon(image));
 		} catch (IOException e) {
 			e.printStackTrace();

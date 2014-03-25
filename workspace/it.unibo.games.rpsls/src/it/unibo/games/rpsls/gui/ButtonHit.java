@@ -47,7 +47,7 @@ public class ButtonHit extends JButton implements ActionListener {
 	
 	private void init() {
 		try {
-			BufferedImage image = ImageIO.read(Utils.getHitButtonIcon(hit));
+			BufferedImage image = ImageIO.read(this.getClass().getResourceAsStream(Utils.getHitButtonIcon(hit)));
 			JLabel i = new JLabel(new ImageIcon(image));
 			i.setAlignmentX(Component.CENTER_ALIGNMENT);
 			this.add(i);

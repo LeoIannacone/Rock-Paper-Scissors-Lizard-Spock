@@ -88,7 +88,7 @@ public class ViewWelcome extends ViewDefault {
 		panelCenter.setAlignmentX(Component.CENTER_ALIGNMENT);
 		try {
 			JPanel p1 = new JPanel(new FlowLayout());
-			image = ImageIO.read(new File("data/rpsls-tab.png"));
+			image = ImageIO.read(this.getClass().getResourceAsStream("data/rpsls-tab.png"));
 			JLabel center = new JLabel(new ImageIcon(image));
 			p1.add(center);
 			panelCenter.add(p1);
@@ -96,7 +96,8 @@ public class ViewWelcome extends ViewDefault {
 			JPanel p2 = new JPanel();
 			p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
 			p2.setAlignmentX(Component.CENTER_ALIGNMENT);
-			URL u = new File("data/loading-dots.gif").toURI().toURL();
+//			URL u = new File("data/loading-dots.gif").toURI().toURL();
+			URL u = this.getClass().getResource("data/loading-dots.gif");
 			ImageIcon i = new ImageIcon(u);
 			loadingDots = new JLabel(i);
 			loadingDots.setVisible(false);
