@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.gui;
 
 import it.unibo.games.rpsls.game.Player;
+import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import javax.imageio.ImageIO;
@@ -33,6 +34,7 @@ public class ViewWelcome extends ViewDefault {
 	private JButton stop;
 	private JButton join;
 	private JLabel loadingDots;
+	private JLabel subIDLabel;
 	
 	private IPlayer me;
 	
@@ -99,6 +101,13 @@ public class ViewWelcome extends ViewDefault {
 			p2.add(loadingDots);
 			panelCenter.add(p2);
 			
+			JPanel p3 = new JPanel(new FlowLayout());
+			subIDLabel = new JLabel("");
+			subIDLabel.setVisible(false);
+			subIDLabel.setFont(new Font(subIDLabel.getFont().getName(), Font.PLAIN, 16));
+			p3.add(subIDLabel);
+			panelCenter.add(p2);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -125,7 +134,8 @@ public class ViewWelcome extends ViewDefault {
 				if (name.getText().length() > 0) {
 					turnPanel(true);
 					Player p = new Player(name.getText());
-					mainWindow.createNewGame(p);
+					IGame game = mainWindow.createNewGame(p);
+					subIDLabel.setText(Utils.getSubID(game));
 				}
 			}
 		};
@@ -173,6 +183,7 @@ public class ViewWelcome extends ViewDefault {
 		nameLabel.setVisible(!startingGame);
 		name.setVisible(!startingGame);
 		loadingDots.setVisible(startingGame);
+		subIDLabel.setVisible(startingGame);
 		
 		start.setVisible(!startingGame);
 		join.setVisible(!startingGame);

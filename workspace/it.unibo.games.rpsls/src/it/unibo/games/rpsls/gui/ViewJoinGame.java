@@ -20,6 +20,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.sun.imageio.plugins.common.SubImageInputStream;
+
 public class ViewJoinGame extends ViewDefault implements ActionListener, MouseListener {
 
 	private HashMap<String, IGame> matches;
@@ -42,17 +44,18 @@ public class ViewJoinGame extends ViewDefault implements ActionListener, MouseLi
 
 	public void appendWaitingGames(IGame game) {
 		try {
-			String home = game.getHomePlayer().getName();
+			String id = String.format("%s (%s)", game.getHomePlayer().getName(), Utils.getSubID(game));
+			
 			if (game.getStatus().equals(Game.WAITING)) {
 				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: new waiting game: " + game.getHomePlayer().getName());
-				this.matches.put(home, game);
-				this.listData.add(home);
+				this.matches.put(id, game);
+				this.listData.add(id);
 			} 
 			else {
 				Debug.print(1, this.getClass().getCanonicalName() + ":appendWaitingGames: removing game: " + game.getHomePlayer().getName());
-				if (this.matches.containsKey(home)) {
-					this.matches.remove(home);
-					this.listData.remove(home);
+				if (this.matches.containsKey(id)) {
+					this.matches.remove(id);
+					this.listData.remove(id);
 				}
 			}
 			list.setListData(listData);
