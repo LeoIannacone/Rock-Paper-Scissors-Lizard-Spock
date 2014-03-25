@@ -15,6 +15,7 @@ import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -42,7 +43,8 @@ public class MainWindow implements IObserver {
 	private IPlayer enemy;
 	private IGame current_game;
 	
-	private String ME_FILENAME = "player.info";
+	// ME_FILENAME as file in user home directory
+	private String ME_FILENAME = new File(System.getProperty("user.home"), ".rpls.player.info").toString();
 	
 	public int MAX_RESULT = 3;
 
