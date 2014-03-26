@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 
 public class ViewMatch extends ViewDefault {
 
+	public static int SLEEP_TIME = 3000;
+
 	private IGame match;
 	private PanelScore mePanelScore;
 	private PanelScore enemyPanelScore;
@@ -165,8 +167,6 @@ public class ViewMatch extends ViewDefault {
 			return;
 		enemyPanelHit.setHit(receivedEnemyHit);
 		showLabelWinning();
-		CleanerThread c = new CleanerThread(this);
-		c.start();
 	}
 	
 	public void receivedEnemyHit(ICommand hit) {
@@ -199,8 +199,14 @@ public class ViewMatch extends ViewDefault {
 			}
 			if (match.getHomePlayer().getScore() >= mainWindow.MAX_RESULT ||
 				match.getGuestPlayer().getScore() >= mainWindow.MAX_RESULT)
-			{
-				mainWindow.showViewWin();
+			{	// game ended
+				EndThread e = new EndThread(mainWindow);
+				e.start();
+			}
+			else {
+				// clean panel and go again
+				CleanerThread c = new CleanerThread(this);
+				c.start();
 			}
 		}catch (Exception e){
 			e.printStackTrace();
@@ -217,10 +223,25 @@ class CleanerThread extends Thread {
 	}
 	public void run() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(ViewMatch.SLEEP_TIME);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}		
 		m.clean();
+	}
+}
+
+class EndThread extends Thread {
+	private MainWindow m;
+	public EndThread (MainWindow m) {
+		this.m = m;
+	}
+	public void run() {
+		try {
+			Thread.sleep(ViewMatch.SLEEP_TIME);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		m.showViewWin();
 	}
 }
