@@ -183,7 +183,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		String DELETE_GAMESESSION ="";
 		if(game.getStatus().equals(Game.WAITING)){
 			DELETE_GAMESESSION = "DELETE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
 				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"} WHERE { " +
 				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
@@ -192,7 +192,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		}
 		else{
 			DELETE_GAMESESSION = "DELETE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
 				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
