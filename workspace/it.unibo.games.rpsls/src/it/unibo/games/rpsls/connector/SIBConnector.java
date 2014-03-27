@@ -175,16 +175,23 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	@Override
 	public boolean leaveGame(IGame game, IPlayer player) {
 		Debug.print(2, player.getURIToString() + " leaved " + game.getURIToString());
-		return updateGameStatus(game, Game.ENDED);
+		return endGame(game);
 	}
 
 	@Override
 	public boolean endGame(IGame game) {
-		
-		/**
-		 * simply change the game status
-		 */
-		String DELETE_GAMESESSION = "DELETE { " +
+		String DELETE_GAMESESSION ="";
+		if(game.getStatus().equals(Game.WAITING)){
+			DELETE_GAMESESSION = "DELETE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"} WHERE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
+				"}";
+		}
+		else{
+			DELETE_GAMESESSION = "DELETE { " +
 				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
 				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
@@ -197,13 +204,14 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
 				"?cmd ?prop_cmd ?val_cmd " +
 				"}";
-		
-//		ack = updateGameStatus(game, Game.ENDED);
+			
+		}
 		xml = kp.update_sparql(DELETE_GAMESESSION);
 		ack = xml_tools.isUpdateConfirmed(xml);
 		if (ack)
 			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
 		else
+			System.out.println("This is an API Error!:");
 			System.err.println("Error ending game");
 		return ack;
 	}
