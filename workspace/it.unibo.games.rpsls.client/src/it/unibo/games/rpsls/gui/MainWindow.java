@@ -158,7 +158,7 @@ public class MainWindow implements IObserver {
 		viewWin = new ViewWin(current_game);
 		viewWin.setMainWindow(this);
 		showView(viewWin);
-		connector.updateGameStatus(current_game, Game.ENDED);
+		connector.endGame(current_game);
 		connector.unwatchAll();
 	}
 	

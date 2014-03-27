@@ -98,6 +98,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		//insert in SIB a new URI with type GameSession
 		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "GameSession", "URI", "URI");
 		triples.add(v);
+	
+		//add new game session to RPSLS
+		v = xml_tools.newTriple(NAME_SPACE + "RPSLS", NAME_SPACE + "HasGameSession", NAME_SPACE + game.getURIToString(), "URI", "URI");
+		triples.add(v);
 		
 		//HomePlayer
 		if(game.getHomePlayer() != null){
@@ -180,9 +184,25 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		/**
 		 * simply change the game status
 		 */
-		ack = updateGameStatus(game, Game.ENDED);
+		String DELETE_GAMESESSION = "DELETE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+				"?cmd ?prop_cmd ?val_cmd " +
+				"} WHERE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+				"?cmd ?prop_cmd ?val_cmd " +
+				"}";
+		
+//		ack = updateGameStatus(game, Game.ENDED);
+		xml = kp.update_sparql(DELETE_GAMESESSION);
+		ack = xml_tools.isUpdateConfirmed(xml);
 		if (ack)
-			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " + game.getURIToString() + " ended");
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
 		else
 			System.err.println("Error ending game");
 		return ack;
