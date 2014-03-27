@@ -87,12 +87,12 @@ public class SIBSubscription implements iKPIC_subscribeHandler2 {
 	
 	class ThreadHandler implements Runnable {
 
-		private String xml; 
-		private SSAP_XMLTools xml_tools;
-		private SSAP_sparql_response new_results;
-		private SSAP_sparql_response old_results;
-		private String subID;
-		private String indSequence;
+		String xml; 
+		SSAP_XMLTools xml_tools;
+		SSAP_sparql_response new_results;
+		SSAP_sparql_response old_results;
+		String subID;
+		String indSequence;
 		
 		
 		public ThreadHandler(String xml) {
