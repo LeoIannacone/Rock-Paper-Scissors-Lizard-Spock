@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.rpsls.interfaces"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/sofia-kp"/>
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/commons-codec-1.6.jar"/>
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/httpclient-4.2.3.jar"/>

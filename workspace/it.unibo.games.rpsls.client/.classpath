@@ -18,7 +18,7 @@
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/xml-apis-1.4.01.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/sofia-kp"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.rpsls.interfaces"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.connector"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

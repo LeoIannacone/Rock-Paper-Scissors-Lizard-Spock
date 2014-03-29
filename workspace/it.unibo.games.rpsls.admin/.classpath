@@ -17,7 +17,7 @@
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/slf4j-log4j12-1.6.4.jar"/>
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="var" path="CALCOLATORI_LIBS/jena/xml-apis-1.4.01.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.rpsls.interfaces"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.connector"/>
 	<classpathentry kind="output" path="bin"/>
