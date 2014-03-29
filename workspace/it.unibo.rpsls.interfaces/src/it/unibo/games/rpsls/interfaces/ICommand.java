@@ -1,8 +1,7 @@
 package it.unibo.games.rpsls.interfaces;
 
-import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
 
-public interface ICommand extends Comparable<ICommand>, IConnectorEntity {
+public interface ICommand extends Comparable<ICommand>, ISimpleEntity {
 
 	public String getCommandType();
 	public void setCommandType(String name);

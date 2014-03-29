@@ -1,8 +1,7 @@
 package it.unibo.games.rpsls.interfaces;
 
-import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
 
-public interface IPlayer extends IConnectorEntity {
+public interface IPlayer extends ISimpleEntity {
 
 	public void setName(String name);
 	public String getName();

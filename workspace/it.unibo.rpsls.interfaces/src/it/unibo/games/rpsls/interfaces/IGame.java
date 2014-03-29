@@ -1,8 +1,7 @@
 package it.unibo.games.rpsls.interfaces;
 
-import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
 
-public interface IGame extends IConnectorEntity {
+public interface IGame extends ISimpleEntity {
 	
 	public void setHomePlayer(IPlayer home);
 	public IPlayer getHomePlayer();
@@ -24,8 +23,8 @@ public interface IGame extends IConnectorEntity {
 	public void setScore(String s);
 	public String getScore();
 
-	public void setCommandInterface(IConnectorEntity commandInterface);
-	public IConnectorEntity getCommandInterface();
+	public void setCommandInterface(ISimpleEntity commandInterface);
+	public ISimpleEntity getCommandInterface();
 	
 	public void setHomeAsOpponent(boolean isOpponent);
 	public IPlayer getOpponent();

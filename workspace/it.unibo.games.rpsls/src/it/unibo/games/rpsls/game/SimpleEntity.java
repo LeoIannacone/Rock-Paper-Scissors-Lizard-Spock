@@ -2,9 +2,9 @@ package it.unibo.games.rpsls.game;
 
 import java.util.UUID;
 
-import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
+import it.unibo.games.rpsls.interfaces.ISimpleEntity;
 
-public abstract class SimpleEntity implements IConnectorEntity {
+public abstract class SimpleEntity implements ISimpleEntity {
 
 	protected UUID uri;
 	

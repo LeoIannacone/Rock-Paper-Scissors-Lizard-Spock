@@ -1,7 +1,7 @@
 package it.unibo.games.rpsls.client.gui;
 
-import it.unibo.games.rpsls.client.connector.Config;
-import it.unibo.games.rpsls.client.connector.SIBConnector;
+import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.client.SIBConnector;
 import it.unibo.games.rpsls.utils.Validate;
 
 import java.awt.Color;

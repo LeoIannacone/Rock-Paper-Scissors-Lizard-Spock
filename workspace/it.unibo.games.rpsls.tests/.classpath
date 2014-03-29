@@ -21,5 +21,6 @@
 	<classpathentry kind="var" path="CALCOLATORI_LIBS"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.rpsls.interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.games.rpsls.connector"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.game;
 
-import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
+import it.unibo.games.rpsls.interfaces.ISimpleEntity;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
@@ -11,7 +11,7 @@ public class Game extends SimpleEntity implements IGame {
 	public static String WAITING = "waiting";
 	public static String PAUSED = "paused";
 	
-	protected IConnectorEntity commandInterface;
+	protected ISimpleEntity commandInterface;
 	
 	private IPlayer home;
 	private IPlayer guest;
@@ -117,12 +117,12 @@ public class Game extends SimpleEntity implements IGame {
 	}
 
 	@Override
-	public void setCommandInterface(IConnectorEntity commandInterface) {
+	public void setCommandInterface(ISimpleEntity commandInterface) {
 		this.commandInterface = commandInterface;
 	}
 
 	@Override
-	public IConnectorEntity getCommandInterface() {
+	public ISimpleEntity getCommandInterface() {
 		return this.commandInterface;
 	}
 

@@ -1,9 +1,9 @@
 package it.unibo.games.rpsls.tests.sib;
 
-import it.unibo.games.rpsls.client.connector.SIBConnector;
-import it.unibo.games.rpsls.client.connector.SIBFactory;
-import it.unibo.games.rpsls.client.connector.SIBSubscriptionHit;
-import it.unibo.games.rpsls.client.connector.SIBSubscriptionWaitingGames;
+import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBFactory;
+import it.unibo.games.rpsls.connector.client.SIBSubscriptionHit;
+import it.unibo.games.rpsls.connector.client.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;

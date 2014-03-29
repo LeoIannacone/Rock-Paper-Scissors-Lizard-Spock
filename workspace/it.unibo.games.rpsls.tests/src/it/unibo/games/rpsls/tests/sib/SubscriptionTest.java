@@ -1,9 +1,9 @@
 package it.unibo.games.rpsls.tests.sib;
 
-import it.unibo.games.rpsls.client.connector.Config;
-import it.unibo.games.rpsls.client.connector.SIBConnector;
-import it.unibo.games.rpsls.client.connector.SIBFactory;
-import it.unibo.games.rpsls.client.connector.Utils;
+import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.Utils;
+import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBFactory;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import java.util.Vector;

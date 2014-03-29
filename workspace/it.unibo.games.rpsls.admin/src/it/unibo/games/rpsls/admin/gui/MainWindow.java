@@ -1,8 +1,8 @@
 package it.unibo.games.rpsls.admin.gui;
 
-import it.unibo.games.rpsls.admin.interfaces.IAdminConnector;
-import it.unibo.games.rpsls.admin.interfaces.IAdminObserver;
 import it.unibo.games.rpsls.interfaces.IGame;
+import it.unibo.games.rpsls.interfaces.admin.IAdminConnector;
+import it.unibo.games.rpsls.interfaces.admin.IAdminObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
