@@ -206,6 +206,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 				"}";
 			
 		}
+//		updateGameStatus(game, Game.ENDED);
 		xml = kp.update_sparql(DELETE_GAMESESSION);
 		ack = xml_tools.isUpdateConfirmed(xml);
 		if (ack)
