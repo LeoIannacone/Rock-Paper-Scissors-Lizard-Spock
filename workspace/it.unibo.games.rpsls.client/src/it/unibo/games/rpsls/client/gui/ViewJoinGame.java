@@ -1,4 +1,4 @@
-package it.unibo.games.rpsls.gui;
+package it.unibo.games.rpsls.client.gui;
 
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.utils.Debug;

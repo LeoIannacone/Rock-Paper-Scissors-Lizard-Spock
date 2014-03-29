@@ -1,4 +1,4 @@
-package it.unibo.games.rpsls.gui;
+package it.unibo.games.rpsls.client.gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

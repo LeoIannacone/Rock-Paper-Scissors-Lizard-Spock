@@ -1,4 +1,4 @@
-package it.unibo.games.rpsls.gui;
+package it.unibo.games.rpsls.client.gui;
 
 import it.unibo.games.rpsls.connector.Config;
 import it.unibo.games.rpsls.connector.SIBConnector;
