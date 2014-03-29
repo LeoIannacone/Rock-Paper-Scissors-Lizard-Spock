@@ -2,11 +2,10 @@ package it.unibo.games.rpsls.game;
 
 import java.util.Date;
 
-import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Hit extends ConnectorEntity implements ICommand {
+public class Hit extends SimpleEntity implements ICommand {
 
 	public static String ROCK = "rock";
 	public static String PAPER = "paper";

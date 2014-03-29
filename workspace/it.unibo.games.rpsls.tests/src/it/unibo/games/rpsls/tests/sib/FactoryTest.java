@@ -1,6 +1,6 @@
 package it.unibo.games.rpsls.tests.sib;
 
-import it.unibo.games.rpsls.connector.SIBFactory;
+import it.unibo.games.rpsls.client.connector.SIBFactory;
 import it.unibo.games.rpsls.interfaces.*;
 
 public class FactoryTest {

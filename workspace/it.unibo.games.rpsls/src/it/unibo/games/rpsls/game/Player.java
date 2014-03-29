@@ -1,9 +1,8 @@
 package it.unibo.games.rpsls.game;
 
-import it.unibo.games.rpsls.connector.ConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Player extends ConnectorEntity implements IPlayer {
+public class Player extends SimpleEntity implements IPlayer {
 
 	private String name;
 	private int score;

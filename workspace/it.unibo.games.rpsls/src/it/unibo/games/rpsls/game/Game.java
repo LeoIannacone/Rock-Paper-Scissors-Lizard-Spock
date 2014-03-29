@@ -1,11 +1,10 @@
 package it.unibo.games.rpsls.game;
 
-import it.unibo.games.rpsls.connector.ConnectorEntity;
-import it.unibo.games.rpsls.interfaces.IConnectorEntity;
+import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public class Game extends ConnectorEntity implements IGame {
+public class Game extends SimpleEntity implements IGame {
 
 	public static String ACTIVE = "active";
 	public static String ENDED = "ended";
@@ -144,5 +143,10 @@ public class Game extends ConnectorEntity implements IGame {
 		if (! this.homeAsOpponent)
 			return home;
 		return guest;
+	}
+	
+	// useful method for lists.contains(game)
+	public boolean equals(IGame o) {
+		return this.getURIToString().equals(o.getURIToString());
 	}
 }

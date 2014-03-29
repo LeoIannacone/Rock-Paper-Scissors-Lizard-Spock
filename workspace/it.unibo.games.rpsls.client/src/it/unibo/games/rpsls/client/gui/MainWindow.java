@@ -1,12 +1,12 @@
 package it.unibo.games.rpsls.client.gui;
 
-import it.unibo.games.rpsls.connector.SIBConnector;
-import it.unibo.games.rpsls.connector.SIBFactory;
+import it.unibo.games.rpsls.client.connector.SIBConnector;
+import it.unibo.games.rpsls.client.connector.SIBFactory;
+import it.unibo.games.rpsls.client.interfaces.IObserver;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
-import it.unibo.games.rpsls.interfaces.IObserver;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 import it.unibo.games.rpsls.utils.Debug;
 

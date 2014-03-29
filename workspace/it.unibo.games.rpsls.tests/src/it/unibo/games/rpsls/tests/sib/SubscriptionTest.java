@@ -1,16 +1,16 @@
 package it.unibo.games.rpsls.tests.sib;
 
+import it.unibo.games.rpsls.client.connector.Config;
+import it.unibo.games.rpsls.client.connector.SIBConnector;
+import it.unibo.games.rpsls.client.connector.SIBFactory;
+import it.unibo.games.rpsls.client.connector.Utils;
+import it.unibo.games.rpsls.interfaces.IPlayer;
+
 import java.util.Vector;
 
-import it.unibo.games.rpsls.connector.Config;
-import it.unibo.games.rpsls.connector.SIBConnector;
-import it.unibo.games.rpsls.connector.SIBFactory;
-import it.unibo.games.rpsls.connector.Utils;
-import it.unibo.games.rpsls.interfaces.IPlayer;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import sofia_kp.SSAP_sparql_response;
-import sofia_kp.iKPIC_subscribeHandler;
 import sofia_kp.iKPIC_subscribeHandler2;
 
 public class SubscriptionTest implements iKPIC_subscribeHandler2 {

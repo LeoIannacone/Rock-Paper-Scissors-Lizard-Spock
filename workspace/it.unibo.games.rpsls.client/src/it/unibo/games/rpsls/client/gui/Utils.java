@@ -1,7 +1,7 @@
 package it.unibo.games.rpsls.client.gui;
 
+import it.unibo.games.rpsls.client.interfaces.IConnectorEntity;
 import it.unibo.games.rpsls.interfaces.ICommand;
-import it.unibo.games.rpsls.interfaces.IConnectorEntity;
 
 public class Utils {
 		
