@@ -8,3 +8,7 @@ workspace/*/bin/*
 # REMOVE ALL .DS_Store FILES
 .DS_Store
 */.DS_Store
+
+
+# Remove libs - use script instead
+libs/*/
