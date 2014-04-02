@@ -22,7 +22,7 @@ public interface IAdminConnector {
 	public List<IGame> getAllGames();
 	public List<IGame> getAllGamesByStatus(String status);
 	public void deleteGames(List<IGame> games);
-	public void deleteGame(IGame game);
+	public boolean deleteGame(IGame game);
 	
 	// subscriptions
 	public void watchForEndingGames(IAdminObserver observer);
