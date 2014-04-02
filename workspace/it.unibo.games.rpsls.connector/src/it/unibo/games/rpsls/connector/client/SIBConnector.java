@@ -208,15 +208,19 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 //		}
 //		xml = kp.update_sparql(DELETE_GAMESESSION);
 //		ack = xml_tools.isUpdateConfirmed(xml);
-		
-		ack = updateGameStatus(game, Game.ENDED);
-		if (ack)
-			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
-		else{
-			System.out.println("This is an API Error!:");
-			System.err.println("Error ending game");
+		if(!game.getStatus().equals(Game.ENDED)){
+			ack = updateGameStatus(game, Game.ENDED);
+			if (ack)
+				Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
+			else{
+				System.out.println("This is an API Error!:");
+				System.err.println("Error ending game");
+			}
+			return ack;
 		}
-		return ack;
+		else
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " game already ended");
+		return false;
 	}
 
 	@Override
