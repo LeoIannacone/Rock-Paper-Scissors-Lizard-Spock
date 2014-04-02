@@ -8,6 +8,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import sofia_kp.KPICore;
+import sofia_kp.SSAP_XMLTools;
 
 import it.unibo.games.rpsls.connector.Config;
 import it.unibo.games.rpsls.interfaces.IGame;
@@ -21,6 +22,10 @@ public class SIBAdmin implements IAdminConnector {
 	protected KPICore kp;
 	protected String ontologyFile = "resources/GameOntology.owl";
 	protected SIBSubscriptionEndGames subscriptionEndGames;
+	private SSAP_XMLTools xml_tools;  // utility methods to compose messages and manage responses
+	private String xml =""; //conventionally used for storing the messages from the SIB
+	private boolean ack = false; // Conventionally used for checking SIB response
+
 	
 	@Override
 	public IAdminConnector getInstance() {
@@ -83,9 +88,30 @@ public class SIBAdmin implements IAdminConnector {
 	}
 
 	@Override
-	public void deleteGame(IGame game) {
-		// TODO Auto-generated method stub
-		
+	public boolean deleteGame(IGame game) {
+		String DELETE_GAMESESSION ="";
+		DELETE_GAMESESSION = "DELETE { " +
+				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+				"?cmd ?prop_cmd ?val_cmd " +
+				"} WHERE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+				"?cmd ?prop_cmd ?val_cmd " +
+				"}";
+		xml = kp.update_sparql(DELETE_GAMESESSION);
+		ack = xml_tools.isUpdateConfirmed(xml);
+		if (ack)
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
+		else{
+			System.out.println("This is an API Error!:");
+			System.err.println("Error ending game");
+		}
+		return ack;
 	}
 
 	@Override
