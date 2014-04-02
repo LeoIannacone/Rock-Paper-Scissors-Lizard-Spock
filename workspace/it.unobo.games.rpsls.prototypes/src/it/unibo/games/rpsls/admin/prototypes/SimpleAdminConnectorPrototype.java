@@ -10,12 +10,11 @@ import it.unibo.games.rpsls.interfaces.admin.IAdminObserver;
 public class SimpleAdminConnectorPrototype implements IAdminConnector {
 
 
-	protected SimpleAdminConnectorPrototype instance;
+	protected static SimpleAdminConnectorPrototype instance;
 	
 	protected List<IGame> fakeGames;
 	
-	@Override
-	public IAdminConnector getInstance() {
+	public static IAdminConnector getInstance() {
 		if (instance == null)
 			instance = new SimpleAdminConnectorPrototype();
 		return instance;
@@ -65,14 +64,16 @@ public class SimpleAdminConnectorPrototype implements IAdminConnector {
 	}
 
 	@Override
-	public void deleteGame(IGame game) {
+	public boolean deleteGame(IGame game) {
 		if (fakeGames.contains(game)) {
 			System.out.println("Deleting " + game.getURIToString());
 			fakeGames.remove(game);
+			return true;
 		}
 		
 		else {
 			System.err.println("Game not in list" + game.getURIToString());
+			return false;
 		}
 	}
 
