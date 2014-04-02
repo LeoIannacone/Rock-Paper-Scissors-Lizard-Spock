@@ -1,25 +1,30 @@
 package it.unibo.games.rpsls.admin.gui;
 
+import it.unibo.games.rpsls.connector.admin.SIBAdmin;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.admin.IAdminConnector;
 import it.unibo.games.rpsls.interfaces.admin.IAdminObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainWindow implements IAdminObserver {
 
 	public static Color LIGHT_COLOR = Color.GRAY;
-	
-	
 	private JFrame frame;
+	private ViewMain mainView;
+	private ViewConfigConnector viewConfig;
 	
-	private IAdminConnector connector;
-	
+	public IAdminConnector connector;
+
 	/**
 	 * Launch the application.
 	 */
@@ -40,24 +45,65 @@ public class MainWindow implements IAdminObserver {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {		
+	public MainWindow() {
 		initialize();
 	}
-	
+
 	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				Debug.print(1, "Closing window");
+				connector.unwatchForEndingGames();
+			}
+		});
+		frame.setTitle("RPSLS admin panel");
+		frame.setResizable(true);
+		frame.setMinimumSize(new Dimension(600, 450));
 		
+		showViewConfig();
 	}
 
+	public void init() {
+		connector = SIBAdmin.getInstance();
+		showMainVew();
+	}
+	
+	public void showViewConfig() {
+		viewConfig = new ViewConfigConnector();
+		viewConfig.setMainWindow(this);
+		showView(viewConfig);
+	}
+	
+	public void showMainVew() {
+		mainView = new ViewMain();
+		mainView.setMainWindow(this);
+		connector.watchForEndingGames(this);
+		showView(mainView);
+	}
+	
+	private void showView(JPanel noHide) {
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(noHide);
+		
+		frame.getContentPane().repaint();
+		frame.getContentPane().revalidate();
+	
+		noHide.repaint();
+		noHide.revalidate();
+	}
+
+	
 	@Override
 	public void updateGamesEnded(List<IGame> games) {
-		// TODO Auto-generated method stub
-		
+		mainView.appendEndedGames(games);
 	}
 
 	@Override
-	public void updateGameEnded(IGame games) {
-		// TODO Auto-generated method stub
-		
+	public void updateGameEnded(IGame game) {
+		mainView.appendEndedGame(game);
 	}
-	
+
 }
