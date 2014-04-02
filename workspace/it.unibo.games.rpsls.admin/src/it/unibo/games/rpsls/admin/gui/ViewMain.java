@@ -48,12 +48,12 @@ public class ViewMain extends ViewDefault implements ActionListener {
 			String id = game.getURIToString();
 			
 			if (this.games.containsKey(id)) {
-				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: removing game: " + game.getHomePlayer().getName());
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: removing game from gui: " + id);
 				this.games.remove(id);
 				this.listData.remove(id);
 			}
 			else{
-				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: new waiting game: " + game.getHomePlayer().getName());
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: new ended game: " + id);
 				this.games.put(id, game);
 				this.listData.add(id);
 			} 
