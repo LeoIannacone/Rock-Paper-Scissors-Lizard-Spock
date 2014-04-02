@@ -8,6 +8,7 @@ import sofia_kp.SSAP_XMLTools;
 import sofia_kp.iKPIC_subscribeHandler;
 
 import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
@@ -24,9 +25,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	private SIBSubscriptionHit hitSubscription;
 	private SIBSubscriptionLeaveGame leaveSubscription;
 	
-	public static String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-	public static String RDFS = "http://www.w3.org/2000/01/rdf-schema#";
-	public static String NAME_SPACE = "http://rpsls.games.unibo.it/Ontology.owl#";
+
 	
 	/**
 	 * Declaration of SIB
@@ -97,38 +96,38 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		String uri = game.getURIToString();
 		
 		//insert in SIB a new URI with type GameSession
-		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "GameSession", "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.RDF + "type", Config.NAME_SPACE + "GameSession", "URI", "URI");
 		triples.add(v);
 	
 		//add new game session to RPSLS
-		v = xml_tools.newTriple(NAME_SPACE + "RPSLS", NAME_SPACE + "HasGameSession", NAME_SPACE + game.getURIToString(), "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + "RPSLS", Config.NAME_SPACE + "HasGameSession", Config.NAME_SPACE + game.getURIToString(), "URI", "URI");
 		triples.add(v);
 		
 		//HomePlayer
 		if(game.getHomePlayer() != null){
-			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasHome", NAME_SPACE + game.getHomePlayer().getURIToString(), "URI", "URI");
+			v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasHome", Config.NAME_SPACE + game.getHomePlayer().getURIToString(), "URI", "URI");
 			triples.add(v);
 		}
 		
 		//GuestPlayer
 		if(game.getGuestPlayer() != null){
-			v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasGuest", NAME_SPACE + game.getGuestPlayer().getURIToString(), "URI", "URI");
+			v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasGuest", Config.NAME_SPACE + game.getGuestPlayer().getURIToString(), "URI", "URI");
 			triples.add(v);
 		}
 		
 		//Score
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
 		triples.add(v);
 		
 		//Status
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasStatus", NAME_SPACE + game.getStatus(), "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasStatus", Config.NAME_SPACE + game.getStatus(), "URI", "URI");
 		triples.add(v);
 		
 		//CommandInterface
 		if( game.getCommandInterface() == null ){
 			game.setCommandInterface(new SIBCommandInterface());
 		}
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandInterface", NAME_SPACE + game.getCommandInterface().getURIToString() , "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasCommandInterface", Config.NAME_SPACE + game.getCommandInterface().getURIToString() , "URI", "URI");
 		triples.add(v);
 		
 		// TODO: GameDescription
@@ -156,7 +155,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		
 		boolean ack;
 		String xml = "";
-		xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasGuest", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		xml = kp.insert(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "HasGuest", Config.NAME_SPACE + player.getURIToString(), "URI", "URI");
 		ack = xml_tools.isInsertConfirmed(xml);
 		if (ack) {
 			game.setGuestPlayer(player);
@@ -184,24 +183,24 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		String DELETE_GAMESESSION ="";
 		if(game.getStatus().equals(Game.WAITING)){
 			DELETE_GAMESESSION = "DELETE { " +
-				NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"} WHERE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
 				"}";
 		}
 		else{
 			DELETE_GAMESESSION = "DELETE { " +
-				NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
 				"?cmd ?prop_cmd ?val_cmd " +
 				"} WHERE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-				"<" +NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
 				"?cmd ?prop_cmd ?val_cmd " +
 				"}";
@@ -225,7 +224,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 * remove game from SIB
 		 */
 		
-		String xml = kp.remove(NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
+		String xml = kp.remove(Config.NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
 		if(xml_tools.isRemoveConfirmed(xml))
 			Debug.print(2, this.getClass().getCanonicalName() + ": deleteGame: " + game.getURIToString() + " deleted");
 		else
@@ -242,10 +241,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 */
 		
 		boolean ack;
-		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", null, "URI", "URI");
+		String xml = kp.remove(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "HasStatus", null, "URI", "URI");
 		ack = xml_tools.isRemoveConfirmed(xml);
 		if(ack){
-			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "HasStatus", NAME_SPACE + status, "URI", "URI");
+			xml = kp.insert(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "HasStatus", Config.NAME_SPACE + status, "URI", "URI");
 			ack = xml_tools.isInsertConfirmed(xml);
 			if (ack){
 				game.setStatus(status);
@@ -276,10 +275,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		Vector<String> v;
 		String uri = player.getURIToString();
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Person", "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.RDF + "type", Config.NAME_SPACE + "Person", "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasName", player.getName(), "URI", "literal");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "hasName", player.getName(), "URI", "literal");
 		triples.add(v);
 		
 		xml = kp.insert(triples);
@@ -310,19 +309,19 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		Vector<String> v;
 		String uri = hit.getURIToString();
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, RDF + "type", NAME_SPACE + "Command", "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.RDF + "type", Config.NAME_SPACE + "Command", "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasCommandType", NAME_SPACE + hit.getCommandType(), "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasCommandType", Config.NAME_SPACE + hit.getCommandType(), "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "HasIssuer", NAME_SPACE + player.getURIToString(), "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "HasIssuer", Config.NAME_SPACE + player.getURIToString(), "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + game.getCommandInterface().getURIToString(), NAME_SPACE + "HasCommand", NAME_SPACE + uri , "URI", "URI");
+		v = xml_tools.newTriple(Config.NAME_SPACE + game.getCommandInterface().getURIToString(), Config.NAME_SPACE + "HasCommand", Config.NAME_SPACE + uri , "URI", "URI");
 		triples.add(v);
 		
-		v = xml_tools.newTriple(NAME_SPACE + uri, NAME_SPACE + "hasTime", "" + new Date().getTime(), "URI", "literal");
+		v = xml_tools.newTriple(Config.NAME_SPACE + uri, Config.NAME_SPACE + "hasTime", "" + new Date().getTime(), "URI", "literal");
 		triples.add(v);
 		
 		xml = kp.insert(triples);
@@ -360,10 +359,10 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 */
 		
 		boolean ack;
-		String xml = kp.remove(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", null, "URI", "literal");
+		String xml = kp.remove(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "hasScore", null, "URI", "literal");
 		ack = xml_tools.isRemoveConfirmed(xml);
 		if(ack){
-			xml = kp.insert(NAME_SPACE + game.getURIToString(), NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
+			xml = kp.insert(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "hasScore", game.getScore(), "URI", "literal");
 			ack = xml_tools.isInsertConfirmed(xml);
 			Debug.print(2, this.getClass().getCanonicalName() + ": updateGameScore: " + "The score in " + game.getURIToString() + " is now " + game.getScore());
 		}

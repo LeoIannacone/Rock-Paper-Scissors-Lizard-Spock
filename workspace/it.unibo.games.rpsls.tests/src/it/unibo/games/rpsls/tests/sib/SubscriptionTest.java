@@ -1,9 +1,9 @@
 package it.unibo.games.rpsls.tests.sib;
 
 import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.connector.client.SIBConnector;
-import it.unibo.games.rpsls.connector.client.SIBFactory;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
 import java.util.Vector;
@@ -25,7 +25,7 @@ public class SubscriptionTest implements iKPIC_subscribeHandler2 {
 	
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		
-		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + SIBConnector.RDF + "type> <" + SIBConnector.NAME_SPACE + "Person> }", this);// SPARQL subscription to all triples
+		xml = kp.subscribeSPARQL("SELECT ?a WHERE { ?a <" + Config.RDF + "type> <" + Config.NAME_SPACE + "Person> }", this);// SPARQL subscription to all triples
 		
 		String subID = null;
 		

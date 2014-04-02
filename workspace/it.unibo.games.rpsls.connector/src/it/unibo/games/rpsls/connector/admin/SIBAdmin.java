@@ -20,6 +20,7 @@ public class SIBAdmin implements IAdminConnector {
 	protected SIBAdmin instance;
 	protected KPICore kp;
 	protected String ontologyFile = "resources/GameOntology.owl";
+	protected SIBSubscriptionEndGames subscriptionEndGames;
 	
 	@Override
 	public IAdminConnector getInstance() {
@@ -89,14 +90,13 @@ public class SIBAdmin implements IAdminConnector {
 
 	@Override
 	public void watchForEndingGames(IAdminObserver observer) {
-		// TODO Auto-generated method stub
-		
+		subscriptionEndGames = new SIBSubscriptionEndGames(observer);
 	}
 
 	@Override
 	public void unwatchForEndingGames() {
-		// TODO Auto-generated method stub
-		
+		if (subscriptionEndGames != null && subscriptionEndGames.getSubID() != null)
+			subscriptionEndGames.kpic_UnsubscribeEventHandler(subscriptionEndGames.getSubID());
 	}
 	
 }

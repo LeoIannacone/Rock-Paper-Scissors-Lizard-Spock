@@ -1,10 +1,11 @@
-package it.unibo.games.rpsls.connector.client;
+package it.unibo.games.rpsls.connector;
 
 import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
-import it.unibo.games.rpsls.connector.Utils;
+import it.unibo.games.rpsls.connector.client.SIBCommandInterface;
+import it.unibo.games.rpsls.connector.client.SIBConnector;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -33,7 +34,7 @@ public class SIBFactory {
 		boolean ack;
 		Player p = null;
 		Vector<Vector<String>> triples;
-		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + PlayerURI, SIBConnector.NAME_SPACE + "hasName", null, "uri", "literal");
+		String xml = kp.queryRDF(Config.NAME_SPACE + PlayerURI, Config.NAME_SPACE + "hasName", null, "uri", "literal");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
 			System.err.println("Error during RDF-M3 query");
@@ -53,7 +54,7 @@ public class SIBFactory {
 		boolean ack;
 		Game g = new Game(null, null);
 		Vector<Vector<String>> triples;
-		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + GameURI, null , null, "uri", "uri");
+		String xml = kp.queryRDF(Config.NAME_SPACE + GameURI, null , null, "uri", "uri");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
 			System.err.println ("Error during RDF-M3 query");
@@ -95,7 +96,7 @@ public class SIBFactory {
 		boolean ack;
 		ICommand c = new Hit("");
 		Vector<Vector<String>> triples;
-		String xml = kp.queryRDF(SIBConnector.NAME_SPACE + CommandURI, null, null, "uri", "uri");
+		String xml = kp.queryRDF(Config.NAME_SPACE + CommandURI, null, null, "uri", "uri");
 		ack = xml_tools.isQueryConfirmed(xml);
 		if(!ack)
 			System.err.println ("Error during RDF-M3 query");

@@ -1,6 +1,7 @@
 package it.unibo.games.rpsls.connector.client;
 
 import it.unibo.games.rpsls.connector.Config;
+import it.unibo.games.rpsls.connector.SIBSubscription;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;

@@ -1,7 +1,6 @@
-package it.unibo.games.rpsls.connector.client;
+package it.unibo.games.rpsls.connector;
 
 
-import it.unibo.games.rpsls.connector.Config;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
