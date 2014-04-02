@@ -18,7 +18,7 @@ import it.unibo.games.rpsls.utils.Debug;
 
 public class SIBAdmin implements IAdminConnector {
 	
-	protected SIBAdmin instance;
+	protected static SIBAdmin instance;
 	protected KPICore kp;
 	protected String ontologyFile = "resources/GameOntology.owl";
 	protected SIBSubscriptionEndGames subscriptionEndGames;
@@ -27,8 +27,7 @@ public class SIBAdmin implements IAdminConnector {
 	private boolean ack = false; // Conventionally used for checking SIB response
 
 	
-	@Override
-	public IAdminConnector getInstance() {
+	public static IAdminConnector getInstance() {
 		if (instance == null)
 			instance = new SIBAdmin();
 		return instance;
@@ -38,6 +37,7 @@ public class SIBAdmin implements IAdminConnector {
 		this.kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		this.kp.join();
 		Debug.print(2, this.getClass().getCanonicalName()+":costructor: SIB connected");
+		xml_tools = new SSAP_XMLTools();
 	}
 	
 
@@ -89,8 +89,7 @@ public class SIBAdmin implements IAdminConnector {
 
 	@Override
 	public boolean deleteGame(IGame game) {
-		String DELETE_GAMESESSION ="";
-		DELETE_GAMESESSION = "DELETE { " +
+		String DELETE_GAMESESSION = "DELETE { " +
 				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
 				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
@@ -103,14 +102,16 @@ public class SIBAdmin implements IAdminConnector {
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
 				"?cmd ?prop_cmd ?val_cmd " +
 				"}";
+		
 		xml = kp.update_sparql(DELETE_GAMESESSION);
 		ack = xml_tools.isUpdateConfirmed(xml);
 		if (ack)
-			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: removed " + game.getURIToString() + " from SIB");
 		else{
 			System.out.println("This is an API Error!:");
 			System.err.println("Error ending game");
 		}
+		
 		return ack;
 	}
 
