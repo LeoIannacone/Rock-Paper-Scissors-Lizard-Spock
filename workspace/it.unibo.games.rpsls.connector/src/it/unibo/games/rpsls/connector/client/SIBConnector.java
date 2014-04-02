@@ -180,40 +180,42 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean endGame(IGame game) {
-		String DELETE_GAMESESSION ="";
-		if(game.getStatus().equals(Game.WAITING)){
-			DELETE_GAMESESSION = "DELETE { " +
-				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-				"} WHERE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
-				"}";
-		}
-		else{
-			DELETE_GAMESESSION = "DELETE { " +
-				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
-				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
-				"?cmd ?prop_cmd ?val_cmd " +
-				"} WHERE { " +
-				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
-				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
-				"?cmd ?prop_cmd ?val_cmd " +
-				"}";
-			
-		}
-//		updateGameStatus(game, Game.ENDED);
-		xml = kp.update_sparql(DELETE_GAMESESSION);
-		ack = xml_tools.isUpdateConfirmed(xml);
+//		String DELETE_GAMESESSION ="";
+//		if(game.getStatus().equals(Game.WAITING)){
+//			DELETE_GAMESESSION = "DELETE { " +
+//				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+//				"} WHERE { " +
+//				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
+//				"}";
+//		}
+//		else{
+//			DELETE_GAMESESSION = "DELETE { " +
+//				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+//				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+//				"?cmd ?prop_cmd ?val_cmd " +
+//				"} WHERE { " +
+//				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+//				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
+//				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
+//				"?cmd ?prop_cmd ?val_cmd " +
+//				"}";
+//			
+//		}
+//		xml = kp.update_sparql(DELETE_GAMESESSION);
+//		ack = xml_tools.isUpdateConfirmed(xml);
+		
+		ack = updateGameStatus(game, Game.ENDED);
 		if (ack)
 			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
-		else
+		else{
 			System.out.println("This is an API Error!:");
 			System.err.println("Error ending game");
+		}
 		return ack;
 	}
 
