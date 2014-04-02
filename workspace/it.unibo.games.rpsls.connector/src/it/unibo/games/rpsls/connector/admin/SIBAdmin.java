@@ -90,7 +90,7 @@ public class SIBAdmin implements IAdminConnector {
 	@Override
 	public boolean deleteGame(IGame game) {
 		String DELETE_GAMESESSION = "DELETE { " +
-				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" + Config.NAME_SPACE + "RPSLS> <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
 				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
 				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
 				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
