@@ -230,12 +230,24 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 		 * remove game from SIB
 		 */
 		
-		String xml = kp.remove(Config.NAME_SPACE + game.getURIToString(), null, null, "URI", "URI");
-		if(xml_tools.isRemoveConfirmed(xml))
-			Debug.print(2, this.getClass().getCanonicalName() + ": deleteGame: " + game.getURIToString() + " deleted");
-		else
-			System.err.println("Error removing game");
-		return xml_tools.isRemoveConfirmed(xml);
+		String DELETE_GAME = "DELETE { <" +
+				Config.NAME_SPACE + "RPSLS> <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
+				"} WHERE { " +
+				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
+				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
+				"}";
+		
+		String xml = kp.querySPARQL(DELETE_GAME);
+		ack = xml_tools.isUpdateConfirmed(xml);
+		if (ack)
+			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: removed " + game.getURIToString() + " from SIB");
+		else{
+			System.out.println("This is an API Error!:");
+			System.err.println("Error ending game");
+		}
+		
+		return ack;
 	}
 
 	@Override
