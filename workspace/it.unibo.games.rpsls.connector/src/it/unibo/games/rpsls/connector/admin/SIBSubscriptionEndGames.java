@@ -55,13 +55,11 @@ public class SIBSubscriptionEndGames extends SIBSubscription {
 		for (String[] val : values){
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			if (observer != null){
-				Debug.print(2, this.getClass().getCanonicalName() + ": getNewObjectFromResults: New game is ended for incoming player: " + uri);
+				Debug.print(2, this.getClass().getCanonicalName() + ": getNewObjectFromResults: New game is ended: " + uri);
 				observer.updateGameEnded(SIBFactory.getInstance().getGame(uri));
 			}
 			else{
-				IGame g = SIBFactory.getInstance().getGame(uri);
-				System.out.println("New game is ended for incoming player: " + uri);
-				System.out.println("  " + g.toString());
+				System.out.println("New game is ended: " + uri);
 			}
 		}
 	}
@@ -76,9 +74,7 @@ public class SIBSubscriptionEndGames extends SIBSubscription {
 				observer.updateGameEnded(SIBFactory.getInstance().getGame(uri));
 			}
 			else{
-				IGame g = SIBFactory.getInstance().getGame(uri);
 				System.out.println("Game " + uri + "is not longer in SIB");
-				System.out.println("  " + g.toString());
 			}
 		}
 	}
