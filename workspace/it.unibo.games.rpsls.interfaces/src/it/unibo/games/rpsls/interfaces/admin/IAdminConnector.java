@@ -6,9 +6,6 @@ import java.util.List;
 
 public interface IAdminConnector {
 	
-	// singleton
-	public IAdminConnector getInstance();
-	
 	// inject ontology
 	public void init();
 	
