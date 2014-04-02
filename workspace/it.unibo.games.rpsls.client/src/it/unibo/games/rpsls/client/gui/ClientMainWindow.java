@@ -181,9 +181,9 @@ public class ClientMainWindow implements IObserver {
 	}
 	
 	public void deleteGame() {
-		connector.leaveGame(current_game, me);
-//		connector.deleteGame(current_game);
-//		current_game = null;
+//		connector.leaveGame(current_game, me);
+		connector.deleteGame(current_game);
+		current_game = null;
 	}
 	
 	public IGame createNewGame(IPlayer player) {
