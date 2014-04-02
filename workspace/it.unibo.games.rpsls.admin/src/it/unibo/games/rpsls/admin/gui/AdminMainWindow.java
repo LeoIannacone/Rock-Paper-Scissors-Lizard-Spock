@@ -16,7 +16,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MainWindow implements IAdminObserver {
+public class AdminMainWindow implements IAdminObserver {
 
 	public static Color LIGHT_COLOR = Color.GRAY;
 	private JFrame frame;
@@ -33,7 +33,7 @@ public class MainWindow implements IAdminObserver {
 			public void run() {
 				try {
 					Debug.setLevel(2);
-					MainWindow window = new MainWindow();
+					AdminMainWindow window = new AdminMainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class MainWindow implements IAdminObserver {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	public AdminMainWindow() {
 		initialize();
 	}
 

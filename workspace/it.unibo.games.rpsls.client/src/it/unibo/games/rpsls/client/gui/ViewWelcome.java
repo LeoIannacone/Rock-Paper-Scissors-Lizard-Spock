@@ -73,7 +73,7 @@ public class ViewWelcome extends ViewDefault {
 		insertName.add(name);
 		
 		loadingLabel = new JLabel("Waiting for incoming player");
-		loadingLabel.setForeground(MainWindow.LIGHT_COLOR);
+		loadingLabel.setForeground(ClientMainWindow.LIGHT_COLOR);
 		loadingLabel.setVisible(false);
 		insertName.add(loadingLabel);
 		

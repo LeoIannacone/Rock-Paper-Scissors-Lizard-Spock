@@ -24,7 +24,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MainWindow implements IObserver {
+public class ClientMainWindow implements IObserver {
 
 	public static Color LIGHT_COLOR = Color.GRAY;
 	
@@ -56,7 +56,7 @@ public class MainWindow implements IObserver {
 			public void run() {
 				try {
 					Debug.setLevel(2);
-					MainWindow window = new MainWindow();
+					ClientMainWindow window = new ClientMainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,7 +68,7 @@ public class MainWindow implements IObserver {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {		
+	public ClientMainWindow() {		
 		initialize();
 	}
 	

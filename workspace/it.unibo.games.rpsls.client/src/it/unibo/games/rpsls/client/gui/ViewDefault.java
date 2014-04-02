@@ -4,13 +4,13 @@ import javax.swing.JPanel;
 
 public abstract class ViewDefault extends JPanel {
 
-	protected MainWindow mainWindow;
+	protected ClientMainWindow mainWindow;
 	
-	public void setMainWindow(MainWindow window) {
+	public void setMainWindow(ClientMainWindow window) {
 		this.mainWindow = window;
 	}
 	
-	public MainWindow getMainWindow() {
+	public ClientMainWindow getMainWindow() {
 		return mainWindow;
 	}
 	

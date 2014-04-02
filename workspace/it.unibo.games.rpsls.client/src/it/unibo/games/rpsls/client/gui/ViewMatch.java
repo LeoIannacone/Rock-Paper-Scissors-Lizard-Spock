@@ -89,7 +89,7 @@ public class ViewMatch extends ViewDefault {
 		p2.add(Box.createRigidArea(new Dimension(55,0)));
 		versus = new JLabel();
 		versus.setFont(new Font(versus.getFont().getName(), Font.BOLD, 40));
-		versus.setForeground(MainWindow.LIGHT_COLOR);
+		versus.setForeground(ClientMainWindow.LIGHT_COLOR);
 		versus.setAlignmentX(CENTER_ALIGNMENT);
 		versus.setAlignmentY(CENTER_ALIGNMENT);
 		p2.add(Box.createRigidArea(new Dimension(0,0)));
@@ -98,7 +98,7 @@ public class ViewMatch extends ViewDefault {
 		winnerLabel = new JLabel();
 		winnerLabel.setAlignmentX(CENTER_ALIGNMENT);
 		winnerLabel.setAlignmentY(CENTER_ALIGNMENT);
-		winnerLabel.setForeground(MainWindow.LIGHT_COLOR);
+		winnerLabel.setForeground(ClientMainWindow.LIGHT_COLOR);
 		p2.add(winnerLabel);
 		
 
@@ -232,8 +232,8 @@ class CleanerThread extends Thread {
 }
 
 class EndThread extends Thread {
-	private MainWindow m;
-	public EndThread (MainWindow m) {
+	private ClientMainWindow m;
+	public EndThread (ClientMainWindow m) {
 		this.m = m;
 	}
 	public void run() {
