@@ -106,4 +106,14 @@ public class AdminMainWindow implements IAdminObserver {
 		mainView.appendEndedGame(game);
 	}
 
+	@Override
+	public void deleteGamesEnded(List<IGame> games) {
+		mainView.deleteGamesEnded(games);
+	}
+
+	@Override
+	public void deleteGameEnded(IGame game) {
+		mainView.deleteGameEnded(game);		
+	}
+	
 }

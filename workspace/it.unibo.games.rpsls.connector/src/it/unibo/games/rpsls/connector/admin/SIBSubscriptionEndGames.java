@@ -71,7 +71,7 @@ public class SIBSubscriptionEndGames extends SIBSubscription {
 			String uri = Utils.removePrefix(SSAP_sparql_response.getCellValue(val));
 			if (observer != null){
 				Debug.print(2, this.getClass().getCanonicalName() +  ":removeObsoleteObject: Game " + uri + "is not longer in SIB");
-				observer.updateGameEnded(SIBFactory.getInstance().getGame(uri));
+				observer.deleteGameEnded(SIBFactory.getInstance().getGame(uri));
 			}
 			else{
 				System.out.println("Game " + uri + "is not longer in SIB");

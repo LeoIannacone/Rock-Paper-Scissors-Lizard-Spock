@@ -47,18 +47,13 @@ public class ViewMain extends ViewDefault implements ActionListener {
 		try {
 			String id = game.getURIToString();
 			
-			if (this.games.containsKey(id)) {
-				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: removing game from gui: " + id);
-				this.games.remove(id);
-				this.listData.remove(id);
-			}
-			else{
+			if (!this.games.containsKey(id)) {
 				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: new ended game: " + id);
 				this.games.put(id, game);
 				this.listData.add(id);
+				list.setListData(listData);
 			} 
 			
-			list.setListData(listData);
 		} catch (Exception e) {}
 	}
 	
@@ -138,5 +133,25 @@ public class ViewMain extends ViewDefault implements ActionListener {
 			mainWindow.connector.deleteGame(games.get(sel));
 		}
 	}
-	
+
+	public void deleteGameEnded(IGame game) {
+		try {
+			String id = game.getURIToString();
+			
+			if (this.games.containsKey(id)) {
+				Debug.print(1, this.getClass().getCanonicalName() + ":appendEndedGames: removing game from gui: " + id);
+				this.games.remove(id);
+				this.listData.remove(id);
+				list.setListData(listData);
+			}
+		}catch(Exception e){
+		}
+	}
+
+	public void deleteGamesEnded(List<IGame> games) {
+		for (IGame g : games) {
+			this.deleteGameEnded(g);
+		}
+	}
+
 }
