@@ -56,7 +56,7 @@ public class ClientMainWindow implements IClientObserver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Debug.setLevel(2);
+					Debug.setLevel(0);
 					ClientMainWindow window = new ClientMainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {

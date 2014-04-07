@@ -32,7 +32,7 @@ public class AdminMainWindow implements IAdminObserver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Debug.setLevel(2);
+					Debug.setLevel(0);
 					AdminMainWindow window = new AdminMainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
