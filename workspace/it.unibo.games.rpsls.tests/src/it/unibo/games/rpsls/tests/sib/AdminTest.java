@@ -1,7 +1,7 @@
 package it.unibo.games.rpsls.tests.sib;
 
 import it.unibo.games.rpsls.connector.admin.SIBAdmin;
-import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBClient;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
@@ -12,10 +12,10 @@ import it.unibo.games.rpsls.interfaces.admin.IAdminConnector;
 public class AdminTest {
 	
 	protected static IAdminConnector admin;
-	protected static SIBConnector sibConnector;
+	protected static SIBClient sibConnector;
 	
 	public static void main(String[] args){
-		sibConnector = SIBConnector.getInstance();
+		sibConnector = SIBClient.getInstance();
 		admin = SIBAdmin.getInstance();
 		admin.watchForEndingGames(null);
 		testDeleteGame();

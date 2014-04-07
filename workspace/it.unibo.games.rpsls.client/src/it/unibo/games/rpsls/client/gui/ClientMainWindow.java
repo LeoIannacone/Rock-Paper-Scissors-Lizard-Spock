@@ -1,13 +1,13 @@
 package it.unibo.games.rpsls.client.gui;
 
-import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBClient;
 import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.awt.Color;
@@ -24,20 +24,21 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class ClientMainWindow implements IObserver {
+public class ClientMainWindow implements IClientObserver {
 
 	public static Color LIGHT_COLOR = Color.GRAY;
 	
 	
 	private JFrame frame;
-	
+
+	private String currentView;
 	private ViewWelcome viewWelcome;
 	private ViewMatch viewMatch;
 	private ViewJoinGame viewJoinGame;
 	private ViewWin viewWin;
 	private ViewConfigConnector viewConfig;
 	
-	private SIBConnector connector;
+	private SIBClient connector;
 	
 	private IPlayer me;
 	private IPlayer enemy;
@@ -135,38 +136,65 @@ public class ClientMainWindow implements IObserver {
 	}
 	
 	public void init() {
-		connector = SIBConnector.getInstance();
+		connector = SIBClient.getInstance();
 		initialize_me();
 		showViewWelcome();
 	}
 	
+	private boolean setCurrentView(Class cls) {
+		if (currentView == cls.getCanonicalName())
+			return false;
+		else {
+			currentView = cls.getCanonicalName();
+			return true;
+		}
+	}
+	
 	public void showViewConfigConnector() {
+		if (!setCurrentView(ViewConfigConnector.class))
+			return;
 		viewConfig = new ViewConfigConnector();
 		viewConfig.setMainWindow(this);
 		showView(viewConfig);
 	}
 	
 	public void showViewWelcome() {
+		if (!setCurrentView(ViewWelcome.class))
+			return;
 		viewWelcome = new ViewWelcome(me);
 		viewWelcome.setMainWindow(this);
 		connector.unwatchForWaitingGames();
 		connector.unwatchForIncomingPlayer();
 		showView(viewWelcome);
 	}
+
+	public void showJoinGames(IPlayer player) {
+		if (!setCurrentView(ViewJoinGame.class))
+			return;
+		set_me(player);
+		viewJoinGame = new ViewJoinGame();
+		viewJoinGame.setMainWindow(this);
+		viewJoinGame.reset();
+		showView(viewJoinGame);
+		connector.watchForWaitingGames(this);
+	}
+	
+	public void showViewMatch() {
+		if (!setCurrentView(ViewMatch.class))
+			return;
+		connector.watchForHit(current_game, current_game.getOpponent(), this);
+		connector.watchForGameEnded(current_game, this);
+		showView(viewMatch);
+	}
 	
 	public void showViewWin() {
+		if (!setCurrentView(ViewWin.class))
+			return;
 		viewWin = new ViewWin(current_game);
 		viewWin.setMainWindow(this);
 		showView(viewWin);
 		connector.endGame(current_game);
 		connector.unwatchAll();
-	}
-	
-	
-	public void showViewMatch() {
-		connector.watchForHit(current_game, current_game.getOpponent(), this);
-		connector.watchForGameEnded(current_game, this);
-		showView(viewMatch);
 	}
 	
 	private void showView(JPanel noHide) {
@@ -206,15 +234,6 @@ public class ClientMainWindow implements IObserver {
 		viewMatch = new ViewMatch(current_game, false);
 		viewMatch.setMainWindow(this);
 		showViewMatch();
-	}
-	
-	public void showJoinGames(IPlayer player) {
-		set_me(player);
-		viewJoinGame = new ViewJoinGame();
-		viewJoinGame.setMainWindow(this);
-		viewJoinGame.reset();
-		showView(viewJoinGame);
-		connector.watchForWaitingGames(this);
 	}
 	
 	public void sendHit(ICommand hit) {

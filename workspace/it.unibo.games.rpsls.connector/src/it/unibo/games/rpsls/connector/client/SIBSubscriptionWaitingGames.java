@@ -5,7 +5,7 @@ import it.unibo.games.rpsls.connector.SIBFactory;
 import it.unibo.games.rpsls.connector.SIBSubscription;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import sofia_kp.SSAP_sparql_response;
 public class SIBSubscriptionWaitingGames extends SIBSubscription {
 
 	protected List<IGame> waitingGames = null;
-	protected IObserver observer;
+	protected IClientObserver observer;
 
 	protected final static String SUBSCRIPTION_QUERY= "SELECT ?game WHERE "+
 			"{ ?game <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " +
@@ -27,7 +27,7 @@ public class SIBSubscriptionWaitingGames extends SIBSubscription {
 			"<http://rpsls.games.unibo.it/Ontology.owl#waiting>}";
 
 
-	public SIBSubscriptionWaitingGames(IObserver observer){
+	public SIBSubscriptionWaitingGames(IClientObserver observer){
 		String xml = "";
 		this.observer = observer;
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);

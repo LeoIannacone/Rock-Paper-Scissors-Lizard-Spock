@@ -5,16 +5,17 @@ import java.util.Vector;
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
 import it.unibo.games.rpsls.connector.client.SIBCommandInterface;
-import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBClient;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.game.Hit;
 import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.*;
+import it.unibo.games.rpsls.utils.Debug;
 
 public class SIBFactory {
 	
 	protected static SIBFactory instance;
-	protected SIBConnector SIBC;
+	protected SIBClient SIBC;
 	protected KPICore  kp;
 	protected SSAP_XMLTools xml_tools;
 	
@@ -25,9 +26,11 @@ public class SIBFactory {
 	}
 	
 	private SIBFactory(){
-		SIBC = SIBConnector.getInstance();
-		kp = SIBC.getKP();
-		xml_tools = SIBC.getXMLTools();
+		Debug.print(2, this.getClass().getCanonicalName() + ":Connecting to " + Config.SIB_NAME + " @ " + Config.SIB_HOST + ":" + Config.SIB_PORT);
+		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
+		kp.join();
+		Debug.print(2, this.getClass().getCanonicalName() + ":Connected");
+		xml_tools = new SSAP_XMLTools();
 	}
 	
 	public IPlayer getPlayer(String PlayerURI){

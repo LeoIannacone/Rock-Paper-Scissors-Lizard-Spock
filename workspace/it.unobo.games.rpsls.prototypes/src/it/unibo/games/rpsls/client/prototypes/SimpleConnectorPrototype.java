@@ -11,14 +11,14 @@ import it.unibo.games.rpsls.game.Player;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
-import it.unibo.games.rpsls.interfaces.client.IConnector;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientConnector;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 
-public class SimpleConnectorPrototype implements IConnector {
+public class SimpleConnectorPrototype implements IClientConnector {
 	
-	private static IConnector instance;
+	private static IClientConnector instance;
 	
-	public static IConnector getInstance(){
+	public static IClientConnector getInstance(){
 		if (instance==null)
 			instance = new SimpleConnectorPrototype();
 		return instance;
@@ -109,7 +109,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public void watchForWaitingGames(IObserver observer) {
+	public void watchForWaitingGames(IClientObserver observer) {
 		List<IGame> WaitingGames = new ArrayList<IGame>();
 		
 		WaitingGames.add(new Game(new Player("Pippo"), null));
@@ -126,7 +126,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public void watchForIncomingPlayer(IGame game, IObserver observer) {
+	public void watchForIncomingPlayer(IGame game, IClientObserver observer) {
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -146,7 +146,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public void watchForHit(IGame game, IPlayer player, IObserver observer) {
+	public void watchForHit(IGame game, IPlayer player, IClientObserver observer) {
 		String[] hits = {Hit.ROCK, Hit.PAPER, Hit.SCISSORS, Hit.LIZARD, Hit.SPOCK};
 		int i = (int) Math.random() % hits.length;
 		debug(String.format("GET HIT %s from %s", hits[i], player.getURIToString()));
@@ -167,7 +167,7 @@ public class SimpleConnectorPrototype implements IConnector {
 	}
 
 	@Override
-	public void watchForGameEnded(IGame game, IObserver observer) {
+	public void watchForGameEnded(IGame game, IClientObserver observer) {
 		// TODO Auto-generated method stub
 		
 	}

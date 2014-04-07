@@ -1,7 +1,7 @@
 package it.unibo.games.rpsls.tests.sib;
 
 import it.unibo.games.rpsls.connector.SIBFactory;
-import it.unibo.games.rpsls.connector.client.SIBConnector;
+import it.unibo.games.rpsls.connector.client.SIBClient;
 import it.unibo.games.rpsls.connector.client.SIBSubscriptionHit;
 import it.unibo.games.rpsls.connector.client.SIBSubscriptionWaitingGames;
 import it.unibo.games.rpsls.game.Game;
@@ -12,10 +12,10 @@ import it.unibo.games.rpsls.interfaces.IPlayer;
 
 public class ConnectorTest {
 	
-	protected static SIBConnector SIBC;
+	protected static SIBClient SIBC;
 	
 	public static void main(String args[]){
-		SIBC = SIBConnector.getInstance();
+		SIBC = SIBClient.getInstance();
 		
 		//trying connection to SIB
 		SIBC.connect();

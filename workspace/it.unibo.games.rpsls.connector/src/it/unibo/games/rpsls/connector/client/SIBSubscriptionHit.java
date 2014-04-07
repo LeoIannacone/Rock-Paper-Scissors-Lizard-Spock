@@ -6,7 +6,7 @@ import it.unibo.games.rpsls.connector.SIBSubscription;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
@@ -16,14 +16,14 @@ import sofia_kp.SSAP_sparql_response;
 
 public class SIBSubscriptionHit extends SIBSubscription {
 
-	protected IObserver observer;
+	protected IClientObserver observer;
 
 	protected static String SUBSCRIPTION_QUERY= "SELECT ?uri_command WHERE { " +
 			"<http://rpsls.games.unibo.it/Ontology.owl#%s> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . " +
 			"?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#%s> }";
 
 
-	public SIBSubscriptionHit(IGame game, IObserver observer){
+	public SIBSubscriptionHit(IGame game, IClientObserver observer){
 		String xml = "";
 		this.observer = observer;
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);

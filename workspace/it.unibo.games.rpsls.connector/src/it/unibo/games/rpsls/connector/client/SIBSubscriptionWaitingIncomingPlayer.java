@@ -6,7 +6,7 @@ import it.unibo.games.rpsls.connector.SIBSubscription;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
@@ -15,7 +15,7 @@ import sofia_kp.KPICore;
 import sofia_kp.SSAP_sparql_response;
 
 public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
-	protected IObserver observer;
+	protected IClientObserver observer;
 	protected String uriGame="";
 	protected IGame game;
 
@@ -23,7 +23,7 @@ public class SIBSubscriptionWaitingIncomingPlayer extends SIBSubscription {
 			"<http://rpsls.games.unibo.it/Ontology.owl#HasGuest> ?uri_player }";
 
 
-	public SIBSubscriptionWaitingIncomingPlayer(IGame game, IObserver observer){
+	public SIBSubscriptionWaitingIncomingPlayer(IGame game, IClientObserver observer){
 		String xml = "";
 		this.observer = observer;
 		

@@ -5,7 +5,7 @@ import it.unibo.games.rpsls.interfaces.IGame;
 
 import java.util.List;
 
-public interface IObserver {
+public interface IClientObserver {
 
 	public void updateWaitingGames(List<IGame> games);
 	public void updateWaitingGames(IGame game);

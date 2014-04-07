@@ -5,7 +5,7 @@ import it.unibo.games.rpsls.connector.SIBSubscription;
 import it.unibo.games.rpsls.connector.Utils;
 import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
 import java.util.Vector;
@@ -16,14 +16,14 @@ import sofia_kp.SSAP_sparql_response;
 
 public class SIBSubscriptionLeaveGame extends SIBSubscription {
 
-	protected IObserver observer;
+	protected IClientObserver observer;
 	protected IGame game;
 	
 	protected static String SUBSCRIPTION_QUERY= "SELECT ?status WHERE {  " +
 			"<http://rpsls.games.unibo.it/Ontology.owl#%s> <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> ?status }";
 
 
-	public SIBSubscriptionLeaveGame(IGame game, IObserver observer){
+	public SIBSubscriptionLeaveGame(IGame game, IClientObserver observer){
 		String xml = "";
 		this.observer = observer;
 		this.game = game;

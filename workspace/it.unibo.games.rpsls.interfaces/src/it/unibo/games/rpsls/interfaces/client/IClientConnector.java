@@ -4,7 +4,7 @@ import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.IPlayer;
 
-public interface IConnector {
+public interface IClientConnector {
 	
 	// Will be a Singleton
 	
@@ -23,21 +23,21 @@ public interface IConnector {
 	public String getGameStatus(IGame game);
 	public boolean updateGameScore(IGame game);
 	// Game subscribe
-	public void watchForWaitingGames(IObserver observer);
+	public void watchForWaitingGames(IClientObserver observer);
 	public void unwatchForWaitingGames();
 	
 	// Player
 	public boolean createNewPlayer(IPlayer player);
 	// Player subscribe
-	public void watchForIncomingPlayer(IGame game, IObserver observer);
+	public void watchForIncomingPlayer(IGame game, IClientObserver observer);
 	public void unwatchForIncomingPlayer();
-	public void watchForGameEnded(IGame game, IObserver observer);
+	public void watchForGameEnded(IGame game, IClientObserver observer);
 	public void unwatchForGameEnded();
 	
 	// Hits
 	public boolean sendHit(IGame game, IPlayer player, ICommand hit);
 	// Hits subscribe
-	public void watchForHit(IGame game, IPlayer player, IObserver observer);
+	public void watchForHit(IGame game, IPlayer player, IClientObserver observer);
 	public void unwatchForHit();
 	
 	//unsubscribe all

@@ -13,13 +13,13 @@ import it.unibo.games.rpsls.game.Game;
 import it.unibo.games.rpsls.interfaces.IGame;
 import it.unibo.games.rpsls.interfaces.ICommand;
 import it.unibo.games.rpsls.interfaces.IPlayer;
-import it.unibo.games.rpsls.interfaces.client.IConnector;
-import it.unibo.games.rpsls.interfaces.client.IObserver;
+import it.unibo.games.rpsls.interfaces.client.IClientConnector;
+import it.unibo.games.rpsls.interfaces.client.IClientObserver;
 import it.unibo.games.rpsls.utils.Debug;
 
-public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
+public class SIBClient implements IClientConnector, iKPIC_subscribeHandler {
 
-	private static SIBConnector instance;
+	private static SIBClient instance;
 	private SIBSubscriptionWaitingGames waitingGamesSubscription;
 	private SIBSubscriptionWaitingIncomingPlayer incomingPlayerSubscription;
 	private SIBSubscriptionHit hitSubscription;
@@ -35,13 +35,13 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	private String xml =""; //conventionally used for storing the messages from the SIB
 	private boolean ack = false; // Conventionally used for checking SIB response
 	
-	public static SIBConnector getInstance() {
+	public static SIBClient getInstance() {
 		if (instance == null)
-			instance = new SIBConnector();
+			instance = new SIBClient();
 		return instance;
 	}
 	
-	private SIBConnector() {
+	private SIBClient() {
 		Debug.print(2, this.getClass().getCanonicalName() + ": SIBConnector: " + "Connecting to " + Config.SIB_NAME + " @ " + Config.SIB_HOST + ":" + Config.SIB_PORT);
 		kp = new KPICore(Config.SIB_HOST, Config.SIB_PORT, Config.SIB_NAME);
 		Debug.print(2, this.getClass().getCanonicalName() + ": SIBConnector: " + "Connected");
@@ -391,7 +391,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 	
 	@Override
-	public void watchForWaitingGames(IObserver observer) {
+	public void watchForWaitingGames(IClientObserver observer) {
 		waitingGamesSubscription = new SIBSubscriptionWaitingGames(observer);
 	}
 
@@ -403,7 +403,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public void watchForIncomingPlayer(IGame game, IObserver observer) {
+	public void watchForIncomingPlayer(IGame game, IClientObserver observer) {
 		incomingPlayerSubscription = new SIBSubscriptionWaitingIncomingPlayer(game, observer);
 	}
 
@@ -415,7 +415,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public void watchForHit(IGame game, IPlayer player, IObserver observer) {
+	public void watchForHit(IGame game, IPlayer player, IClientObserver observer) {
 		hitSubscription = new SIBSubscriptionHit(game, observer);
 	}
 
@@ -426,7 +426,7 @@ public class SIBConnector implements IConnector, iKPIC_subscribeHandler {
 	}
 
 	@Override
-	public void watchForGameEnded(IGame game, IObserver observer) {
+	public void watchForGameEnded(IGame game, IClientObserver observer) {
 		leaveSubscription = new SIBSubscriptionLeaveGame(game, observer);
 	}
 
