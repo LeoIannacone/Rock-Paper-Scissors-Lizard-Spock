@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import sofia_kp.KPICore;
 import sofia_kp.SSAP_XMLTools;
+import sofia_kp.SSAP_sparql_response;
 import sofia_kp.iKPIC_subscribeHandler;
 
 import it.unibo.games.rpsls.connector.Config;
@@ -180,47 +181,7 @@ public class SIBClient implements IClientConnector, iKPIC_subscribeHandler {
 
 	@Override
 	public boolean endGame(IGame game) {
-//		String DELETE_GAMESESSION ="";
-//		if(game.getStatus().equals(Game.WAITING)){
-//			DELETE_GAMESESSION = "DELETE { " +
-//				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-//				"} WHERE { " +
-//				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game" +
-//				"}";
-//		}
-//		else{
-//			DELETE_GAMESESSION = "DELETE { " +
-//				Config.NAME_SPACE + "RPSLS <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
-//				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
-//				"?cmd ?prop_cmd ?val_cmd " +
-//				"} WHERE { " +
-//				"?interactive_game <http://rpsls.games.unibo.it/Ontology.owl#HasGameSession> <" +Config.NAME_SPACE + game.getURIToString() + "> . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> ?prop_game ?val_game . " +
-//				"<" +Config.NAME_SPACE + game.getURIToString() + "> <http://rpsls.games.unibo.it/Ontology.owl#HasCommandInterface> ?cmd_interface . " +
-//				"?cmd_interface <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?cmd . " +
-//				"?cmd ?prop_cmd ?val_cmd " +
-//				"}";
-//			
-//		}
-//		xml = kp.update_sparql(DELETE_GAMESESSION);
-//		ack = xml_tools.isUpdateConfirmed(xml);
-		if(!game.getStatus().equals(Game.ENDED)){
-			ack = updateGameStatus(game, Game.ENDED);
-			if (ack)
-				Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " ended");
-			else{
-				System.out.println("This is an API Error!:");
-				System.err.println("Error ending game");
-			}
-			return ack;
-		}
-		else
-			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: " +  game.getURIToString() + " game already ended");
-		return false;
+		return updateGameStatus(game, Game.ENDED);
 	}
 
 	@Override
@@ -239,12 +200,11 @@ public class SIBClient implements IClientConnector, iKPIC_subscribeHandler {
 				"}";
 		
 		String xml = kp.querySPARQL(DELETE_GAME);
-		ack = xml_tools.isUpdateConfirmed(xml);
+		ack = xml_tools.isQueryConfirmed(xml);
 		if (ack)
-			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: removed " + game.getURIToString() + " from SIB");
+			Debug.print(2, this.getClass().getCanonicalName() + ": deleteGame: removed " + game.getURIToString() + " from SIB");
 		else{
-			System.out.println("This is an API Error!:");
-			System.err.println("Error ending game");
+			System.err.println("Error deleting game");
 		}
 		
 		return ack;
@@ -258,10 +218,17 @@ public class SIBClient implements IClientConnector, iKPIC_subscribeHandler {
 		 * describe the new status
 		 */
 		
-		boolean ack;
-		String xml = kp.remove(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "HasStatus", null, "URI", "URI");
-		ack = xml_tools.isRemoveConfirmed(xml);
-		if(ack){
+		boolean ack, delete;
+		String SPARQL_REMOVE = "DELETE { <" + Config.NAME_SPACE + game.getURIToString() + "> " +
+				"<"+ Config.NAME_SPACE + "HasStatus> " +
+				"?status} WHERE { " +
+				"<" + Config.NAME_SPACE + game.getURIToString() + "> " +
+				"<"+ Config.NAME_SPACE + "HasStatus> " +
+				"?status . FILTER ( ?status != <" + Config.NAME_SPACE + status + "> ) }";
+		String xml = kp.querySPARQL(SPARQL_REMOVE);
+		SSAP_sparql_response res = new SSAP_sparql_response(xml);
+		delete = res.getBooleans().get(0).equalsIgnoreCase("true");
+		if(delete){
 			xml = kp.insert(Config.NAME_SPACE + game.getURIToString(), Config.NAME_SPACE + "HasStatus", Config.NAME_SPACE + status, "URI", "URI");
 			ack = xml_tools.isInsertConfirmed(xml);
 			if (ack){
@@ -270,10 +237,11 @@ public class SIBClient implements IClientConnector, iKPIC_subscribeHandler {
 			}
 			else
 				System.err.println("Error updating game status");
+			return ack;
 		}
 		else
-			System.err.println("Error removing old game status");
-		return ack;
+			Debug.print(2, this.getClass().getCanonicalName() +  "Game already " + status);
+		return false;
 	}
 
 	@Override
