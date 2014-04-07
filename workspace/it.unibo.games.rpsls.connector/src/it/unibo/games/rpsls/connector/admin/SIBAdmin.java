@@ -104,11 +104,10 @@ public class SIBAdmin implements IAdminConnector {
 				"}";
 		
 		xml = kp.update_sparql(DELETE_GAMESESSION);
-		ack = xml_tools.isUpdateConfirmed(xml);
+		ack = xml_tools.isQueryConfirmed(xml);
 		if (ack)
 			Debug.print(2, this.getClass().getCanonicalName() + ": endGame: removed " + game.getURIToString() + " from SIB");
 		else{
-			System.out.println("This is an API Error!:");
 			System.err.println("Error ending game");
 		}
 		
