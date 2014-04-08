@@ -295,6 +295,20 @@ with the terminal go to the unpacking folder and type:
 \end_inset
 
 
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -317,11 +331,38 @@ $ make
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
 or, if the PC runs a GNU/Linux Debian based: 
 \begin_inset Newline newline
 \end_inset
 
 
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -342,12 +383,35 @@ $ cd deb_amd64
 
 \end_layout
 
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 Now is possible to run the SIB Server instance using two terminals and launching
  the following commands:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -361,6 +425,32 @@ $ redsibd
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -369,6 +459,11 @@ status open
 \begin_layout Plain Layout
 
 $ sib-tcp
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -391,6 +486,20 @@ For running the admin and/or the client is just necessary run the following
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -403,7 +512,41 @@ $ java -jar rpsls-admin.jar
 
 \end_inset
 
- or 
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or
+\begin_inset Newline newline
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 lstparams "language={command.com}"
 inline false
@@ -419,9 +562,6 @@ $ java -jar rpsls-client.jar
 
 \end_layout
 
-\begin_layout Standard
-\align center
-\begin_inset Newpage newpage
 \end_inset
 
 
@@ -918,6 +1058,43 @@ Spock vaporizes rock
 
 \begin_layout Itemize
 Rock crushes scissors
+\end_layout
+
+\begin_layout Section
+License
+\end_layout
+
+\begin_layout Standard
+The RPSLS is licenced under 
+\series bold
+GPL v3
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+\end_layout
+
+\begin_layout Standard
+This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.
+ See the GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program.
+ If not, see <http://www.gnu.org/licenses/>.
+ 
+\end_layout
+
+\begin_layout Standard
+On Debian systems, the complete text of the GNU General Public License version
+ 3 can be found in "/usr/share/common-licenses/GPL-3".
+ 
 \end_layout
 
 \end_body
