@@ -2,7 +2,7 @@
 \lyxformat 413
 \begin_document
 \begin_header
-\textclass article
+\textclass mwart
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -24,10 +24,21 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement H
 \paperfontsize default
-\use_hyperref false
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -42,6 +53,12 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 2cm
+\topmargin 3cm
+\rightmargin 2cm
+\bottommargin 2cm
+\headheight 1cm
+\headsep 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -49,7 +66,7 @@
 \quotes_language english
 \papercolumns 1
 \papersides 1
-\paperpagestyle default
+\paperpagestyle uheadings
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -137,10 +154,50 @@ LatexCommand tableofcontents
 
 \end_layout
 
-\begin_layout Abstract
-Rock Paper Scissors Lizard Spock (RPSLS) is an advanced version of Rock
- Paper Scissors game developed at University of Bologna.
- The final user is provided with two different graphical user interfaces:
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Rock Paper Scissors Lizard Spock (RPSLS) is an expansion of the classic
+ selection method game rock-paper-scissors.
+ It operates on the same basic principle, but includes two additional weapons:
+ the lizard (formed by the hand as a sock-puppet-like mouth) and Spock (formed
+ by the Star Trek Vulcan salute).
+ The game was invented by Sam Kass with Karen Bryla, as "Rock Paper Scissors
+ Spock Lizard"
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock"
+target "http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This software version of the game is developed at University of Bologna
+ and has three main nodes:
+\end_layout
+
+\begin_layout Description
+SIB
+\begin_inset space ~
+\end_inset
+
+Server: provides the users interacions and stores the games informations
+ (status, players, scores, etc.)
 \end_layout
 
 \begin_layout Description
@@ -148,7 +205,8 @@ Client
 \begin_inset space ~
 \end_inset
 
-GUI: is the main interface, which allows the user to play with other users
+GUI: represents the playing node, which allows the users to play with each
+ other
 \end_layout
 
 \begin_layout Description
@@ -156,7 +214,8 @@ Admin
 \begin_inset space ~
 \end_inset
 
-GUI: is the interface aims to administate the RPSLS entries into SIB
+GUI: supply to the SIB Server Administrator a graphical interface useful
+ to manage the game ontology and the game's entries.
 \end_layout
 
 \begin_layout Standard

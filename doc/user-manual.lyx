@@ -218,6 +218,15 @@ GUI: supply to the SIB Server Administrator a graphical interface useful
  to manage the game ontology and the game's entries.
 \end_layout
 
+\begin_layout Standard
+This is the 
+\series bold
+User Manual
+\series default
+.
+ 
+\end_layout
+
 \begin_layout Section
 Requirements
 \end_layout
