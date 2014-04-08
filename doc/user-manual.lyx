@@ -27,7 +27,16 @@
 \float_placement H
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -46,7 +55,7 @@
 \end_index
 \leftmargin 2cm
 \topmargin 3cm
-\rightmargin 1cm
+\rightmargin 2cm
 \bottommargin 2cm
 \headheight 1cm
 \headsep 2cm
@@ -56,7 +65,7 @@
 \paragraph_indentation default
 \quotes_language english
 \papercolumns 1
-\papersides 2
+\papersides 1
 \paperpagestyle uheadings
 \tracking_changes false
 \output_changes false
@@ -368,8 +377,133 @@ The only requirements to use client and admin GUI is the installation of
 \end_layout
 
 \begin_layout Standard
+For running the admin and/or the client is just necessary run the following
+ code in their directory:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ java -jar rpsls-admin.jar
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ java -jar rpsls-client.jar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Admin GUI
+\end_layout
+
+\begin_layout Standard
+The Admin GUI is a support application for SIB Server administrators that
+ provides some features.
+\end_layout
+
+\begin_layout Standard
+At startup, the application requires the SIB Server IP and Port [Figure
+ 1].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/admin1.tiff
+	width 60text%
+	groupId Admin
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Admin -connection view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main view is shown after that the application is connected to the SIB
+ Server and is represented in Figure 2.
+ The admin now can use the buttons placed in the bottom of the application
+ to initialize the SIB with the static description of the game (button Init),
+ remove all RPSLS entries (button Clean), remove all entries from the SIB
+ (Reset).
+ Using the Delete button in the right of the panel the administrator can
+ delete the ended game(s) selected (and its all informations).
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/admin2.tiff
+	width 60text%
+	groupId Admin
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Admin -main view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -380,8 +514,12 @@ Client GUI
 \end_layout
 
 \begin_layout Standard
-At startup, Client GUI requires to the user SIB Server IP and port [Figure
- 1].
+Client GUI is the main application which users uses to play the game.
+\end_layout
+
+\begin_layout Standard
+At startup, Client GUI, like Admin GUI, requires the SIB Server IP and port
+ [Figure 3].
 \end_layout
 
 \begin_layout Standard
@@ -396,6 +534,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/1.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -422,7 +561,7 @@ RPSLS-Client -connection view-
 
 \begin_layout Standard
 When the connection is established, the user can insert his name and choose
- if he wants to start a new game or join an existing game [Figure 2].
+ if he wants to start a new game or join an existing game [Figure 4].
 \end_layout
 
 \begin_layout Standard
@@ -437,6 +576,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/2.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -466,8 +606,8 @@ RPSLS-Client -welcome view-
 
 \begin_layout Standard
 If the user chooses to start a new game RPSLS starts to wait an opponent
- [Figure 3a], else, if the user chooses to join an existing game the GUI
- shows the list of all waiting games (that waits an opponent) [Figure 3b].
+ [Figure 5a], else, if the user chooses to join an existing game the GUI
+ shows the list of all waiting games (that waits an opponent) [Figure 5b].
 \end_layout
 
 \begin_layout Standard
@@ -475,7 +615,7 @@ If the user chooses to start a new game RPSLS starts to wait an opponent
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -489,6 +629,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/3.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -529,6 +670,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/4.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -572,7 +714,7 @@ After that the user joins a game, or an opponent join the new game created
  by the user, the GUI shows the game view that presents players' names and
  scores, hit sended and a button for each type of hit.
  The player waits for the opponent's hit, which is shown only after the
- user sends its [Figures 4a and 4b].
+ user sends its [Figures 6a and 6b].
 \end_layout
 
 \begin_layout Standard
@@ -594,6 +736,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/5.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -638,6 +781,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/6.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
@@ -681,7 +825,7 @@ RPSLS-Client -game view-
 
 \begin_layout Standard
 If a player reaches three points the game finishes and another view shows
- if the player wins or looses and the game's score [Figure 5].
+ if the player wins or looses and the game's score [Figure 7].
  By clicking on the back button the view in Figure 2 is shown.
 \end_layout
 
@@ -697,6 +841,7 @@ status collapsed
 \begin_inset Graphics
 	filename images/user-manual/7.tiff
 	width 30text%
+	groupId Client
 
 \end_inset
 
