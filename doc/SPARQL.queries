@@ -1,0 +1,35 @@
+
+Subscription for waiting games:
+	SELECT ?uri WHERE {  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://rpsls.games.unibo.it/Ontology.owl#GameSession> . ?uri <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> <http://rpsls.games.unibo.it/Ontology.owl#waiting>}
+
+
+
+
+Subscription for leave games:
+
+	SELECT ?uri WHERE {  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://rpsls.games.unibo.it/Ontology.owl#GameSession> . ?uri <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> <http://rpsls.games.unibo.it/Ontology.owl#active>}
+
+
+
+
+
+
+Subscription for get incoming player:
+
+	SELECT ?uri_player ?name WHERE { <#FIXME: uriGame> <http://rpsls.games.unibo.it/Ontology.owl#HasGuest> ?uri_player . ?uri_player <http://rpsls.games.unibo.it/Ontology.owl#hasName> ?name }
+
+
+
+
+
+Subscription for newHit:
+
+	SELECT ?type WHERE { <#FIX-ME: uriCommandInterface> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <#FIX-ME: uriOpponent> . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasCommandType> ?type }
+
+
+
+prova per test:
+	
+	SELECT ?type WHERE { <http://rpsls.games.unibo.it/Ontology.owl#SIBCommandInterface_59bd7cac-6094-4cc5-8f5a-73fb8f3f7b43> <http://rpsls.games.unibo.it/Ontology.owl#HasCommand> ?uri_command . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasIssuer> <http://rpsls.games.unibo.it/Ontology.owl#Player_1d0a34a8-0fb0-4fac-b688-7972f2cabe78> . ?uri_command <http://rpsls.games.unibo.it/Ontology.owl#HasCommandType> ?type }
+
+
