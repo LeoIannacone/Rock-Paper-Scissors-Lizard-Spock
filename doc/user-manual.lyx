@@ -1,0 +1,1101 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass mwart
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 3cm
+\rightmargin 2cm
+\bottommargin 2cm
+\headheight 1cm
+\headsep 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle uheadings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Author
+ALMA MATER STUDIORUM - UNIVERSITY OF BOLOGNA
+\end_layout
+
+\begin_layout Title
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\size giant
+Rock Paper Scissors Lizard Spock
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size large
+Carlo Antenucci, Alessandro Fedi, Leonardo Iannacone
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Rock Paper Scissors Lizard Spock (RPSLS) is an expansion of the classic
+ selection method game rock-paper-scissors.
+ It operates on the same basic principle, but includes two additional weapons:
+ the lizard (formed by the hand as a sock-puppet-like mouth) and Spock (formed
+ by the Star Trek Vulcan salute).
+ The game was invented by Sam Kass with Karen Bryla, as "Rock Paper Scissors
+ Spock Lizard"
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock"
+target "http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This software version of the game is developed at University of Bologna
+ and has three main nodes:
+\end_layout
+
+\begin_layout Description
+SIB
+\begin_inset space ~
+\end_inset
+
+Server: provides the users interacions and stores the games informations
+ (status, players, scores, etc.)
+\end_layout
+
+\begin_layout Description
+Client
+\begin_inset space ~
+\end_inset
+
+GUI: represents the playing node, which allows the users to play with each
+ other
+\end_layout
+
+\begin_layout Description
+Admin
+\begin_inset space ~
+\end_inset
+
+GUI: supply to the SIB Server Administrator a graphical interface useful
+ to manage the game ontology and the game's entries.
+\end_layout
+
+\begin_layout Standard
+This is the 
+\series bold
+User Manual
+\series default
+.
+ 
+\end_layout
+
+\begin_layout Section
+Requirements
+\end_layout
+
+\begin_layout Subsection
+SIB Server
+\end_layout
+
+\begin_layout Standard
+To be able to play with RPSLS the Semantic Information Broker (SIB) Server
+ is srictly necessary: all game information and users interacions are stored
+ into it.
+ 
+\end_layout
+
+\begin_layout Standard
+A SIB Server is a GNU/Linux 64bit PC that runs SmartM3
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://en.wikipedia.org/wiki/Smart-M3"
+target "http://en.wikipedia.org/wiki/Smart-M3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ environment.
+ The installation of SmartM3 follows the standard procedure: 
+\end_layout
+
+\begin_layout Itemize
+download SmartM3 package 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://sourceforge.net/projects/smart-m3/"
+target "http://sourceforge.net/projects/smart-m3/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+unpack it
+\end_layout
+
+\begin_layout Itemize
+with the terminal go to the unpacking folder and type:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ ./configure
+\end_layout
+
+\begin_layout Plain Layout
+
+$ make
+\end_layout
+
+\begin_layout Plain Layout
+
+# make install
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+or, if the PC runs a GNU/Linux Debian based: 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ cd deb_amd64
+\end_layout
+
+\begin_layout Plain Layout
+
+# dpkg -i *.deb
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now is possible to run the SIB Server instance using two terminals and launching
+ the following commands:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ redsibd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ sib-tcp
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Client and Admin
+\end_layout
+
+\begin_layout Standard
+The only requirements to use client and admin GUI is the installation of
+ Java Virtual Machine.
+\end_layout
+
+\begin_layout Standard
+For running the admin and/or the client is just necessary run the following
+ code in their directory:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ java -jar rpsls-admin.jar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or
+\begin_inset Newline newline
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={command.com}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$ java -jar rpsls-client.jar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Admin GUI
+\end_layout
+
+\begin_layout Standard
+The Admin GUI is a support application for SIB Server administrators that
+ provides some features.
+\end_layout
+
+\begin_layout Standard
+At startup, the application requires the SIB Server IP and Port [Figure
+ 1].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/admin1.tiff
+	width 60text%
+	groupId Admin
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Admin -connection view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main view is shown after that the application is connected to the SIB
+ Server and is represented in Figure 2.
+ The admin now can use the buttons placed in the bottom of the application
+ to initialize the SIB with the static description of the game (button Init),
+ remove all RPSLS entries (button Clean), remove all entries from the SIB
+ (Reset).
+ Using the Delete button in the right of the panel the administrator can
+ delete the ended game(s) selected (and its all informations).
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/admin2.tiff
+	width 60text%
+	groupId Admin
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Admin -main view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Client GUI
+\end_layout
+
+\begin_layout Standard
+Client GUI is the main application which users uses to play the game.
+\end_layout
+
+\begin_layout Standard
+At startup, Client GUI, like Admin GUI, requires the SIB Server IP and port
+ [Figure 3].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/1.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -connection view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the connection is established, the user can insert his name and choose
+ if he wants to start a new game or join an existing game [Figure 4].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/2.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -welcome view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the user chooses to start a new game RPSLS starts to wait an opponent
+ [Figure 5a], else, if the user chooses to join an existing game the GUI
+ shows the list of all waiting games (that waits an opponent) [Figure 5b].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/3.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -waiting opponent-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/4.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -joining game-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -starting game-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After that the user joins a game, or an opponent join the new game created
+ by the user, the GUI shows the game view that presents players' names and
+ scores, hit sended and a button for each type of hit.
+ The player waits for the opponent's hit, which is shown only after the
+ user sends its [Figures 6a and 6b].
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/5.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -waiting hit-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/6.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -hit received-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -game view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If a player reaches three points the game finishes and another view shows
+ if the player wins or looses and the game's score [Figure 7].
+ By clicking on the back button the view in Figure 2 is shown.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/user-manual/7.tiff
+	width 30text%
+	groupId Client
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+RPSLS-Client -win view-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Game's rules
+\end_layout
+
+\begin_layout Standard
+When the game receives the opponent's hit and the player sends its own the
+ core evaluate who wins the round by applying the following rules:
+\end_layout
+
+\begin_layout Itemize
+Scissors cut paper 
+\end_layout
+
+\begin_layout Itemize
+Paper covers rock 
+\end_layout
+
+\begin_layout Itemize
+Rock crushes lizard 
+\end_layout
+
+\begin_layout Itemize
+Lizard poisons Spock 
+\end_layout
+
+\begin_layout Itemize
+Spock smashes scissors 
+\end_layout
+
+\begin_layout Itemize
+Scissors decapitate lizard 
+\end_layout
+
+\begin_layout Itemize
+Lizard eats paper 
+\end_layout
+
+\begin_layout Itemize
+Paper disproves Spock 
+\end_layout
+
+\begin_layout Itemize
+Spock vaporizes rock 
+\end_layout
+
+\begin_layout Itemize
+Rock crushes scissors
+\end_layout
+
+\begin_layout Section
+License
+\end_layout
+
+\begin_layout Standard
+The RPSLS is licenced under 
+\series bold
+GPL v3
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+\end_layout
+
+\begin_layout Standard
+This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.
+ See the GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program.
+ If not, see <http://www.gnu.org/licenses/>.
+ 
+\end_layout
+
+\begin_layout Standard
+On Debian systems, the complete text of the GNU General Public License version
+ 3 can be found in "/usr/share/common-licenses/GPL-3".
+ 
+\end_layout
+
+\end_body
+\end_document

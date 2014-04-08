@@ -1,3 +1,4 @@
+
 Subscription for waiting games:
 	SELECT ?uri WHERE {  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://rpsls.games.unibo.it/Ontology.owl#GameSession> . ?uri <http://rpsls.games.unibo.it/Ontology.owl#HasStatus> <http://rpsls.games.unibo.it/Ontology.owl#waiting>}
 
