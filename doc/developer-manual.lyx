@@ -59,8 +59,737 @@
 
 \begin_body
 
-\begin_layout Standard
+\begin_layout Author
+ALMA MATER STUDIORUM - UNIVERSITY OF BOLOGNA
+\end_layout
 
+\begin_layout Title
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\size giant
+Rock Paper Scissors Lizard Spock
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size large
+Carlo Antenucci, Alessandro Fedi, Leonardo Iannacone
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Rock Paper Scissors Lizard Spock (RPSLS) is an advanced version of Rock
+ Paper Scissors game developed at University of Bologna.
+ The final user is provided with two different graphical user interfaces:
+\end_layout
+
+\begin_layout Description
+Client
+\begin_inset space ~
+\end_inset
+
+GUI: is the main interface, which allows the user to play with other users
+\end_layout
+
+\begin_layout Description
+Admin
+\begin_inset space ~
+\end_inset
+
+GUI: is the interface aims to administate the RPSLS entries into SIB
+\end_layout
+
+\begin_layout Standard
+This is the 
+\series bold
+Developer Manual
+\series default
+.
+ Code for this project is available at 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/LeoIannacone/rpsls"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Requirements
+\end_layout
+
+\begin_layout Subsection
+Download code
+\end_layout
+
+\begin_layout Standard
+You can get code by typing this in your command line:
+\end_layout
+
+\begin_layout LyX-Code
+git clone https://github.com/LeoIannacone/rpsls
+\end_layout
+
+\begin_layout Standard
+If you do not have 
+\series bold
+git
+\series default
+ installed on your machine, you can get the latest version of 
+\series bold
+RPSLS
+\series default
+ at this address: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/LeoIannacone/rpsls/archive/master.zip"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Jena Libraries
+\end_layout
+
+\begin_layout Standard
+You need to get 
+\series bold
+Jena
+\series default
+ libraries and put them in the right place.
+ You can use to script 
+\series bold
+download_jena.sh
+\series default
+ provided along with RPSLS code.
+\end_layout
+
+\begin_layout Standard
+Enter the folder with RPSLS code and type this in a command line:
+\end_layout
+
+\begin_layout LyX-Code
+bash libs/download-jena.sh
+\end_layout
+
+\begin_layout Subsection
+Eclipse configuration
+\end_layout
+
+\begin_layout Standard
+RPSLS has been developed in 
+\series bold
+Eclipse IDE
+\series default
+.
+ If you want use this IDE you have to configure a variable called 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+CALCOLATORI_LIBS
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ and point it to 
+\series bold
+RPSLS/libs 
+\series default
+folder.
+\end_layout
+
+\begin_layout Standard
+Open Eclipse and set 
+\series bold
+RPSLS/workspace
+\series default
+ as current workspace.
+\end_layout
+
+\begin_layout Standard
+Go to 
+\series bold
+\emph on
+Window → Preferences → Java → Build Path → Classpath Variables
+\series default
+\emph default
+ and click on 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+New...
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+In 
+\series bold
+Name
+\series default
+ field enter 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+CALCOLATORI_LIBS
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\series bold
+ 
+\end_layout
+
+\begin_layout Standard
+In 
+\series bold
+Path
+\series default
+ enter the Folder where you have downloaded RPSLS and then choose 
+\series bold
+/libs 
+\series default
+subdirectory.
+\end_layout
+
+\begin_layout Standard
+Confirm by clicking on 
+\series bold
+Ok
+\series default
+ buttons and then restart Eclipse.
+\end_layout
+
+\begin_layout Section
+The Java Projects
+\end_layout
+
+\begin_layout Standard
+We have splitted code into different projects and packages.
+ Here some explanation.
+\end_layout
+
+\begin_layout Subsection
+The library sofia-kp
+\end_layout
+
+\begin_layout Standard
+The project 
+\emph on
+sofia-kp
+\emph default
+ is the Java-KPI interface made by University of Bologna.
+ For more information, please visit the project homepage at: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://sourceforge.net/projects/smartm3-javakpi"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The main projects 
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.interfaces
+\end_layout
+
+\begin_layout Standard
+This project contains the main interfaces on which we built RPSLS.
+ Here you can find three packages:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+it.unibo.games.rpsls.interfaces 
+\series default
+contains base interfaces which describe some Game entitiy and some basic
+ connector (SIB) entity
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+it.unibo.games.rpsls.interfaces.admin 
+\series default
+contains the interfaces for admin
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+it.unibo.games.rpsls.interfaces.client
+\series default
+ contains the interfaces for client
+\end_layout
+
+\begin_layout Standard
+Whenever you want to extent RPSLS you may start analizing problem and add
+ new interfaces here.
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls
+\end_layout
+
+\begin_layout Standard
+In this project you can find the main entities which describe the Game itself
+ and some Utils we used.
+ Packages involved are:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+it.unibo.games.rpsls.game 
+\series default
+contains the entities involved in a simple Rock Paper Scissors Lizard Spock
+ instance
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+it.unibo.games.rpsls.utils 
+\series default
+contains some common utils used in other projects and packages
+\end_layout
+
+\begin_layout Subsection
+Connector project
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+it.unibo.games.rpsls.connector
+\emph default
+ projects contains the classes able to communicate with SIB.
+ Here you can find following packages.
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.connector
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+it.unibo.games.rpsls.connector
+\series default
+ package contains all basic information and basic classes about SIB communicatio
+n.
+ Here we are:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Config.java
+\series default
+ contains the default SIB configuration such as host and port
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SIBFactory.java
+\series default
+ is KPi able to retreive information from SIB and build Java classes as
+ defined in the pacakge 
+\series bold
+it.unibo.games.rpsls.game
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SIBSubscription.java 
+\series default
+is a basic class to make faster and easier subscription into SIB
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Utils.java
+\series default
+ a simple utils used in this project
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.connector.admin*
+\end_layout
+
+\begin_layout Standard
+The packages 
+\series bold
+it.unibo.games.rpsls.connector.admin
+\series default
+ contains all methods and classes needed by the Admin GUI to interact with
+ SIB.
+ 
+\end_layout
+
+\begin_layout Standard
+In the subpackage 
+\series bold
+it.unibo.games.rpsls.connector.admin.resources 
+\series default
+you can find the Ontology we develop to describes this game.
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.connector.client
+\end_layout
+
+\begin_layout Standard
+The packages 
+\series bold
+it.unibo.games.rpsls.connector.client
+\series default
+ contains all methods and classes needed by the Client GUI to interact with
+ SIB.
+\end_layout
+
+\begin_layout Subsection
+Client GUI project
+\end_layout
+
+\begin_layout Standard
+The project 
+\emph on
+it.unibo.games.rpsls.client
+\series bold
+ 
+\series default
+\emph default
+contains the package 
+\series bold
+it.unibo.games.rpsls.client.gui
+\series default
+ where the Client GUI has been developed.
+ 
+\end_layout
+
+\begin_layout Standard
+The classes in this package are structured as follow:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ClientMainWindow.java
+\series default
+ is the main class which creates the window and an instance of 
+\series bold
+SIBClient
+\series default
+ and implements the ClientObserver interface able to handle with subscriptions
+ events
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewDefault
+\series default
+.
+\series bold
+java 
+\series default
+is an abstract class used to subclass all other Views
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+View*.java
+\series default
+ are all the views for the GUI, in details:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+ViewConfigConnetor.java
+\series default
+ is the first view showed, which asks to configure the SIBClient connector
+ with an Host and a Port
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewWelcome.java
+\series default
+ is the view showed at second step.
+ Here user inserts a username and choose to Start a new game or Join an
+ existing one
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewJoinGame.java
+\series default
+ if user choose to join a game, a new instance of this class is created.
+ This is the class in chair to handle with events come from SIBSubscriptionWaiti
+ngGames.java
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewMatch.java
+\series default
+ is the view where a game or match takes place
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewWin.java
+\series default
+ is the last view showed when a game ends.
+ It reports to users the result of the match and/or if the opponent player
+ has left game before games ended
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Panel*.java
+\series default
+ are common classes used to build up the views.
+ For more details please read the code.
+\end_layout
+
+\begin_layout Standard
+The other subpackages 
+\series bold
+it.unibo.games.rpsls.client.gui.data.* 
+\series default
+contains instead all data (most of them are images) used in the client GUI.
+\end_layout
+
+\begin_layout Subsection
+Admin GUI project
+\end_layout
+
+\begin_layout Standard
+The project 
+\emph on
+it.unibo.games.rpsls.admin
+\emph default
+ contains the package 
+\series bold
+it.unibo.games.rpsls.admin.gui
+\series default
+ which, similar for the client GUI, has all the classes used to develop
+ the Admin GUI.
+\end_layout
+
+\begin_layout Standard
+Classes in this package are structured as follow:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+AdminMainWindow.java
+\series default
+ is the main class which creates the window and an instance of 
+\series bold
+SIBAdmin
+\series default
+ and implements the AdminObserver interface able to handle with subscriptions
+ events
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewDefault
+\series default
+.
+\series bold
+java 
+\series default
+is an abstract class used to subclass all other Views
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewConfigConnetor.java
+\series default
+ is the first view showed, which asks to configure the SIBAdmin connector
+ with an Host and a Port
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ViewMain.java 
+\series default
+is the main view for the GUI.
+ Here user can choose what to do on the SIB by admin side such as Reset,
+ Init, Clean, Delete Games.
+\end_layout
+
+\begin_layout Subsection
+Other projects
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.test
+\end_layout
+
+\begin_layout Standard
+This project contains some test we made during develop.
+ Tests are really important for software developing, when you are writing
+ new code, you can use tests to validate your code works as expected or
+ if you are going to refactor or modify old code, you can use tests to ensure
+ your changes haven’t affected your application’s behavior unexpectedly.
+\end_layout
+
+\begin_layout Standard
+Please use tests to validate your extensions.
+\end_layout
+
+\begin_layout Subsubsection
+it.unibo.games.rpsls.prototypes
+\end_layout
+
+\begin_layout Standard
+Here you can find some prototype we made during develop.
+ Prototype are piece of software which respect the requirements (in our
+ case, interfaces) and help developers to focus on another part while someone
+ else is writing the real code which implements interfaces.
+\end_layout
+
+\begin_layout Standard
+If you are in a team, you may want to use some prototype.
+\end_layout
+
+\begin_layout Section
+License
+\end_layout
+
+\begin_layout Standard
+The RPSLS is licenced under 
+\series bold
+GPL v3
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+\end_layout
+
+\begin_layout Standard
+This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.
+ See the GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program.
+ If not, see <http://www.gnu.org/licenses/>.
+ 
+\end_layout
+
+\begin_layout Standard
+On Debian systems, the complete text of the GNU General Public License version
+ 3 can be found in "/usr/share/common-licenses/GPL-3".
+ 
 \end_layout
 
 \end_body
