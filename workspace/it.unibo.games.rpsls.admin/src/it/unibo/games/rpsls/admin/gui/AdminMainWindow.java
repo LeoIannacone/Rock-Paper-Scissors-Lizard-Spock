@@ -56,7 +56,12 @@ public class AdminMainWindow implements IAdminObserver {
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				Debug.print(1, "Closing window");
-				connector.unwatchForEndingGames();
+				try {
+					if (connector != null)
+						connector.unwatchForEndingGames();
+				} catch (Exception ex) {
+
+				}
 			}
 		});
 		frame.setTitle("RPSLS admin panel");
