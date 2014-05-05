@@ -132,10 +132,18 @@ public class ViewMain extends ViewDefault implements ActionListener, ListSelecti
 
 		else if (source == init && showDialog("You are going to inject ontology into SIB. Are you sure about that?"))
 			mainWindow.connector.init();
-		else if (source == reset && showDialog("You are going to remove everything from SIB. Are you sure about that?"))
+		else if (source == reset && showDialog("You are going to remove everything from SIB. Are you sure about that?")){
 			mainWindow.connector.reset();
-		else if (source == clean && showDialog("You are going to remove every RPSLS data from SIB. Are you sure about that?"))
+			games.clear();
+			list.removeAll();
+			listData.removeAllElements();
+		}
+		else if (source == clean && showDialog("You are going to remove every RPSLS data from SIB. Are you sure about that?")){
 			mainWindow.connector.clean();
+			games.clear();
+			list.removeAll();
+			listData.removeAllElements();
+		}
 	}
 
 	@Override
